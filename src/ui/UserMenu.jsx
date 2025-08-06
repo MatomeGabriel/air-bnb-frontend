@@ -1,29 +1,30 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { AvatarIcon, MenuIcon } from "./Icons";
+import { colors, flexRowCenter, spacing } from "../design-system";
+import DropDown, { ListColumn } from "./DropDown";
+import { BorderSm } from "./Borders";
+import StyledLink from "./StyledLink";
 // import { GlobeIcon, AvatarIcon, MenuIcon } from "./Icons";
 
 const UserMenuWrapper = styled.div`
-  display: flex;
-  gap: 1.2rem;
-  align-items: center;
-  justify-content: center;
+  ${flexRowCenter}
+  gap: ${spacing.md};
   position: relative;
 `;
 
 const UserActionMenu = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
+  ${flexRowCenter};
+  gap: ${spacing.sm};
   padding: 0.8rem 0.8rem 0.8rem 1.6rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--border-radius-pill);
+  border: 1px solid ${colors.border};
+  border-radius: 100px;
+  background-color: ${colors.background};
   cursor: pointer;
-  background-color: var(--color-white);
 
   &:hover {
-    background-color: var(--color-gray-100);
+    background-color: ${colors.border};
   }
   ${({ isActive }) =>
     isActive &&
@@ -31,37 +32,6 @@ const UserActionMenu = styled.button`
       box-shadow: var(--shadow-sm);
       transition: box-shadow 0.3s;
     `}
-`;
-
-const UserDropDown = styled.ul`
-  position: absolute;
-  top: 100%;
-  right: 0;
-  min-width: 20rem;
-  list-style: none;
-  padding: 0.8rem 0;
-  margin-top: 0.5rem;
-  box-shadow: var(--shadow-xs);
-  background-color: var(--color-white);
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--border-radius-sm);
-  z-index: 100;
-  & li {
-    font-size: 1.4rem;
-    display: flex;
-    flex-direction: column;
-  }
-  & a:link,
-  & a:visited {
-    color: var(--color-black);
-    text-decoration: none;
-    padding: 0.8rem 2.4rem;
-  }
-
-  & a:hover,
-  &a:active {
-    background-color: var(--color-gray-100);
-  }
 `;
 
 /**
@@ -93,19 +63,47 @@ const UserMenu = ({ isLoggedIn = false, colorTheme = null }) => {
           isActive={isOpen}
           onClick={() => setIsOpen((val) => !val)}
         >
-          {/* <MenuIcon /> */}
-          {/* <AvatarIcon /> */}
+          <MenuIcon />
+          <AvatarIcon />
         </UserActionMenu>
         {isOpen && (
           <>
-            <UserDropDown>
-              <li>
-                <Link to="login">Login</Link>
-              </li>
-              <li>
-                <Link to="signup">Signup</Link>
-              </li>
-            </UserDropDown>
+            <DropDown>
+              <ListColumn>
+                <li>
+                  <StyledLink
+                    $colorTheme="dark"
+                    onClick={() => setIsOpen(false)}
+                    to="login"
+                  >
+                    Log in
+                  </StyledLink>
+                </li>
+                <li>
+                  <StyledLink $colorTheme="dark" to="signup">
+                    Sign up
+                  </StyledLink>
+                </li>
+              </ListColumn>
+              <BorderSm />
+              <ListColumn>
+                <li>
+                  <StyledLink $colorTheme="dark" to="host">
+                    Become a host
+                  </StyledLink>
+                </li>
+                <li>
+                  <StyledLink $colorTheme="dark" to="wishlist">
+                    Wishlist
+                  </StyledLink>
+                </li>
+                <li>
+                  <StyledLink $colorTheme="dark" to="help">
+                    Help Center
+                  </StyledLink>
+                </li>
+              </ListColumn>
+            </DropDown>
           </>
         )}
       </div>

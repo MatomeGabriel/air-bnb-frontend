@@ -49,14 +49,15 @@ h6{
 
 img {max-width: 100%}
 
-.active {
-    color: ${colors.primary}!important;
-    font-weight: ${typography.weights.medium}!important;
+a.active {
+    color: ${colors.primary};
+    font-weight: ${typography.weights.medium};
     & svg path {
-        fill: ${colors.primary}!important;
+        fill: ${colors.primary};
     }
 
 }
+
 `;
 
 export default GlobalStyles;

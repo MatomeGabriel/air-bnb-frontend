@@ -1,12 +1,11 @@
 import styled, { css } from "styled-components";
-import { flexRowCenter } from "../design-system";
+import { colors, flexRowCenter, spacing } from "../design-system";
 import { Link, NavLink } from "react-router-dom";
 
 const StyledNavList = styled.ul`
   list-style: none;
   display: flex;
   gap: 3rem;
-  color: inherit;
 `;
 
 const NavItem = styled.li`
@@ -20,15 +19,15 @@ const NavItem = styled.li`
     display: block;
     width: 1.6rem;
     height: 2px;
-    background-color: red;
+    background-color: ${colors.background};
     margin-top: 1rem;
-    border-radius: var(--border-radius-pill);
+    border-radius: ${spacing.xs};
   }
 
   & a {
     ${flexRowCenter}
     text-decoration: none;
-    color: red;
+    color: ${colors.background};
   }
 `;
 

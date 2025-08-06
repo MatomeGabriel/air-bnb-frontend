@@ -14,6 +14,7 @@ import useMedia from "../hooks/useMedia";
 import Logo from "./Logo";
 import NavList from "./NavList";
 import UserMenu from "./UserMenu";
+import DropDown from "./DropDown";
 
 const IconLink = styled(NavLink)`
   /* 1 import mixins */
@@ -36,6 +37,7 @@ const IconLink = styled(NavLink)`
 const StyledNavBar = styled.nav`
   ${flexRowCenter}
   border-top: 1px solid ${colors.border};
+  background-color: ${colors.background};
   /* gap: ${spacing.xs}; */
   position: fixed;
   bottom: ${spacing.xxs};
@@ -76,6 +78,7 @@ const NavBar = () => {
           <Logo $color={colors.surface} />
           <NavList />
           <UserMenu />
+          {/* <DropDown /> */}
         </>
       )}
     </StyledNavBar>

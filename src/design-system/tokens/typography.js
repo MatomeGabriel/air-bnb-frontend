@@ -4,13 +4,17 @@ export const typography = {
     xxs: "1rem",
     xs: "1.2rem", // 12px
     sm: "1.4rem", // 14px
+    md: "1.6rem", // 16px
     base: "1.6rem", // 16px
-    lg: "2rem", // 20px
-    xl: "2.4rem", // 24px
-    h1: "3.2rem", // 32px
-    h2: "2.4rem",
-    h3: "2rem",
+    lg: "1.8rem",
+    xl: "2rem",
+    "2xl": "2.4rem",
+    "3xl": "3rem",
+    "4xl": "3.6rem",
+    "5xl": "4.8rem",
+    xxl: "9.6rem",
   },
+
   weights: {
     regular: 400,
     medium: 500,

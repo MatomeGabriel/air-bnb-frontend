@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { colors, flexRowCenter, spacing } from "../design-system";
 import { Link, NavLink } from "react-router-dom";
 

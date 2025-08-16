@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { colors, typography } from "./index";
+import { boxShadow, colors, spacing, typography } from "./index";
 
 const GlobalStyles = createGlobalStyle`
 *, 
@@ -17,7 +17,6 @@ body {
     font-family: ${typography.fontFamily};
     font-size: ${typography.sizes.base};
     list-style: ${typography.lineHeights.normal};
-    background-color: #222;
 }
 input, 
 button, 
@@ -25,6 +24,25 @@ textarea,
 select {
     font: inherit;
     color: inherit;
+}
+
+input, select {
+    width: 100%;
+    background: none;
+    border-radius: ${spacing.sm};
+    font-size: 1.4rem;
+    line-height: 1.2;
+    border: 1px solid ${colors.darkBorder};
+    height: 4.2rem;
+    padding: 0.8rem 1.2rem;
+    transition: all  0.2s ease;
+
+    &:focus {
+      outline: none;
+      box-shadow: ${boxShadow.sm};
+      border: 1px solid transparent;
+      outline: 2px solid #222;
+    }
 }
 
 button {

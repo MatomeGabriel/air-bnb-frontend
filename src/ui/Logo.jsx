@@ -17,7 +17,7 @@ const Icon = styled(LogoIcon)`
 
 const Logo = ({ $color }) => {
   return (
-    <StyledLogoContainer>
+    <StyledLogoContainer to="/">
       <Icon $color={$color} />
     </StyledLogoContainer>
   );

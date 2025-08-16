@@ -1,33 +1,131 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import SearchIconRaw from "../assets/Search.svg?react";
 import HeartOutlineRaw from "../assets/heart-outline.svg?react";
 import ProfileOutlineRaw from "../assets/profile-outline.svg?react";
 import LogoIconRaw from "../assets/logoText.svg?react";
 import MenuIconRaw from "../assets/Menu.svg?react";
 import AvatarIconRaw from "../assets/Avatar.svg?react";
+import ChevLeftIconRaw from "../assets/chevLeft.svg?react";
+import StarIconRaw from "../assets/star.svg?react";
+import SearchIconRawSm from "../assets/searchSm.svg?react";
+import BadgeIconRaw from "../assets/badge.svg?react";
+import ShareIconRaw from "../assets/share.svg?react";
+import HeartIconBoldRaw from "../assets/heartBold.svg?react";
+import ShowMoreIconRaw from "../assets/showMore.svg?react";
+import ProfileUploadIconRaw from "../assets/ProfileUpload.svg?react";
+import CloudUploadIconRaw from "../assets/cloudUpload.svg?react";
+import GlobeIconRaw from "../assets//globe.svg?react";
+
+import {
+  applyCSSProperty,
+  applySquareSize,
+  applySvgProps,
+  colors,
+  spacing,
+} from "../design-system";
 
 export const SearchIcon = styled(SearchIconRaw)`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: ${spacing.lg};
+  height: ${spacing.lg};
+  ${applySquareSize}
+`;
+
+export const GlobeIcon = styled(GlobeIconRaw)`
+  width: ${spacing.lg};
+  height: ${spacing.lg};
+  ${applySquareSize}
+  ${applySvgProps}
+`;
+
+export const CloudUploadIcon = styled(CloudUploadIconRaw)`
+  width: 2rem;
+  height: 2rem;
+  ${applySquareSize}
+`;
+export const ShareIcon = styled(ShareIconRaw)`
+  width: ${spacing.base};
+  height: ${spacing.base};
+  ${applySquareSize}
+`;
+export const ProfileUploadIcon = styled(ProfileUploadIconRaw)`
+  width: 17.2rem;
+  height: 17.2rem;
+  /* ${applySquareSize} */
+`;
+
+export const HeartIconBold = styled(HeartIconBoldRaw)`
+  width: ${spacing.base};
+  height: ${spacing.base};
+  ${applySquareSize}
+`;
+export const ShowMoreIcon = styled(ShowMoreIconRaw)`
+  width: 2rem;
+  height: 2rem;
+  ${applySquareSize}
+`;
+
+export const BadgeIcon = styled(BadgeIconRaw)`
+  width: ${spacing.base};
+  height: ${spacing.base};
+  ${applySquareSize}
+`;
+export const SearchIconSm = styled(SearchIconRawSm)`
+  width: 2rem;
+  height: 2rem;
+  ${applySquareSize}
 `;
 export const HeartOutline = styled(HeartOutlineRaw)`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: ${spacing.lg};
+  height: ${spacing.lg};
 `;
 
 export const ProfileOutline = styled(ProfileOutlineRaw)`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: ${spacing.lg};
+  height: ${spacing.lg};
 `;
 export const LogoIcon = styled(LogoIconRaw)`
   /* width: auto; */
 `;
 
 export const MenuIcon = styled(MenuIconRaw)`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: ${spacing.lg};
+  height: ${spacing.lg};
 `;
 export const AvatarIcon = styled(AvatarIconRaw)`
-  width: 3.2rem;
-  height: 3.2rem;
+  /* width: ${spacing.xl};
+  height: ${spacing.xl}; */
+  width: 3.6rem;
+  height: 3.6rem;
+`;
+export const ChevLeftIcon = styled(ChevLeftIconRaw)`
+  width: ${spacing.lg};
+  height: ${spacing.lg};
+  & path {
+    fill: ${colors.secondary};
+  }
+`;
+export const NullIcon = styled.div`
+  width: ${spacing["sm-md"]};
+  height: ${spacing["sm-md"]};
+`;
+export const StarIcon = styled(StarIconRaw)`
+  ${applySquareSize};
+  ${applySvgProps};
+
+  /* ${(props) => css`
+    ${applyCSSProperty(
+      "width",
+      props.$width || props.$height || spacing.md,
+      spacing
+    )};
+    ${applyCSSProperty(
+      "height",
+      props.$height || props.$width || spacing.md,
+      spacing
+    )};
+
+    & path {
+      ${applyCSSProperty("fill", props.$fill, colors)};
+    }
+  `} */
 `;

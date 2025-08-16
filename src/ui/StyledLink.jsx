@@ -6,7 +6,7 @@ const StyledLink = styled(NavLink)`
   ${({ $colorTheme }) =>
     $colorTheme === "dark" &&
     css`
-      text-decoration: none;
+      text-decoration: underline;
       color: ${colors.secondary} !important;
       &:hover {
         color: ${colors.muted} !important;

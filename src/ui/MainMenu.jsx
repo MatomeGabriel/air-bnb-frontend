@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+
 import { NavLink } from "react-router-dom";
-import { HeartOutline, ProfileOutline, SearchIcon } from "../ui/Icons";
+import { HeartOutline, ProfileOutline, SearchIcon } from "./Icons";
 import {
   colors,
   typography,
@@ -14,7 +16,8 @@ import useMedia from "../hooks/useMedia";
 import Logo from "./Logo";
 import NavList from "./NavList";
 import UserMenu from "./UserMenu";
-import DropDown from "./DropDown";
+import { SearchEmpty, SearchFilled } from "./SearchBars";
+import MobileNav from "../features/authentication/MobileNav";
 
 const IconLink = styled(NavLink)`
   /* 1 import mixins */
@@ -34,12 +37,13 @@ const IconLink = styled(NavLink)`
   padding: 0 2px;
 `;
 
-const StyledNavBar = styled.nav`
+const Navbar = styled.nav`
   ${flexRowCenter}
   border-top: 1px solid ${colors.border};
   background-color: ${colors.background};
   /* gap: ${spacing.xs}; */
   position: fixed;
+  z-index: 10;
   bottom: ${spacing.xxs};
   height: 5.5rem;
   width: 100%;
@@ -49,43 +53,47 @@ const StyledNavBar = styled.nav`
     all: unset;
     ${flexRowBetween}
     gap: ${spacing.lg};
-    padding: 1.6rem 8rem 2.4rem 8rem;
+    width: 100%;
+    /* padding: 1.6rem 8rem 2.4rem 8rem; */
   }
 `;
 
-const NavBar = () => {
+/**
+ *
+ * @returns
+ */
+const MainMenu = ({ showSearchBar }) => {
   const isMobile = useMedia(`(max-width: ${breakpoints.md}`);
+  const { pathname } = useLocation();
+
+  const isNotHome = !(pathname === "/");
+
   return (
-    <StyledNavBar>
+    <Navbar>
       {/* if the media is for mobile display the mobile menu */}
       {isMobile ? (
         <>
-          <IconLink to="/">
-            <SearchIcon />
-            <span>Explore</span>
-          </IconLink>
-          <IconLink to="/test">
-            <HeartOutline />
-            <span>Wishlist</span>
-          </IconLink>
-          <IconLink to="/test2">
-            <ProfileOutline />
-            <span>Login</span>
-          </IconLink>
+          <MobileNav />
         </>
       ) : (
         <>
-          <Logo $color={colors.surface} />
-          <NavList />
-          <UserMenu />
-          {/* <DropDown /> */}
+          <Logo $color={isNotHome ? colors.primary : colors.surface} />
+
+          {/* display the search when the page is not home */}
+          {/* pass props to display search and type of search as an object */}
+          {!isNotHome && <NavList />}
+
+          {showSearchBar?.emptySearch && <SearchEmpty />}
+          {showSearchBar?.filledSearch && <SearchFilled />}
+
+          <UserMenu isNotHome={isNotHome} />
         </>
       )}
-    </StyledNavBar>
+    </Navbar>
   );
 };
 
-export default NavBar;
+export default MainMenu;
 
 /**
  * how it behave at small screen it sits on the bottom of the screen

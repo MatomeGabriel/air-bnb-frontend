@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { TextSm } from "../../ui/Paragraphs";
-import { colors, flexColumnCenter, radii, spacing } from "../../design-system";
+import { colors, flexColumnCenter, spacing } from "../../design-system";
 import {
   DatabaseFullIcon,
   SearchIcon,
@@ -107,7 +107,7 @@ const CreateMultiImageUpload = ({ images, setImages }) => {
   return (
     <div>
       <DropArea isDragActive={isDragActive} {...getRootProps()}>
-        <input {...getInputProps()} />
+        <input required {...getInputProps()} />
         <TextSm>Drag & drop images here, or click to select</TextSm>
       </DropArea>
 

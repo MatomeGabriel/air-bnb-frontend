@@ -26,3 +26,5 @@ export const LocationsDataContextProvider = ({ children }) => {
 };
 
 export const useLocationsDataContext = () => useContext(LocationsDataContext);
+
+// rewrite this

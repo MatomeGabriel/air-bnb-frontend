@@ -19,6 +19,7 @@ import { SelectedLocationProvider } from "./context/SelectedLocationContext";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import UploadProfileImage from "./pages/UploadProfileImage";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import Providers from "./context/Providers";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,7 +32,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <AuthProvider>
+      <Providers>
         <BrowserRouter>
           <GlobalStyles />
           <Routes>
@@ -54,10 +55,6 @@ const App = () => {
               }
             />
 
-            {/* Host Only Routes */}
-            {/* reservations page */}
-
-            {/* Logged-in Routes */}
             <Route
               path="/listings/new"
               element={
@@ -66,6 +63,7 @@ const App = () => {
                 </RoleProtectedRoute>
               }
             />
+
             <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
             <Route
@@ -106,7 +104,7 @@ const App = () => {
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
-      </AuthProvider>
+      </Providers>
       <Toaster
         position="top-center"
         gutter={12}

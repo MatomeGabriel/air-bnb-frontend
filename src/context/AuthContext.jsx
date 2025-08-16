@@ -63,7 +63,6 @@ export const AuthProvider = ({ children }) => {
   });
 
   // update profile image
-
   const { mutate: updateUserProfileImage, isLoading: isUploadingProfileImage } =
     useMutation({
       mutationFn: updateProfileImage,

@@ -9,6 +9,7 @@ import { ButtonOutlineDarkForm, ButtonPrimaryFormFull } from "../../ui/Buttons";
 import { spacing } from "../../design-system";
 import CreateMultiImageUpload from "./CreateMultiImageUpload";
 import { useState } from "react";
+import { useListings } from "../../context/ListingsContext";
 
 const ListingsButtonBox = styled(FlexRow)`
   justify-content: end;
@@ -20,11 +21,18 @@ const ListingsButtonBox = styled(FlexRow)`
 
 const CreateListingForm = () => {
   const [images, setImages] = useState([]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onBlur" });
+  const {
+    createHostListing,
+    isCreatingHostListing,
+    uploadHostListingImage,
+    isUploadingHostListingImages,
+  } = useListings();
 
   const locationData = [
     "Cape Town",
@@ -39,10 +47,14 @@ const CreateListingForm = () => {
     "Bangkok",
   ];
 
-  const sendFormData = (data) => {
-    console.log(data);
-    const formData = { ...data, images };
-    console.log(formData);
+  const sendFormData = (formContent) => {
+    console.log(images);
+    createHostListing(formContent, {
+      onSuccess: (res) => {
+        const listingId = res?.data?.data?.data._id;
+        uploadHostListingImage({ images, listingId });
+      },
+    });
   };
 
   return (
@@ -98,13 +110,20 @@ const CreateListingForm = () => {
           ))}
         </select>
       </ListingFormRow>
-      <ListingFormRow label="Maximum guest" error={errors?.maxGuests?.message}>
+      <ListingFormRow
+        label="Number of guests"
+        error={errors?.maxGuests?.message}
+      >
         <input
           type="number"
           id="maxGuests"
           {...register("maxGuests", {
-            required: "Please provide the maximum guests for your listing",
-            min: { value: 1, message: "Maximum guest should be at least 1" },
+            required: "Please enter the number of guests for your listing.",
+            min: { value: 1, message: "At least one guest is required." },
+            max: {
+              value: 20,
+              message: "Please enter 20 or fewer guests.",
+            },
           })}
         />
       </ListingFormRow>
@@ -121,6 +140,10 @@ const CreateListingForm = () => {
               value: 1,
               message: "Your listing should at least have one bedroom",
             },
+            max: {
+              value: 20,
+              message: "Please enter 20 or fewer bedrooms.",
+            },
           })}
         />
       </ListingFormRow>
@@ -134,6 +157,30 @@ const CreateListingForm = () => {
             min: {
               value: 1,
               message: "Your listing should at least have one bed",
+            },
+            max: {
+              value: 20,
+              message: "Please enter 20 or fewer beds.",
+            },
+          })}
+        />
+      </ListingFormRow>
+      <ListingFormRow
+        label="Number of bathrooms"
+        error={errors?.bathrooms?.message}
+      >
+        <input
+          type="number"
+          id="bathrooms"
+          {...register("bathrooms", {
+            required: "Please provide the number of bathrooms for your listing",
+            min: {
+              value: 1,
+              message: "Your listing should at least have one bathroom",
+            },
+            max: {
+              value: 20,
+              message: "Please enter 20 or fewer bathrooms.",
             },
           })}
         />
@@ -152,6 +199,14 @@ const CreateListingForm = () => {
               message: "Your listing should be above 1",
             },
           })}
+        />
+      </ListingFormRow>
+      <ListingFormRow label="Describe your listing">
+        <textarea
+          type="text"
+          id="description"
+          {...register("description")}
+          placeholder="Describe your listing..."
         />
       </ListingFormRow>
 

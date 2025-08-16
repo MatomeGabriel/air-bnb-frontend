@@ -2,6 +2,7 @@ import DropDown, { ListColumn } from "../../ui/DropDown";
 import StyledLink from "../../ui/StyledLink";
 import { BorderSm } from "../../ui/Borders";
 import useLogout from "../../hooks/useLogout";
+import { ROUTES } from "../../utils/routes";
 
 export const UserDropdown = () => {
   const { logoutUser } = useLogout();
@@ -74,7 +75,7 @@ export const HostDropdown = () => {
           </StyledLink>
         </li>
         <li>
-          <StyledLink $colorTheme="dark" to="/wishlist">
+          <StyledLink $colorTheme="dark" to={ROUTES.createListing}>
             Create a listing
           </StyledLink>
         </li>

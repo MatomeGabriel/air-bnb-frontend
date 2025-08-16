@@ -14,7 +14,9 @@ import HeartIconBoldRaw from "../assets/heartBold.svg?react";
 import ShowMoreIconRaw from "../assets/showMore.svg?react";
 import ProfileUploadIconRaw from "../assets/ProfileUpload.svg?react";
 import CloudUploadIconRaw from "../assets/cloudUpload.svg?react";
-import GlobeIconRaw from "../assets//globe.svg?react";
+import GlobeIconRaw from "../assets/globe.svg?react";
+import DatabaseFullIconRaw from "../assets/databaseFull.svg?react";
+import xMarkFullFullIconRaw from "../assets/xMarkFull.svg?react";
 
 import {
   applyCSSProperty,
@@ -23,6 +25,20 @@ import {
   colors,
   spacing,
 } from "../design-system";
+
+export const DatabaseFullIcon = styled(DatabaseFullIconRaw)`
+  width: ${spacing.lg};
+  height: ${spacing.lg};
+  ${applySquareSize};
+  ${applySvgProps};
+`;
+
+export const XMarkFullFullIcon = styled(xMarkFullFullIconRaw)`
+  width: ${spacing.md};
+  height: ${spacing.md};
+  ${applySquareSize};
+  ${applySvgProps};
+`;
 
 export const SearchIcon = styled(SearchIconRaw)`
   width: ${spacing.lg};

@@ -167,7 +167,9 @@ const CreateListingForm = () => {
           })}
         />
       </ListingFormRow> */}
+
       <CreateMultiImageUpload images={images} setImages={setImages} />
+
       <ListingsButtonBox>
         <ButtonOutlineDarkForm type="reset">Cancel</ButtonOutlineDarkForm>
         <ButtonPrimaryFormFull type="submit">Add Listing</ButtonPrimaryFormFull>

@@ -4,11 +4,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { TextSm } from "../../ui/Paragraphs";
 import { colors, flexColumnCenter, spacing } from "../../design-system";
-import {
-  DatabaseFullIcon,
-  SearchIcon,
-  XMarkFullFullIcon,
-} from "../../ui/Icons";
+import { DatabaseFullIcon, XMarkFullFullIcon } from "../../ui/Icons";
 import { IconButton } from "../../ui/Buttons";
 
 const DropArea = styled.div`

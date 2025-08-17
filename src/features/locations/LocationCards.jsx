@@ -22,7 +22,6 @@ const LocationCards = () => {
   if (error) {
     return <p>Could not fetch content</p>;
   }
-  console.log("LOcations", locations);
 
   return (
     <>

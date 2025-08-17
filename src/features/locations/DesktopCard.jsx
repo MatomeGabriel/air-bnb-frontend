@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import Img1 from "../../assets/sandton.jpg";
 import { colors, column, radii, Row, spacing } from "../../design-system";
 import { TextLg, TextSm } from "../../ui/Paragraphs";
 import { H3 } from "../../ui/Heading";
@@ -8,21 +7,20 @@ import Middot from "../../ui/Middot";
 import { StarIcon } from "../../ui/Icons";
 import { applyFlexProps } from "../../design-system";
 
-import {
-  ButtonPrimaryLg,
-  ButtonPrimaryLgFull,
-  ButtonPrimaryMdFull,
-} from "../../ui/Buttons";
+import { ButtonPrimaryMdFull } from "../../ui/Buttons";
+import { useListings } from "../../context/ListingsContext";
 
 const FlexRow = styled.div`
   ${Row}
   ${applyFlexProps}
 `;
+
 const DesktopContent = styled.div`
   ${column}
   gap: ${spacing.base};
   width: 100%;
 `;
+
 const DesktopCardBorder = styled.div`
   width: 4rem;
   border: 1px solid ${colors["gray-200"]};
@@ -49,7 +47,7 @@ const DesktopButtonBox = styled.div`
 `;
 
 const DesktopCard = ({ place }) => {
-  console.log(place);
+  const { deleteHostListing, isDeletingHostListing } = useListings();
   const {
     title,
     description,
@@ -64,7 +62,8 @@ const DesktopCard = ({ place }) => {
     _id,
     maxGuests,
   } = place;
-  console.log(title);
+
+  const isListings = useLocation().pathname === "/listings";
 
   const features = [
     `1-${maxGuests} guests`,
@@ -74,6 +73,15 @@ const DesktopCard = ({ place }) => {
   ];
   const imgUrl = `http://localhost:3000/${images[0]}`;
   const contentUrl = `/locations/${_id}`;
+
+  const onDeleteHosting = () => {
+    console.log(_id);
+    deleteHostListing(_id, {
+      onError: (err) => {
+        console.log(err);
+      },
+    });
+  };
 
   return (
     <CardDesktop>
@@ -125,10 +133,17 @@ const DesktopCard = ({ place }) => {
           </FlexRow>
         </DesktopContent>
       </Link>
-      {/* <DesktopButtonBox>
-        <ButtonPrimaryMdFull>Update</ButtonPrimaryMdFull>
-        <ButtonPrimaryMdFull>Delete</ButtonPrimaryMdFull>
-      </DesktopButtonBox> */}
+      {isListings && (
+        <DesktopButtonBox>
+          <ButtonPrimaryMdFull>Update</ButtonPrimaryMdFull>
+          <ButtonPrimaryMdFull
+            disabled={isDeletingHostListing}
+            onClick={onDeleteHosting}
+          >
+            Delete
+          </ButtonPrimaryMdFull>
+        </DesktopButtonBox>
+      )}
     </CardDesktop>
   );
 };

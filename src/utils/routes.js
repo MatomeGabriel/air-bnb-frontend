@@ -7,4 +7,6 @@ export const ROUTES = {
   settings: "/settings",
   createListing: "/listings/new",
   viewLocations: "/locations",
+  manageListings: "/listings",
+  manageReservations: "/reservations",
 };

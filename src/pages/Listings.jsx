@@ -1,7 +1,41 @@
-import React from "react";
+import styled from "styled-components";
+import { MainContainer } from "../ui/MainContainer";
+import { Header } from "../ui/Header";
+import MainMenu from "../ui/MainMenu";
+import ResponsiveCardGrid from "../features/locations/ResponsiveCardGrid";
+import MobileCard from "../features/locations/MobileCard";
+import DesktopCard from "../features/locations/DesktopCard";
+import { useListings } from "../context/ListingsContext";
 
+const Main = styled(MainContainer)`
+  padding: 4rem;
+`;
 const Listings = () => {
-  return <div>Listings</div>;
+  const { listings, isFetchingListings } = useListings();
+
+  if (isFetchingListings) <p>Loading...</p>;
+
+  console.log("Listings", listings);
+  return (
+    <>
+      <Header>
+        <MainMenu />
+      </Header>
+      <Main>
+        <ResponsiveCardGrid
+          items={listings}
+          headerText="My Hotel Listing"
+          renderCard={(place, view) =>
+            view === "mobile" ? (
+              <MobileCard place={place} />
+            ) : (
+              <DesktopCard place={place} />
+            )
+          }
+        />
+      </Main>
+    </>
+  );
 };
 
 export default Listings;

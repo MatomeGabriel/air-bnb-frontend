@@ -20,3 +20,13 @@ export const uploadListingImages = async ({ images, listingId }) => {
 
   return res;
 };
+
+export const fetchListings = async () => {
+  const res = await apiClient.get("/accommodations/host/listings");
+  return res;
+};
+
+export const deleteListing = async (listing_id) => {
+  const res = await apiClient.delete(`/accommodations/${listing_id}`);
+  return res;
+};

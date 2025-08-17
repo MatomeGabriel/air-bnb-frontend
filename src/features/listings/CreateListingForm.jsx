@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-
+import { Link } from "react-router-dom";
 import ListingFormRow from "../../ui/ListingFormRow";
 import Form from "../../ui/Form";
 
@@ -10,6 +10,7 @@ import { spacing } from "../../design-system";
 import CreateMultiImageUpload from "./CreateMultiImageUpload";
 import { useState } from "react";
 import { useListings } from "../../context/ListingsContext";
+import toast from "react-hot-toast";
 
 const ListingsButtonBox = styled(FlexRow)`
   justify-content: end;
@@ -26,6 +27,7 @@ const CreateListingForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({ mode: "onBlur" });
   const {
     createHostListing,
@@ -46,13 +48,33 @@ const CreateListingForm = () => {
     "Dubai",
     "Bangkok",
   ];
-
+  const resetImages = () => {
+    images.forEach((file) => URL.revokeObjectURL(file.preview));
+    setImages([]);
+  };
   const sendFormData = (formContent) => {
-    console.log(images);
     createHostListing(formContent, {
       onSuccess: (res) => {
         const listingId = res?.data?.data?.data._id;
-        uploadHostListingImage({ images, listingId });
+        uploadHostListingImage(
+          { images, listingId },
+          {
+            onSuccess: () => {
+              // Reset the form
+              reset();
+              // Reset the image previews
+              resetImages();
+              toast.success(
+                <span>
+                  View your listings! 👉
+                  <a target="_blank" href={`/listings`}>
+                    View Listing
+                  </a>
+                </span>
+              );
+            },
+          }
+        );
       },
     });
   };
@@ -226,8 +248,19 @@ const CreateListingForm = () => {
       <CreateMultiImageUpload images={images} setImages={setImages} />
 
       <ListingsButtonBox>
-        <ButtonOutlineDarkForm type="reset">Cancel</ButtonOutlineDarkForm>
-        <ButtonPrimaryFormFull type="submit">Add Listing</ButtonPrimaryFormFull>
+        <ButtonOutlineDarkForm
+          type="reset"
+          disabled={isCreatingHostListing || isUploadingHostListingImages}
+          onClick={resetImages}
+        >
+          Cancel
+        </ButtonOutlineDarkForm>
+        <ButtonPrimaryFormFull
+          type="submit"
+          disabled={isCreatingHostListing || isUploadingHostListingImages}
+        >
+          Add Listing
+        </ButtonPrimaryFormFull>
       </ListingsButtonBox>
     </Form>
   );

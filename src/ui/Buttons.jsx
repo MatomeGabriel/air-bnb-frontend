@@ -35,6 +35,10 @@ export const ButtonPrimarySm = styled(ButtonBase)`
   &:hover {
     background-position: right center;
   }
+  &:disabled {
+    background-color: ${colors.muted};
+    color: ${colors.white};
+  }
 `;
 
 export const ButtonPrimarySmFull = styled(ButtonPrimarySm)`

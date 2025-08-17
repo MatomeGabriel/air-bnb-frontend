@@ -1,7 +1,13 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
-import { createListing, uploadListingImages } from "../services/apiListings";
+import {
+  createListing,
+  deleteListing,
+  fetchListings,
+  uploadListingImages,
+} from "../services/apiListings";
 import toast from "react-hot-toast";
+import { extractData } from "../utils/extractData";
 
 const ListingsContext = createContext();
 
@@ -14,6 +20,7 @@ const ListingsContext = createContext();
 export const ListingsProvider = ({ children }) => {
   const queryClient = useQueryClient();
 
+  // Create a Listing
   const { mutate: createHostListing, isLoading: isCreatingHostListing } =
     useMutation({
       mutationFn: createListing,
@@ -23,6 +30,8 @@ export const ListingsProvider = ({ children }) => {
       },
       onError: (err) => toast.error("Failed to create a Listing", err),
     });
+
+  // Upload Images
   const {
     mutate: uploadHostListingImage,
     isLoading: isUploadingHostListingImages,
@@ -38,6 +47,37 @@ export const ListingsProvider = ({ children }) => {
     },
   });
 
+  // Fetch Listings
+
+  const { isLoading: isFetchingListings, data: response } = useQuery({
+    queryFn: fetchListings,
+    queryKey: ["listings"],
+    onSuccess: () => toast.success("Data"),
+    onError: (err) => {
+      toast.error("Failed to fetch data");
+      console.log(err);
+    },
+  });
+
+  const listings = extractData(response);
+
+  // delete a listing
+
+  const {
+    mutate: deleteHostListing,
+    isLoading: isDeletingHostListing,
+    error,
+  } = useMutation({
+    mutationFn: deleteListing,
+    onSuccess: () => {
+      toast.success("Listing Deleted Successfully");
+      queryClient.invalidateQueries(["listings"]);
+    },
+    onError: (err) => {
+      toast.error("Failed to delete a listing", err);
+    },
+  });
+
   return (
     <ListingsContext.Provider
       value={{
@@ -45,6 +85,10 @@ export const ListingsProvider = ({ children }) => {
         isCreatingHostListing,
         uploadHostListingImage,
         isUploadingHostListingImages,
+        isFetchingListings,
+        listings,
+        deleteHostListing,
+        isDeletingHostListing,
       }}
     >
       {children}

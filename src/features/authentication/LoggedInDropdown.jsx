@@ -28,7 +28,7 @@ export const UserDropdown = () => {
       <BorderSm />
       <ListColumn>
         <li>
-          <StyledLink $colorTheme="dark" to="/signup/host">
+          <StyledLink $colorTheme="dark" to={ROUTES.manageReservations}>
             Manage reservations
           </StyledLink>
         </li>
@@ -70,7 +70,7 @@ export const HostDropdown = () => {
       <BorderSm />
       <ListColumn>
         <li>
-          <StyledLink $colorTheme="dark" to="/signup/host">
+          <StyledLink $colorTheme="dark" to={ROUTES.manageListings}>
             Manage listings
           </StyledLink>
         </li>

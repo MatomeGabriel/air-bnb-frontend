@@ -20,6 +20,7 @@ import UnauthorizedPage from "./pages/UnauthorizedPage";
 import UploadProfileImage from "./pages/UploadProfileImage";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Providers from "./context/Providers";
+import Listings from "./pages/Listings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,6 +61,14 @@ const App = () => {
               element={
                 <RoleProtectedRoute>
                   <Listing />
+                </RoleProtectedRoute>
+              }
+            />
+            <Route
+              path="/listings"
+              element={
+                <RoleProtectedRoute>
+                  <Listings />
                 </RoleProtectedRoute>
               }
             />

@@ -3,9 +3,22 @@ import { useCallback } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { TextSm } from "../../ui/Paragraphs";
-import { colors, flexColumnCenter, spacing } from "../../design-system";
-import { DatabaseFullIcon, XMarkFullFullIcon } from "../../ui/Icons";
+import {
+  applyBackgroundColor,
+  colors,
+  flexColumnCenter,
+  spacing,
+} from "../../design-system";
+import {
+  CloudSolidFullIcon,
+  DatabaseFullIcon,
+  TrashCanRegularIcon,
+  XMarkFullFullIcon,
+} from "../../ui/Icons";
 import { IconButton } from "../../ui/Buttons";
+import { generateImgURL } from "../../utils/generateImgURL";
+import { useListings } from "../../context/ListingsContext";
+import { useConfirm } from "../../context/ConfirmContext";
 
 const DropArea = styled.div`
   border: 2px dashed #ccc;
@@ -23,6 +36,9 @@ const LocalPreviewBox = styled.div`
   gap: ${spacing["sm-md"]};
   margin-top: 1rem;
 `;
+const RemotePreviewBox = styled(LocalPreviewBox)`
+  margin-top: 2.4rem;
+`;
 
 const ImgBox = styled.div`
   position: relative;
@@ -34,10 +50,11 @@ const Img = styled.img`
 `;
 
 const ImgBadge = styled.div`
-  ${flexColumnCenter}
+  ${flexColumnCenter};
   position: absolute;
   top: 0;
   background-color: ${colors.yellow};
+  ${applyBackgroundColor};
   padding: 0.2rem;
   border-radius: 0.4rem 0 0.4rem 0;
 `;
@@ -56,9 +73,18 @@ const DeleteButton = styled(IconButton)`
 
   &:hover {
     background-color: ${colors.error};
+    & path {
+      fill: ${colors.white};
+    }
   }
 `;
-const CreateMultiImageUpload = ({ images, setImages }) => {
+const CreateMultiImageUpload = ({
+  images,
+  setImages,
+  listingImages = [],
+  mode,
+  listingId = null,
+}) => {
   // called when a file is dropped or selected
   const onDrop = useCallback(
     (acceptedFiles) => {
@@ -93,6 +119,19 @@ const CreateMultiImageUpload = ({ images, setImages }) => {
     });
   };
 
+  // delete Listing image on the cloud
+  // ude the custom context
+  const { requestConfirm } = useConfirm();
+  const { deleteSingleListingImage, isDeletingSingleListingImage } =
+    useListings();
+
+  const deleteCloudImage = (e, imgPath) => {
+    e.preventDefault();
+    const data = { imagePath: imgPath };
+    deleteSingleListingImage({ listingId, data });
+    console.log("deleting an image");
+  };
+
   // clean up the previous previews
   useEffect(() => {
     return () => {
@@ -103,7 +142,10 @@ const CreateMultiImageUpload = ({ images, setImages }) => {
   return (
     <div>
       <DropArea isDragActive={isDragActive} {...getRootProps()}>
-        <input required {...getInputProps()} />
+        <input
+          required={mode !== "edit" || !listingImages.length > 0}
+          {...getInputProps()}
+        />
         <TextSm>Drag & drop images here, or click to select</TextSm>
       </DropArea>
 
@@ -123,6 +165,37 @@ const CreateMultiImageUpload = ({ images, setImages }) => {
           </ImgBox>
         ))}
       </LocalPreviewBox>
+      {mode === "edit" && (
+        <RemotePreviewBox>
+          {listingImages.map((imgSrc) => (
+            <ImgBox key={imgSrc}>
+              <Img src={generateImgURL(imgSrc)} />
+              <DeleteButton
+                title="Delete listing image on the cloud"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const imgPath = imgSrc;
+                  requestConfirm({
+                    message: "Are you sure you want to delete this image?",
+                    warningTitle: "Warning: Permanent Image Deletion!",
+                    warningMessage:
+                      "This action is irreversible. Once the image is deleted, it cannot be recovered.",
+                    onConfirm: () => deleteCloudImage(e, imgPath),
+                    onCancel: () => {
+                      console.log("Cancelled");
+                    },
+                  });
+                }}
+              >
+                <TrashCanRegularIcon $fill="border" />
+              </DeleteButton>
+              <ImgBadge $bgColor="blue">
+                <CloudSolidFullIcon $fill="white" />
+              </ImgBadge>
+            </ImgBox>
+          ))}
+        </RemotePreviewBox>
+      )}
     </div>
   );
 };

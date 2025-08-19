@@ -16,7 +16,10 @@ import ProfileUploadIconRaw from "../assets/ProfileUpload.svg?react";
 import CloudUploadIconRaw from "../assets/cloudUpload.svg?react";
 import GlobeIconRaw from "../assets/globe.svg?react";
 import DatabaseFullIconRaw from "../assets/databaseFull.svg?react";
+import CloudSolidFullIconRaw from "../assets/cloudSolidFull.svg?react";
 import xMarkFullFullIconRaw from "../assets/xMarkFull.svg?react";
+import TrashCanRegularIconRaw from "../assets/trashCanRegular.svg?react";
+import WarningIconRaw from "../assets/warning.svg?react";
 
 import {
   applyCSSProperty,
@@ -27,8 +30,25 @@ import {
 } from "../design-system";
 
 export const DatabaseFullIcon = styled(DatabaseFullIconRaw)`
-  width: ${spacing.lg};
-  height: ${spacing.lg};
+  width: 2rem;
+  height: 2rem;
+  ${applySquareSize};
+  ${applySvgProps};
+`;
+export const WarningIcon = styled(WarningIconRaw)`
+  width: 3rem;
+  ${applySvgProps};
+`;
+export const TrashCanRegularIcon = styled(TrashCanRegularIconRaw)`
+  width: ${spacing.md};
+  height: ${spacing.md};
+  ${applySquareSize};
+  ${applySvgProps};
+`;
+
+export const CloudSolidFullIcon = styled(CloudSolidFullIconRaw)`
+  width: 2rem;
+  height: 2rem;
   ${applySquareSize};
   ${applySvgProps};
 `;

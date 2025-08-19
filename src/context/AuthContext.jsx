@@ -8,6 +8,7 @@ import {
   signUp,
   updateProfileImage,
 } from "../services/apiUser";
+
 import toast from "react-hot-toast";
 
 // Create a context to share authentication related state and actions across the app

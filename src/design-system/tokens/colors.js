@@ -19,6 +19,7 @@ export const colors = {
   "card-3": "#DE3151",
   "card-4": "#D93B30",
   yellow: "#F59E0B",
+  blue: "#3B82F6",
 };
 
 export const gradients = {

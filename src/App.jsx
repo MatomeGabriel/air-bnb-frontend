@@ -8,7 +8,6 @@ import HomePage from "./pages/HomePage";
 import PageNotFound from "./ui/PageNotFound";
 import Locations from "./pages/Locations";
 import Login from "./pages/Login";
-import Listing from "./pages/Listing";
 import Location from "./pages/Location";
 import RoleProtectedRoute from "./ui/RoleProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
@@ -21,6 +20,8 @@ import UploadProfileImage from "./pages/UploadProfileImage";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Providers from "./context/Providers";
 import Listings from "./pages/Listings";
+import EditListing from "./pages/EditListing";
+import CreateListing from "./pages/CreateListing";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,7 +61,7 @@ const App = () => {
               path="/listings/new"
               element={
                 <RoleProtectedRoute>
-                  <Listing />
+                  <CreateListing />
                 </RoleProtectedRoute>
               }
             />
@@ -69,6 +70,16 @@ const App = () => {
               element={
                 <RoleProtectedRoute>
                   <Listings />
+                </RoleProtectedRoute>
+              }
+            />
+
+            {/* Editing a listing */}
+            <Route
+              path="/listings/edit/:id"
+              element={
+                <RoleProtectedRoute>
+                  <EditListing />
                 </RoleProtectedRoute>
               }
             />

@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors, column, radii, Row, spacing } from "../../design-system";
 import { TextLg, TextSm } from "../../ui/Paragraphs";
@@ -9,6 +9,8 @@ import { applyFlexProps } from "../../design-system";
 
 import { ButtonPrimaryMdFull } from "../../ui/Buttons";
 import { useListings } from "../../context/ListingsContext";
+import { ROUTES } from "../../utils/routes";
+import { useConfirm } from "../../context/ConfirmContext";
 
 const FlexRow = styled.div`
   ${Row}
@@ -48,6 +50,9 @@ const DesktopButtonBox = styled.div`
 
 const DesktopCard = ({ place }) => {
   const { deleteHostListing, isDeletingHostListing } = useListings();
+  const { requestConfirm } = useConfirm();
+
+  const navigate = useNavigate();
   const {
     title,
     description,
@@ -59,17 +64,17 @@ const DesktopCard = ({ place }) => {
     location,
     images,
     bedrooms,
+    bathrooms,
     _id,
     maxGuests,
   } = place;
 
   const isListings = useLocation().pathname === "/listings";
-
   const features = [
     `1-${maxGuests} guests`,
     `${type}`,
     `${bedrooms} beds`,
-    "3 bath",
+    `${bathrooms} baths`,
   ];
   const imgUrl = `http://localhost:3000/${images[0]}`;
   const contentUrl = `/locations/${_id}`;
@@ -135,10 +140,25 @@ const DesktopCard = ({ place }) => {
       </Link>
       {isListings && (
         <DesktopButtonBox>
-          <ButtonPrimaryMdFull>Update</ButtonPrimaryMdFull>
+          <ButtonPrimaryMdFull
+            onClick={() => navigate(`${ROUTES.editListings}/${_id}`)}
+          >
+            Update
+          </ButtonPrimaryMdFull>
           <ButtonPrimaryMdFull
             disabled={isDeletingHostListing}
-            onClick={onDeleteHosting}
+            onClick={() =>
+              requestConfirm({
+                message: "Are you sure you want to delete this listing?",
+                warningTitle: "Warning: Permanent Listing Deletion!",
+                warningMessage:
+                  "This action is irreversible. Once the listing is deleted, it cannot be recovered.",
+                onConfirm: onDeleteHosting,
+                onCancel: () => {
+                  console.log("Cancelled");
+                },
+              })
+            }
           >
             Delete
           </ButtonPrimaryMdFull>

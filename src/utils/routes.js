@@ -9,4 +9,5 @@ export const ROUTES = {
   viewLocations: "/locations",
   manageListings: "/listings",
   manageReservations: "/reservations",
+  editListings: "/listings/edit",
 };

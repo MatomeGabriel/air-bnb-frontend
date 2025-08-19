@@ -43,6 +43,8 @@ input, select, textarea {
       border: 1px solid transparent;
       outline: 2px solid #222;
     }
+    
+
 }
 textarea {
     height: 10rem;
@@ -50,6 +52,13 @@ textarea {
 
 button {
     cursor: pointer;
+}
+input, select, textarea, button {
+    &:disabled {
+        background-color: ${colors.surface}; 
+        color: ${colors.darkBorder}; 
+        cursor: not-allowed;
+    }
 }
 
 ul {

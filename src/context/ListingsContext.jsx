@@ -3,7 +3,10 @@ import { createContext, useContext } from "react";
 import {
   createListing,
   deleteListing,
+  deleteListingImage,
   fetchListings,
+  updateListing,
+  updateListingImages,
   uploadListingImages,
 } from "../services/apiListings";
 import toast from "react-hot-toast";
@@ -28,7 +31,10 @@ export const ListingsProvider = ({ children }) => {
         toast.success("Listing Created, Uploading Images");
         // queryClient.invalidateQueries(["currentUser"]);
       },
-      onError: (err) => toast.error("Failed to create a Listing", err),
+      onError: (err) => {
+        toast.error("Failed to create a Listing", err);
+        console.log(err);
+      },
     });
 
   // Upload Images
@@ -47,22 +53,36 @@ export const ListingsProvider = ({ children }) => {
     },
   });
 
-  // Fetch Listings
-
-  const { isLoading: isFetchingListings, data: response } = useQuery({
-    queryFn: fetchListings,
-    queryKey: ["listings"],
-    onSuccess: () => toast.success("Data"),
+  // Update Images
+  const {
+    mutate: updateHostListingImages,
+    isLoading: isUpdatingHostListingImages,
+  } = useMutation({
+    mutationFn: updateListingImages,
+    onSuccess: () => {
+      toast.success("Listing Images Updated Successfully");
+      queryClient.invalidateQueries(["listing", "listings"]);
+    },
     onError: (err) => {
-      toast.error("Failed to fetch data");
+      toast.error("Failed to update listing images", err.message);
       console.log(err);
     },
   });
 
-  const listings = extractData(response);
+  // Fetch Listings
+  const { isLoading: isFetchingListings, data: MultiListingsResponse } =
+    useQuery({
+      queryFn: fetchListings,
+      queryKey: ["listings"],
+      onSuccess: () => toast.success("Data"),
+      onError: (err) => {
+        toast.error("Failed to fetch data");
+        console.log(err);
+      },
+    });
+  const listings = extractData(MultiListingsResponse);
 
   // delete a listing
-
   const {
     mutate: deleteHostListing,
     isLoading: isDeletingHostListing,
@@ -78,6 +98,36 @@ export const ListingsProvider = ({ children }) => {
     },
   });
 
+  // delete single listing image
+  const {
+    mutate: deleteSingleListingImage,
+    isLoading: isDeletingSingleListingImage,
+  } = useMutation({
+    mutationFn: deleteListingImage,
+    onSuccess: () => {
+      toast.success("Cloud image deleted successfully");
+      queryClient.invalidateQueries(["listing"]);
+    },
+    onError: (err) => {
+      toast.error("Failed to delete an Image", err);
+    },
+  });
+
+  // update the listing
+
+  const { mutate: updateHostListing, isLoading: isUpdatingHostListing } =
+    useMutation({
+      mutationFn: updateListing,
+      onSuccess: () => {
+        toast.success("Listing updated Successfully");
+        queryClient.invalidateQueries(["listing"]);
+      },
+      onError: (err) => {
+        toast.error("Failed to update a listing");
+        console.log(err);
+      },
+    });
+
   return (
     <ListingsContext.Provider
       value={{
@@ -89,6 +139,12 @@ export const ListingsProvider = ({ children }) => {
         listings,
         deleteHostListing,
         isDeletingHostListing,
+        deleteSingleListingImage,
+        isDeletingSingleListingImage,
+        updateHostListing,
+        isUpdatingHostListing,
+        updateHostListingImages,
+        isUpdatingHostListingImages,
       }}
     >
       {children}

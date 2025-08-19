@@ -7,7 +7,7 @@ import { FlexRow } from "../../ui/Flex";
 import { ButtonOutlineDarkForm, ButtonPrimaryFormFull } from "../../ui/Buttons";
 import { spacing } from "../../design-system";
 import CreateMultiImageUpload from "./CreateMultiImageUpload";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useListings } from "../../context/ListingsContext";
 import toast from "react-hot-toast";
 
@@ -19,22 +19,66 @@ const ListingsButtonBox = styled(FlexRow)`
   }
 `;
 
-const CreateListingForm = () => {
-  const [images, setImages] = useState([]);
+/**
+ *
+ *
+ *
+ *
+ *
+ */
 
+// What should this form accept , it can edit and create things
+// make it reusable
+// 1. mode edit or create
+// edit receives from data e.g listingData, and location cannot change
+
+const ListingForm = ({ mode, listing = [] }) => {
+  // State to store images
+  const [images, setImages] = useState([]);
+  const listingId = listing?._id;
+
+  const listingData = useMemo(() => {
+    return {
+      title: listing?.title || "",
+      type: listing?.type || "",
+      location: listing?.location || "",
+      maxGuests: listing?.maxGuests || 1,
+      bedrooms: listing?.bedrooms || 1,
+      beds: listing?.beds || 1,
+      bathrooms: listing?.bathrooms || 1,
+      price: listing?.price || 1,
+      description: listing?.description || "",
+    };
+  }, [listing]);
+
+  //   This is our react form hook
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({ mode: "onBlur" });
+
+  //   Populate our form
+  useEffect(() => {
+    if (mode === "edit" && listing) {
+      reset(listingData);
+    }
+  }, [listing, mode, reset, listingData]);
+
+  //   context to export
   const {
     createHostListing,
     isCreatingHostListing,
     uploadHostListingImage,
     isUploadingHostListingImages,
+    updateHostListing,
+    isUpdatingHostListing,
+    updateHostListingImages,
+    isUpdatingHostListingImages,
   } = useListings();
 
+  //   locations data to export
   const locationData = [
     "Cape Town",
     "Paris",
@@ -47,35 +91,65 @@ const CreateListingForm = () => {
     "Dubai",
     "Bangkok",
   ];
+
   const resetImages = () => {
     images.forEach((file) => URL.revokeObjectURL(file.preview));
     setImages([]);
+    if (mode === "edit") {
+      reset(listingData);
+    }
   };
+
+  //   Submission we still do it on the form
   const sendFormData = (formContent) => {
-    createHostListing(formContent, {
-      onSuccess: (res) => {
-        const listingId = res?.data?.data?.data._id;
-        uploadHostListingImage(
-          { images, listingId },
-          {
-            onSuccess: () => {
-              // Reset the form
-              reset();
-              // Reset the image previews
-              resetImages();
-              toast.success(
-                <span>
-                  View your listings! 👉
-                  <a target="_blank" href={`/listings`}>
-                    View Listing
-                  </a>
-                </span>
+    if (mode === "edit") {
+      updateHostListing(
+        { listingId, data: formContent },
+        {
+          onSuccess: () => {
+            if (images.length > 0) {
+              updateHostListingImages(
+                { images, listingId },
+                {
+                  onSuccess: () => {
+                    toast.success("Images updated Successfully");
+                    resetImages();
+                  },
+                  onError: () => {
+                    toast.error("Failed to upload images");
+                  },
+                }
               );
-            },
-          }
-        );
-      },
-    });
+            }
+          },
+        }
+      );
+    } else {
+      createHostListing(formContent, {
+        onSuccess: (res) => {
+          const listingId = res?.data?.data?.data._id;
+          uploadHostListingImage(
+            { images, listingId },
+            {
+              onSuccess: () => {
+                // Reset the form
+                reset();
+                // Reset the image previews
+                resetImages();
+                toast.success(
+                  <span>
+                    View your listings! 👉
+                    <a target="_blank" href={`/listings`}>
+                      View Listing
+                    </a>
+                  </span>
+                );
+              },
+            }
+          );
+        },
+      });
+    }
   };
 
   return (
@@ -117,6 +191,7 @@ const CreateListingForm = () => {
         <select
           id="location"
           defaultValue=" "
+          disabled={mode == "edit"}
           {...register("location", {
             required: "Please select the location of your listing.",
           })}
@@ -151,6 +226,7 @@ const CreateListingForm = () => {
           })}
         />
       </ListingFormRow>
+
       <ListingFormRow
         label="Number of bedrooms"
         error={errors?.bedrooms?.message}
@@ -189,6 +265,7 @@ const CreateListingForm = () => {
           })}
         />
       </ListingFormRow>
+
       <ListingFormRow
         label="Number of bathrooms"
         error={errors?.bathrooms?.message}
@@ -209,6 +286,7 @@ const CreateListingForm = () => {
           })}
         />
       </ListingFormRow>
+
       <ListingFormRow
         label="Price for your listing"
         error={errors?.price?.message}
@@ -225,6 +303,7 @@ const CreateListingForm = () => {
           })}
         />
       </ListingFormRow>
+
       <ListingFormRow label="Describe your listing">
         <textarea
           type="text"
@@ -234,38 +313,36 @@ const CreateListingForm = () => {
         />
       </ListingFormRow>
 
-      {/* <ListingFormRow
-        label="Price for your listing"
-        error={errors?.cleaning?.message}
-      >
-        <input
-          type="checkbox"
-          id="cleaning"
-          {...register("cleaning", {
-            required: "Please provide the price for your cleaning",
-          })}
-        />
-      </ListingFormRow> */}
-
-      <CreateMultiImageUpload images={images} setImages={setImages} />
+      <CreateMultiImageUpload
+        images={images}
+        setImages={setImages}
+        listingImages={listing?.images}
+        mode={mode}
+        listingId={listing._id}
+      />
 
       <ListingsButtonBox>
         <ButtonOutlineDarkForm
-          type="reset"
+          type={mode === "edit"}
           disabled={isCreatingHostListing || isUploadingHostListingImages}
           onClick={resetImages}
         >
-          Cancel
+          {mode === "edit" ? "Reset to default" : "Cancel"}
         </ButtonOutlineDarkForm>
         <ButtonPrimaryFormFull
           type="submit"
-          disabled={isCreatingHostListing || isUploadingHostListingImages}
+          disabled={
+            isCreatingHostListing ||
+            isUploadingHostListingImages ||
+            isUpdatingHostListing
+          }
         >
-          Add Listing
+          {mode === "edit" ? "Update " : "Add "}
+          Listing
         </ButtonPrimaryFormFull>
       </ListingsButtonBox>
     </Form>
   );
 };
 
-export default CreateListingForm;
+export default ListingForm;

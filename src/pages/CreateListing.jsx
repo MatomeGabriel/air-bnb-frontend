@@ -1,11 +1,10 @@
-import React from "react";
 import styled from "styled-components";
-import CreateListingForm from "../features/listings/CreateListingForm";
-import FormContainer, { StyledFormContainer } from "../ui/FormContainer";
+import { StyledFormContainer } from "../ui/FormContainer";
 import FormHeader from "../ui/FormHeader";
 import { boxShadow, generateResponsiveStyles } from "../design-system";
 import MainMenu from "../ui/MainMenu";
 import { Header } from "../ui/Header";
+import ListingForm from "../features/listings/ListingForm";
 
 const StyledListing = styled.div`
   padding: 1.2rem;
@@ -17,7 +16,7 @@ const StyledListingFormContainer = styled(StyledFormContainer)`
   ${generateResponsiveStyles("max-width", { lg: "85%" })};
 `;
 
-const Listing = () => {
+const CreateListing = () => {
   return (
     <>
       <Header>
@@ -27,11 +26,11 @@ const Listing = () => {
       <StyledListing>
         <StyledListingFormContainer>
           <FormHeader>Create Listing</FormHeader>
-          <CreateListingForm />
+          <ListingForm mode="create" />
         </StyledListingFormContainer>
       </StyledListing>
     </>
   );
 };
 
-export default Listing;
+export default CreateListing;

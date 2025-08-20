@@ -22,6 +22,7 @@ import Providers from "./context/Providers";
 import Listings from "./pages/Listings";
 import EditListing from "./pages/EditListing";
 import CreateListing from "./pages/CreateListing";
+import ProfilePage from "./pages/ProfilePage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -91,6 +92,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <UploadProfileImage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
                 </ProtectedRoute>
               }
             />

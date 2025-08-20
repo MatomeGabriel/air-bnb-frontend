@@ -20,6 +20,9 @@ import CloudSolidFullIconRaw from "../assets/cloudSolidFull.svg?react";
 import xMarkFullFullIconRaw from "../assets/xMarkFull.svg?react";
 import TrashCanRegularIconRaw from "../assets/trashCanRegular.svg?react";
 import WarningIconRaw from "../assets/warning.svg?react";
+import TwitterIconRaw from "../assets/twitter.svg?react";
+import InstagramIconRaw from "../assets/instagram.svg?react";
+import FacebookIconRaw from "../assets/facebook.svg?react";
 
 import {
   applyCSSProperty,
@@ -34,6 +37,18 @@ export const DatabaseFullIcon = styled(DatabaseFullIconRaw)`
   height: 2rem;
   ${applySquareSize};
   ${applySvgProps};
+`;
+export const TwitterIcon = styled(TwitterIconRaw)`
+  width: ${spacing.lg};
+  height: ${spacing.lg};
+`;
+export const FacebookIcon = styled(FacebookIconRaw)`
+  width: ${spacing.lg};
+  height: ${spacing.lg};
+`;
+export const InstagramIcon = styled(InstagramIconRaw)`
+  width: ${spacing.lg};
+  height: ${spacing.lg};
 `;
 export const WarningIcon = styled(WarningIconRaw)`
   width: 3rem;

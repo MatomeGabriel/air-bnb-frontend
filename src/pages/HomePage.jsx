@@ -16,6 +16,7 @@ import cityImg3 from "../assets/Woodmead.jpg";
 import cityImg4 from "../assets/Hyde.jpg";
 import GiftCardSection from "../ui/GiftCardSection";
 import { MainContainer } from "../ui/MainContainer";
+import Footer from "../ui/Footer";
 
 const Container = styled(MainContainer)`
   ${flexColumnCenter}
@@ -91,6 +92,7 @@ const HomePage = () => {
         </Section>
         <GiftCardSection />
       </Container>
+      <Footer />
     </>
   );
 };

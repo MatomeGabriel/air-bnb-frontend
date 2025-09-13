@@ -20,7 +20,7 @@ export const UserDropdown = () => {
           </StyledLink>
         </li>
         <li>
-          <StyledLink $colorTheme="dark" to="/signup">
+          <StyledLink $colorTheme="dark" to={ROUTES.profile}>
             View profile
           </StyledLink>
         </li>
@@ -62,7 +62,7 @@ export const HostDropdown = () => {
           </StyledLink>
         </li>
         <li>
-          <StyledLink $colorTheme="dark" to="/signup">
+          <StyledLink $colorTheme="dark" to={ROUTES.profile}>
             View profile
           </StyledLink>
         </li>

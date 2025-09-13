@@ -9,6 +9,7 @@ export const colors = {
   darkBorder: "#b0b0b0",
   border: "#E5E5E5",
   error: "#E00000",
+  danger: "#DE3151",
   white: "#fff",
   "gray-50": "#F9FAFB",
   "gray-200": "#E5E7EB",
@@ -22,6 +23,7 @@ export const colors = {
   "card-4": "#D93B30",
   yellow: "#F59E0B",
   blue: "#3B82F6",
+  green: "#00C853",
 };
 
 export const gradients = {

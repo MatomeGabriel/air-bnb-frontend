@@ -1,9 +1,20 @@
 import styled from "styled-components";
 import { H1 } from "../../ui/Heading";
-import { BadgeIcon, StarIcon, ShareIcon, HeartIconBold } from "../../ui/Icons";
+import {
+  BadgeIcon,
+  StarIcon,
+  ShareIcon,
+  HeartIconBold,
+  StarOutlineIcon,
+} from "../../ui/Icons";
 import { IconButton } from "../../ui/Buttons";
 import { FlexRow } from "../../ui/Flex";
-import { applyFlexProps, column } from "../../design-system";
+import {
+  applyFlexProps,
+  column,
+  generateResponsiveStyles,
+  spacing,
+} from "../../design-system";
 import { IconLabel } from "../../ui/IconLabel";
 import Middot from "../../ui/Middot";
 import { TextSm } from "../../ui/Paragraphs";
@@ -14,19 +25,26 @@ const StyledLocationHeader = styled.header`
   ${applyFlexProps}
 `;
 
-const LocationHeader = () => {
+const QuickActions = styled(FlexRow)`
+  gap: ${spacing.base};
+  display: none;
+  ${generateResponsiveStyles("display", { md: "flex" })}
+`;
+
+const LocationHeader = ({ location }) => {
+  const { title, rating, reviews } = location;
   return (
     <StyledLocationHeader $gap="sm">
-      <H1>Bordeaux Getaway</H1>
+      <H1 $size="3xl">{title}</H1>
       <FlexRow $width="100%" $justify="space-between">
         <FlexRow $gap="sm">
           <IconLabel $gap="xs">
-            <StarIcon $width="sm-md" $stroke="card-3" />
-            <TextSm size="sm">5.0</TextSm>
+            <StarOutlineIcon $width="base" $stroke="card-3" />
+            <TextSm size="sm">{rating}</TextSm>
           </IconLabel>
           <Middot $color="gray-500" />
           <TextSm $decoration="underline" $weight="medium">
-            7 reviews
+            {reviews} reviews
           </TextSm>
           <Middot $color="gray-500" />
           <IconLabel gap="xxs">
@@ -38,7 +56,7 @@ const LocationHeader = () => {
             Bordeaux, France
           </TextSm>
         </FlexRow>
-        <FlexRow $gap="base">
+        <QuickActions>
           <IconButton $gap="xs" as="button">
             <ShareIcon />
             <TextSm $weight="medium">Share</TextSm>
@@ -47,7 +65,7 @@ const LocationHeader = () => {
             <HeartIconBold />
             <TextSm $weight="medium">Save</TextSm>
           </IconButton>
-        </FlexRow>
+        </QuickActions>
       </FlexRow>
     </StyledLocationHeader>
   );

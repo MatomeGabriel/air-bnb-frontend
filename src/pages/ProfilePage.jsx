@@ -4,6 +4,7 @@ import { flexRowStartCenter, radii } from "../design-system";
 import { FlexColumn, FlexRow } from "../ui/Flex";
 import { TextXs } from "../ui/Paragraphs";
 import { Container } from "../ui/Container";
+import CreateUpdateProfileForm from "../features/authentication/CreateUpdateProfileForm";
 
 const ProfileImgBox = styled.div`
   ${flexRowStartCenter};
@@ -21,32 +22,9 @@ const Img = styled.img`
 
 const ProfilePage = () => {
   return (
-    <div>
-      <Container $padding="base">
-        <FlexColumn>
-          <ProfileImgBox>
-            <Img />
-            <FlexColumn>
-              <TextXs>Your name</TextXs>
-              <TextXs>yourname@gmail.com</TextXs>
-            </FlexColumn>
-          </ProfileImgBox>
-          <nav>
-            <ul>
-              <li>
-                <button>
-                  <FlexRow $gap="xs">
-                    <span>icon</span>
-                    <span>My Profile</span>
-                  </FlexRow>
-                  <span>icon</span>
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </FlexColumn>
-      </Container>
-    </div>
+    <>
+      <CreateUpdateProfileForm />
+    </>
   );
 };
 

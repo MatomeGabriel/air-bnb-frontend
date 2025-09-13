@@ -80,7 +80,6 @@ const DesktopCard = ({ place }) => {
   const contentUrl = `/locations/${_id}`;
 
   const onDeleteHosting = () => {
-    console.log(_id);
     deleteHostListing(_id, {
       onError: (err) => {
         console.log(err);

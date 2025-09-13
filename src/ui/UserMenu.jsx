@@ -23,6 +23,8 @@ import {
   HostDropdown,
   UserDropdown,
 } from "../features/authentication/LoggedInDropdown";
+import ImageLoader from "./ImageLoader";
+import { ROUTES } from "../utils/routes";
 // import { GlobeIcon, AvatarIcon, MenuIcon } from "./Icons";
 
 const UserMenuWrapper = styled.div`
@@ -63,11 +65,13 @@ const HostLink = styled(NavLink)`
   }
 `;
 
-const Img = styled.img`
-  object-fit: cover;
-  border-radius: ${radii.full};
+const ImgBox = styled.div`
   width: 3.6rem;
   height: 3.6rem;
+  & img {
+    object-fit: cover;
+    border-radius: ${radii.full};
+  }
 `;
 
 const UserMenu = ({ isNotHome }) => {
@@ -85,7 +89,7 @@ const UserMenu = ({ isNotHome }) => {
           Welcome, {user.name}
         </TextSm>
       ) : (
-        <HostLink $color={$color} to="/signup/host">
+        <HostLink $color={$color} to={ROUTES.signupHost}>
           Become a Host
         </HostLink>
       )}
@@ -101,7 +105,9 @@ const UserMenu = ({ isNotHome }) => {
           {/* LOADING */}
           <MenuIcon />
           {isLoggedIn ? (
-            <Img src={generateImgURL(user.photo)} />
+            <ImgBox>
+              <ImageLoader src={generateImgURL(user.photo)} alt={user.name} />
+            </ImgBox>
           ) : (
             <AvatarIcon />
           )}

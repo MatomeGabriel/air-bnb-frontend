@@ -75,7 +75,6 @@ const ListingForm = ({ mode, listing = [] }) => {
     updateHostListing,
     isUpdatingHostListing,
     updateHostListingImages,
-    isUpdatingHostListingImages,
   } = useListings();
 
   //   locations data to export
@@ -92,10 +91,18 @@ const ListingForm = ({ mode, listing = [] }) => {
     "Bangkok",
   ];
 
-  const resetImages = () => {
+  const resetImages = (e = {}) => {
     images.forEach((file) => URL.revokeObjectURL(file.preview));
     setImages([]);
+    /**
+     * runs for edit mode
+     */
     if (mode === "edit") {
+      /**
+       *  check if we have even object and if it is not empty
+       * */
+      if (Object.keys(e).length > 0) e.preventDefault();
+
       reset(listingData);
     }
   };
@@ -323,9 +330,9 @@ const ListingForm = ({ mode, listing = [] }) => {
 
       <ListingsButtonBox>
         <ButtonOutlineDarkForm
-          type={mode === "edit"}
+          type={mode === "edit" ? "button" : "reset"}
           disabled={isCreatingHostListing || isUploadingHostListingImages}
-          onClick={resetImages}
+          onClick={(e) => resetImages(e)}
         >
           {mode === "edit" ? "Reset to default" : "Cancel"}
         </ButtonOutlineDarkForm>

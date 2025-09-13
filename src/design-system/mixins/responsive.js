@@ -1,5 +1,11 @@
 import { breakpoints } from "../tokens/breakpoints";
 
+/**
+ *
+ * @param {String} cssProp
+ * @param {Object} values
+ * @returns
+ */
 export const generateResponsiveStyles = (cssProp, values) => {
   // value = {sm: 'val', md: 'val'}
   const styles = {};

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FlexColumn } from "../../ui/Flex";
 import FormContainer from "../../ui/FormContainer";
 import FormHeader from "../../ui/FormHeader";
-import { TextBase, TextSm, TextXs } from "../../ui/Paragraphs";
+import { TextBase, TextXs } from "../../ui/Paragraphs";
 import { H3 } from "../../ui/Heading";
 import { CloudUploadIcon, NullIcon, ProfileUploadIcon } from "../../ui/Icons";
 import {
@@ -14,14 +14,15 @@ import {
 } from "../../design-system";
 import {
   ButtonOutlineDarkMdFull,
-  ButtonOutlineDarkSm,
   ButtonSolidDarkMdFull,
 } from "../../ui/Buttons";
 import StyledLink from "../../ui/StyledLink";
-import { MainContainer } from "../../ui/MainContainer";
 import { useRef } from "react";
 import useImagePreview from "../../hooks/useImagePreview";
 import { useAuth } from "../../context/AuthContext";
+import { generateImgURL } from "../../utils/generateImgURL";
+import { ROUTES } from "../../utils/routes";
+import { useNavigate } from "react-router-dom";
 
 const StepText = styled(TextXs)`
   text-transform: uppercase;
@@ -57,12 +58,17 @@ const Img = styled.img`
 `;
 const ProfileImage = () => {
   const inputFileRef = useRef(null);
-
+  const { user } = useAuth();
   const { updateUserProfileImage, isUploadingProfileImage } = useAuth();
   const { readFile, previewSrc, error, file } = useImagePreview();
+  const navigate = useNavigate();
 
   const onUpdateProfileImage = (file) => {
-    updateUserProfileImage(file);
+    updateUserProfileImage(file, {
+      onSuccess: () => {
+        navigate(ROUTES.home);
+      },
+    });
   };
   return (
     <FormContainer>
@@ -77,7 +83,7 @@ const ProfileImage = () => {
         />
         <FlexColumn $gap="xl">
           <TextBox $align="center" $gap="sm">
-            <StepText>Step 2 of 2</StepText>
+            {/* <StepText>Step 2 of 2</StepText> */}
             <H3>Add a profile photo</H3>
             <TextBase $textAlign="center">
               Pick an image that shows your face. Hosts won’t be able to see
@@ -85,7 +91,7 @@ const ProfileImage = () => {
             </TextBase>
           </TextBox>
           <IconBox>
-            {!previewSrc && <ProfileUploadIcon />}
+            {!previewSrc && <Img src={generateImgURL(user.photo)} />}
             {previewSrc && <Img src={previewSrc} />}
           </IconBox>
         </FlexColumn>
@@ -101,7 +107,9 @@ const ProfileImage = () => {
                 <NullIcon />
               </ButtonContent>
             </ButtonSolidDarkMdFull>
-            <StyledLink $colorTheme="dark">I'll do this later</StyledLink>
+            <StyledLink $colorTheme="dark" to={ROUTES.home}>
+              I'll do this later
+            </StyledLink>
           </FlexColumn>
         ) : (
           <FlexColumn $width="100%" $align="center" $gap="base">

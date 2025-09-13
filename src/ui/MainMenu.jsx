@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 
 import { NavLink } from "react-router-dom";
-import { HeartOutline, ProfileOutline, SearchIcon } from "./Icons";
 import {
   colors,
   typography,
@@ -18,6 +17,8 @@ import NavList from "./NavList";
 import UserMenu from "./UserMenu";
 import { SearchEmpty, SearchFilled } from "./SearchBars";
 import MobileNav from "../features/authentication/MobileNav";
+import Filters from "./Filters";
+import { FlexColumn } from "./Flex";
 
 const IconLink = styled(NavLink)`
   /* 1 import mixins */
@@ -62,34 +63,37 @@ const Navbar = styled.nav`
  *
  * @returns
  */
-const MainMenu = ({ showSearchBar }) => {
+const MainMenu = ({ showSearchBar, filterArr }) => {
   const isMobile = useMedia(`(max-width: ${breakpoints.md}`);
   const { pathname } = useLocation();
 
   const isNotHome = !(pathname === "/");
 
   return (
-    <Navbar>
-      {/* if the media is for mobile display the mobile menu */}
-      {isMobile ? (
-        <>
-          <MobileNav />
-        </>
-      ) : (
-        <>
-          <Logo $color={isNotHome ? colors.primary : colors.surface} />
+    <FlexColumn $width="100%" $gap="lg">
+      <Navbar>
+        {/* if the media is for mobile display the mobile menu */}
+        {isMobile ? (
+          <>
+            <MobileNav />
+          </>
+        ) : (
+          <>
+            <Logo $color={isNotHome ? colors.primary : colors.surface} />
 
-          {/* display the search when the page is not home */}
-          {/* pass props to display search and type of search as an object */}
-          {!isNotHome && <NavList />}
+            {/* display the search when the page is not home */}
+            {/* pass props to display search and type of search as an object */}
+            {!isNotHome && <NavList />}
 
-          {showSearchBar?.emptySearch && <SearchEmpty />}
-          {showSearchBar?.filledSearch && <SearchFilled />}
+            {showSearchBar?.emptySearch && <SearchEmpty />}
+            {showSearchBar?.filledSearch && <SearchFilled />}
 
-          <UserMenu isNotHome={isNotHome} />
-        </>
-      )}
-    </Navbar>
+            <UserMenu isNotHome={isNotHome} />
+          </>
+        )}
+      </Navbar>
+      <Filters filterArr={filterArr} />
+    </FlexColumn>
   );
 };
 

@@ -31,3 +31,9 @@ export const updateProfileImage = async (file) => {
   console.log(res);
   return res;
 };
+
+export const getHost = async (hostId) => {
+  const res = await apiClient.get(`/users/host/${hostId}`);
+  console.log(res);
+  return res;
+};

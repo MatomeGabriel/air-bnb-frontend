@@ -1,6 +1,5 @@
-// src/context/AuthContext.jsx
 import { createContext, useContext } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   getCurrentUser,
   login,
@@ -10,6 +9,8 @@ import {
 } from "../services/apiUser";
 
 import toast from "react-hot-toast";
+import { queryClientManager, queryKeys } from "../utils/queryClientManager";
+import { extractError } from "../utils/extractData";
 
 // Create a context to share authentication related state and actions across the app
 const AuthContext = createContext();
@@ -25,54 +26,75 @@ const AuthContext = createContext();
  * @returns {JSX.Element} A wrapper that shares authentication data with it's children
  */
 export const AuthProvider = ({ children }) => {
-  const queryClient = useQueryClient();
-
+  /**
+   * Get the current user, every 5 minutes
+   *
+   */
   const { data: response, isLoading } = useQuery({
-    queryKey: ["currentUser"],
+    queryKey: queryKeys.currentUser,
     queryFn: getCurrentUser,
     retry: false,
     staleTime: 1000 * 60 * 5, // cache 5 min
   });
 
-  // Login
-  const { mutate: loginUser, isLoading: isLoggingIn } = useMutation({
+  /**
+   * Login the user
+   */
+
+  // when passing the error ensure you get the server response
+  const {
+    mutate: loginUser,
+    isLoading: isLoggingIn,
+    loginError,
+  } = useMutation({
     mutationFn: login,
     onSuccess: () => {
-      toast.success("Successfully Logged In");
-      queryClient.invalidateQueries(["currentUser"]);
+      queryClientManager.toast.success("Successfully Logged In");
+      queryClientManager.invalidate.currentUser();
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => {
+      queryClientManager.toast.error(extractError(err) || err);
+    },
   });
 
-  // Logout
+  /**
+   * Logs the current user out
+   *
+   */
   const { mutate: logoutUser, isLoading: isLoggingOut } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      toast.success("Successfully Logged out");
-      queryClient.removeQueries(["currentUser"]);
+      queryClientManager.toast.success("Successfully Logged out");
+      queryClientManager.remove.currentUser();
     },
   });
 
-  //Signup
+  /**
+   * Signs up the new user
+   */
   const { mutate: signupUser, isLoading: isSigningUp } = useMutation({
     mutationFn: signUp,
     onSuccess: () => {
-      toast.success("Account Created");
-      queryClient.invalidateQueries(["currentUser"]);
+      queryClientManager.toast.success("Account Created Successfully");
+      queryClientManager.invalidate.currentUser();
     },
-    onError: (err) => toast.error("Signup failed", err),
+    onError: (err) => {
+      queryClientManager.toast.error(extractError(err) || err);
+    },
   });
 
-  // update profile image
+  /**
+   * Uploads a profile images
+   */
   const { mutate: updateUserProfileImage, isLoading: isUploadingProfileImage } =
     useMutation({
       mutationFn: updateProfileImage,
       onSuccess: (data) => {
-        queryClient.invalidateQueries(["currentUser"]);
-        toast.success("Profile Image Updated Successfully");
+        queryClientManager.invalidate.currentUser();
+        queryClientManager.toast.success("Profile Image Updated Successfully");
         console.log(data);
       },
-      onError: (e) => toast.error("Filed to upoad", e),
+      onError: (e) => toast.error("Filed to upload", e),
     });
 
   // get our user
@@ -91,6 +113,7 @@ export const AuthProvider = ({ children }) => {
         isSigningUp,
         loginUser,
         isLoggingIn,
+        loginError,
         updateUserProfileImage,
         isUploadingProfileImage,
       }}

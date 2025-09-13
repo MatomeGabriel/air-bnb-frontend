@@ -10,18 +10,20 @@ export const SelectedLocationProvider = ({ children }) => {
   const { id } = useParams();
 
   const {
-    isLoading,
+    isLoading: isFetchingLocationData,
     data: response,
     error,
   } = useQuery({
-    queryKey: ["locations"],
+    queryKey: ["location"],
     queryFn: () => getLocation(id),
     onError: (error) => toast.error("Error fetching location data", error),
   });
 
   const location = response?.status === "success" ? response?.data?.data : [];
   return (
-    <SelectedLocationContext.Provider value={{ location, isLoading, error }}>
+    <SelectedLocationContext.Provider
+      value={{ location, isFetchingLocationData, error }}
+    >
       {children}
     </SelectedLocationContext.Provider>
   );

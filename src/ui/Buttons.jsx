@@ -11,7 +11,7 @@ import {
 } from "../design-system";
 
 export const ButtonBase = styled.button`
-  ${flexRowCenter}
+  ${flexRowCenter};
   color: ${colors.white};
   border-radius: ${spacing.sm};
   font-size: ${typography.sizes.sm};
@@ -22,6 +22,12 @@ export const ButtonBase = styled.button`
   height: 3.6rem;
   padding: 0 ${spacing.md};
   width: auto;
+  border-radius: ${({ $radius }) => $radius && radii[$radius || "pill"]};
+  ${({ $width }) =>
+    $width &&
+    `
+    width: ${$width}!important;
+  `}
 
   &:hover {
     box-shadow: ${boxShadow.sm};
@@ -121,4 +127,12 @@ export const ButtonOutlineDarkMdFull = styled(ButtonOutlineDarkSm)`
 
 export const ButtonOutlineDarkForm = styled(ButtonOutlineDarkSm)`
   height: 4.8rem;
+`;
+
+export const ButtonOutline = styled(ButtonBase)`
+  background-color: ${colors.white};
+  border: 1px solid ${({ $color }) => colors[$color] || colors["gray-200"]};
+  color: ${({ $color }) => colors[$color] || colors["gray-700"]};
+  border-radius: ${({ $radius }) => radii[$radius || "pill"]};
+  box-shadow: ${boxShadow.xs};
 `;

@@ -8,7 +8,6 @@ import MainMenu from "../ui/MainMenu";
 const Container = styled.div`
   ${flexRowCenter}
   width: 100%;
-  /* height: 100vh; */
   overflow: scroll;
   ${generateResponsiveStyles("padding", { sm: "4.8rem 1.2rem" })};
 `;

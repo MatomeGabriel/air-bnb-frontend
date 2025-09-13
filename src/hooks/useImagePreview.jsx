@@ -15,6 +15,8 @@ const useImagePreview = () => {
     if (!file) return;
 
     setFile(file);
+
+    // create a new file reader
     const reader = new FileReader();
     reader.onload = () => setPreviewSrc(reader.result);
     reader.onerror = () => {

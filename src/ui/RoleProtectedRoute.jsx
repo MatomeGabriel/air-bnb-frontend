@@ -1,19 +1,29 @@
 import useCurrentUser from "../hooks/useCurrentUser";
 import { Navigate } from "react-router-dom";
+import { Spinner } from "./Spinners";
 
-// This protect routes for certain role
-// In our case it ensure that only hosts can access this page
+/**
+ * RoleProtectedRoute component restrict access to certain routes based on user role
+ * It ensures that only users with the specified role can access the wrapped component
+ *
+ * @param {Object} props - Component Props
+ * @param {React.ReactNode} props.Children - Component to render if react has proper role
+ * @param {String} [props.role='host'] - Required user role for access
+ * @returns {JSX.Element} either the protected component or a redirect
+ */
 const RoleProtectedRoute = ({ children, role = "host" }) => {
   const { user, isLoading, isLoggedIn } = useCurrentUser();
-  // 2. show a spinner
-  if (isLoading) return <p>Is loading ...</p>;
-  // if there is no authenticated user, redirect to the login page
+  //Shows Loading state while authentication is being checked
+  if (isLoading) return <Spinner />;
+
+  // Redirect unauthenticated users to login page
   if (!isLoggedIn)
     return <Navigate to="/login" state={{ from: location.pathname }} />;
 
+  // Redirect authenticated users without the correct role ro unauthorized page
   if (user.role !== role) return <Navigate to="/unauthorized" replace />;
 
-  // if the user, render the children.
+  // Render children if the user is authenticated and has a proper role
   return children;
 };
 

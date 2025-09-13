@@ -7,17 +7,30 @@ import FormHeader from "../../ui/FormHeader";
 import FormNote from "../../ui/FormNote";
 import FormContainer from "../../ui/FormContainer";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../utils/routes";
 
 const CreateSignupForm = ({ message }) => {
   const { signupUser, isSigningUp } = useAuth();
-  const { register, handleSubmit, getValues, formState, reset } = useForm();
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const navigate = useNavigate();
 
   const onSignUp = (data) => {
     signupUser(data, {
-      onSuccess: () => reset(),
+      onSuccess: () => {
+        reset();
+        navigate(ROUTES.uploadProfileImg);
+      },
     });
   };
+
   return (
     <FormContainer>
       <FormHeader>{message || "Signup for a new account"}</FormHeader>

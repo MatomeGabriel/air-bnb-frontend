@@ -2,16 +2,12 @@ import apiClient from "./apiClient";
 
 export const createListing = async (data) => {
   const res = await apiClient.post("/accommodations", data);
-
   return res;
 };
 
 export const uploadListingImages = async ({ images, listingId }) => {
   const formData = new FormData();
   images.forEach((image) => formData.append("images", image.file));
-  console.log("Listing Id", listingId);
-  console.log("Images", images);
-  console.log(formData);
   const res = await apiClient.post(
     `/accommodations/${listingId}/images`,
     formData,
@@ -60,9 +56,6 @@ export const deleteListingImage = async ({ listingId, data }) => {
 };
 
 export const updateListing = async ({ listingId, data }) => {
-  console.log("About to send dat");
-  console.log(listingId);
-  console.log(data);
   const res = await apiClient.patch(`/accommodations/${listingId}`, data);
   return res;
 };

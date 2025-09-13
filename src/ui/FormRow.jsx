@@ -9,14 +9,17 @@ import {
 
 const StyledFormRow = styled(FlexColumn)`
   gap: ${spacing.sm};
-  & input {
+  & input,
+  & select {
     padding: 2rem 1.2rem 0.8rem;
     height: 5.6rem;
   }
 
   /* input:valid + label */
   input:focus + label,
-  input:not(:placeholder-shown) + label {
+  input:not(:placeholder-shown) + label,
+  select:focus + label,
+  select:not(:placeholder-shown) + label {
     top: 1rem;
     transform: translateY(0);
     font-size: 1.2rem;
@@ -52,9 +55,9 @@ const Error = styled.p`
   margin-left: 2px;
 `;
 
-const FormRow = ({ label, error, message, children }) => {
+const FormRow = ({ label, error, message, children, $width }) => {
   return (
-    <StyledFormRow>
+    <StyledFormRow $width={$width}>
       <InputContainer>
         {children}
         {label && <label htmlFor={children.props.id}>{label}</label>}

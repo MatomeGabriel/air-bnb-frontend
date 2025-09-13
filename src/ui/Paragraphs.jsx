@@ -15,6 +15,15 @@ export const TextSm = styled(TextBase)`
 export const TextLg = styled(TextBase)`
   font-size: ${typography.sizes.lg};
 `;
+
+export const TextXl = styled(TextBase)`
+  font-size: ${typography.sizes.xl};
+`;
+
+export const Text2xl = styled(TextBase)`
+  font-size: ${typography.sizes["2xl"]};
+`;
+
 export const TextXs = styled(TextBase)`
   font-size: ${typography.sizes.xs};
   line-height: auto;

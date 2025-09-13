@@ -18,7 +18,6 @@ const StyledFooter = styled.footer`
   ${flexColumnStart};
   gap: 4.8rem;
   padding: 3.2rem;
-  /* max-width: 128rem; */
   background-color: ${colors["gray-50"]};
 
   margin-bottom: 5.5rem;

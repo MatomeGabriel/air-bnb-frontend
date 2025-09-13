@@ -1,11 +1,5 @@
 import styled, { css } from "styled-components";
-import {
-  breakpoints,
-  colors,
-  headingBase,
-  textShadows,
-  typography,
-} from "../design-system";
+import { colors, headingBase, textShadows, typography } from "../design-system";
 import {
   applyColor,
   applyResponsiveFontSize,
@@ -27,7 +21,7 @@ const Heading = styled.h1`
 
 export const H1 = styled.h1`
   ${headingBase}
-  font-size: 3rem;
+  font-size: 2.4rem;
   ${({ $color }) => applyColor($color)}
   ${({ $size }) => applyResponsiveFontSize($size)}
   ${({ $textShadow }) => applyTextShadow($textShadow)}
@@ -35,13 +29,13 @@ export const H1 = styled.h1`
 
 export const H2 = styled.h2`
   ${headingBase}
-  font-size: 2.4rem;
+  font-size: 2rem;
   ${({ $color }) => applyColor($color)}
   ${({ $size }) => applyResponsiveFontSize($size)}
 `;
 export const H3 = styled.h3`
   ${headingBase}
-  font-size: 2rem;
+  font-size:1.8rem;
   ${({ $color }) => applyColor($color)}
   ${({ $size }) => applyResponsiveFontSize($size)}
 `;

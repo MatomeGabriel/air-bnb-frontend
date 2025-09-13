@@ -8,6 +8,8 @@ import { TextBase, TextSm } from "../../ui/Paragraphs";
 import DesktopCard from "./DesktopCard";
 import MobileCard, { MobileGrid } from "./MobileCard";
 import { useLocationsDataContext } from "../../context/LocationsDataContext";
+import { Spinner } from "../../ui/Spinners";
+import LoadingHandler from "./LoadingHandler";
 
 // Here is where we will render the cards based on the mobile or desktop
 const LocationsHeader = styled.header`
@@ -18,36 +20,40 @@ const LocationCards = () => {
   const { isLoading, locations, error } = useLocationsDataContext();
   const isMobile = useMedia(`(max-width: ${breakpoints.md})`);
 
-  if (isLoading) return <p>Loading data...</p>;
-  if (error) {
-    return <p>Could not fetch content</p>;
-  }
-
   return (
-    <>
-      <LocationsHeader>
-        <TextBase $color="gray-500">200+ stays in Bordeaux</TextBase>
-      </LocationsHeader>
-      {isMobile ? (
+    <LoadingHandler
+      isLoading={isLoading}
+      error={error}
+      fallback={<p>Could not fetch content</p>}
+      data={locations}
+    >
+      {(data) => (
         <>
-          <BorderSm />
-          <MobileGrid>
-            {locations?.map((place) => (
-              <MobileCard key={place._id} place={place} />
-            ))}
-          </MobileGrid>
-        </>
-      ) : (
-        <FlexColumn $gap="lg">
-          {locations?.map((place) => (
+          <LocationsHeader>
+            <TextBase $color="gray-500">200+ stays in Bordeaux</TextBase>
+          </LocationsHeader>
+          {isMobile ? (
             <>
               <BorderSm />
-              <DesktopCard key={place._id} place={place} />
+              <MobileGrid>
+                {data?.map((place) => (
+                  <MobileCard key={place._id} place={place} />
+                ))}
+              </MobileGrid>
             </>
-          ))}
-        </FlexColumn>
+          ) : (
+            <FlexColumn $gap="lg">
+              {data?.map((place) => (
+                <>
+                  <BorderSm />
+                  <DesktopCard key={place._id} place={place} />
+                </>
+              ))}
+            </FlexColumn>
+          )}
+        </>
       )}
-    </>
+    </LoadingHandler>
   );
 };
 

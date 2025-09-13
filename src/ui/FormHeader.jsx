@@ -18,9 +18,8 @@ const StyledFormHeader = styled.div`
 `;
 
 const FormHeader = ({ children, $showIcon = true }) => {
-  // console.log("Show ICON", $showIcon);
   return (
-    <StyledFormHeader>
+    <StyledFormHeader $showIcon={!$showIcon}>
       {$showIcon && <BackButton />}
 
       <TextSm $weight="bold">{children}</TextSm>

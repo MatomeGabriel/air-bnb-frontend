@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {
+  applyBackgroundColor,
   applyFlexProps,
   boxShadow,
   colors,
@@ -103,10 +104,14 @@ export const ButtonSolidDarkLg = styled(ButtonSolidLg)`
 `;
 
 export const IconButton = styled.button`
-  ${flexRowCenter};
-  ${applyFlexProps};
   border: none;
   background: none;
+  &:hover {
+    filter: brightness(0.85);
+  }
+  ${flexRowCenter};
+  ${applyFlexProps};
+  ${applyBackgroundColor};
 `;
 
 export const ButtonOutlineDarkSm = styled(ButtonBase)`

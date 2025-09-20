@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }) => {
     mutationFn: logout,
     onSuccess: () => {
       queryClientManager.toast.success("Successfully Logged out");
+      queryClientManager.invalidate.reservations();
       queryClientManager.remove.currentUser();
     },
   });

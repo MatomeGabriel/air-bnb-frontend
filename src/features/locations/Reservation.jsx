@@ -23,6 +23,7 @@ import {
 import { useReservationForm } from "../../hooks/useReservationForm";
 import { queryClientManager } from "../../utils/queryClientManager";
 import { extractError } from "../../utils/extractData";
+import { ROUTES } from "../../utils/routes";
 
 const StyledReservation = styled(FlexColumn)`
   position: sticky;
@@ -97,7 +98,16 @@ const Reservation = ({
     reserveAccommodation(appendedData, {
       onSuccess: () => {
         queryClientManager.invalidate.reservations;
-        queryClientManager.toast.success("Successfully Create a reservation");
+        queryClientManager.toast.success(
+          <a
+            href={ROUTES.reservations}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#4f46e5", textDecoration: "underline" }}
+          >
+            View Reservations
+          </a>
+        );
       },
       onErrors: (err) => {
         queryClientManager.toast.error(extractError(err) || err);

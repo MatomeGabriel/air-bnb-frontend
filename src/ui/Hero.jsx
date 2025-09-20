@@ -66,7 +66,7 @@ const Hero = () => {
   return (
     <Header>
       <MainMenu />
-      {/* <SearchBar /> */}
+      <SearchBar />
       <SectionImg>
         <H1 $size="5xl" $color="white" $textShadow="smLight">
           Not sure where to go? Perfect.

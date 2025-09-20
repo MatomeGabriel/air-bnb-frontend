@@ -210,7 +210,7 @@ export const BadgeIcon = styled(BadgeIconRaw)`
 export const SearchIconSm = styled(SearchIconRawSm)`
   width: 2rem;
   height: 2rem;
-  ${applySquareSize}
+  ${applySquareSize};
 `;
 export const HeartOutline = styled(HeartOutlineRaw)`
   width: ${spacing.lg};

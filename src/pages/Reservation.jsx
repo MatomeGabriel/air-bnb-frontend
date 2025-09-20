@@ -5,28 +5,15 @@ import { MainContainer } from "../ui/MainContainer";
 import MainMenu from "../ui/MainMenu";
 import { ROUTES } from "../utils/routes";
 import ReservationsTable from "../features/reservations/ReservationsTable";
+import { filterArr } from "../utils/reservationUtils";
 
 // if it's the owner of the hotel/hotels show all of their reservations
-const filterArr = [
-  {
-    title: "View Reservations",
-    url: ROUTES.reservations,
-  },
-  {
-    title: "View Listings",
-    url: ROUTES.manageListings,
-  },
-  {
-    title: "Create a Listing",
-    url: ROUTES.createListing,
-  },
-];
 
 const Reservation = () => {
   return (
     <>
       <Header>
-        <MainMenu filterArr={filterArr} />
+        <MainMenu filterArr={filterArr.hostMenu} />
       </Header>
       <MainContainer>
         <ReservationsTable />

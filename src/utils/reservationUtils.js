@@ -1,3 +1,5 @@
+import { ROUTES } from "./routes";
+
 /**
  *
  * @param {String} date - a standadized date string to be converted into a string
@@ -47,4 +49,39 @@ export const calculateTotals = (price, numDays) => {
 
 export const onErrors = (errors) => {
   console.log("Validation errors:", errors);
+};
+
+export const filterArr = {
+  hostMenu: [
+    {
+      title: "View Reservations",
+      url: ROUTES.reservations,
+    },
+    {
+      title: "View Listings",
+      url: ROUTES.manageListings,
+    },
+    {
+      title: "Create a Listing",
+      url: ROUTES.createListing,
+    },
+    {
+      title: "Update Profile",
+      url: ROUTES.profile,
+    },
+  ],
+  userMenu: [
+    {
+      title: "View Reservations",
+      url: ROUTES.reservations,
+    },
+    {
+      title: "Reserve an Accommodation",
+      url: ROUTES.viewLocations,
+    },
+    {
+      title: "Update Profile",
+      url: ROUTES.profile,
+    },
+  ],
 };

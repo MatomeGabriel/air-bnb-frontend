@@ -6,6 +6,7 @@ import ResponsiveCardGrid from "../features/locations/ResponsiveCardGrid";
 import MobileCard from "../features/locations/MobileCard";
 import DesktopCard from "../features/locations/DesktopCard";
 import { useListings } from "../context/ListingsContext";
+import { filterArr } from "../utils/reservationUtils";
 
 const Main = styled(MainContainer)`
   padding: 4rem;
@@ -15,11 +16,10 @@ const Listings = () => {
 
   if (isFetchingListings) <p>Loading...</p>;
 
-  console.log("Listings", listings);
   return (
     <>
       <Header>
-        <MainMenu />
+        <MainMenu filterArr={filterArr.hostMenu} />
       </Header>
       <Main>
         <ResponsiveCardGrid

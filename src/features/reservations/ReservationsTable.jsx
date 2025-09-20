@@ -138,8 +138,6 @@ const ReservationsTable = () => {
   if (!reservations || reservations.length === 0)
     return <div>No reservations found</div>;
 
-  console.log(reservations);
-
   return (
     <Table>
       <caption>My Reservations</caption>
@@ -156,7 +154,7 @@ const ReservationsTable = () => {
         {/* Map through reservations and create a row for each */}
         {reservations.map((reservation) => (
           <tr>
-            <td data-label="Booked by">__</td>
+            <td data-label="Booked by">{reservation.user}</td>
             <td data-label="Property">{reservation.title}</td>
             <td data-label="Checkin">{formatDate(reservation.checkIn)}</td>
             <td data-label="Checkout">{formatDate(reservation.checkOut)}</td>

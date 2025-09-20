@@ -1,22 +1,34 @@
 import styled from "styled-components";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRange } from "react-date-range";
-import { boxShadow, colors, radii, typography } from "../design-system";
-import { Controller, useForm } from "react-hook-form";
-import { format, addDays } from "date-fns";
-import { useState } from "react";
+import {
+  colors,
+  generateResponsiveStyles,
+  radii,
+  typography,
+} from "../design-system";
+import { useForm } from "react-hook-form";
+import { addDays } from "date-fns";
+import { IconButton } from "./Buttons";
+import { SearchIconSm } from "./Icons";
 
 const StyledSearchBar = styled.form`
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  /* overflow: hidden; */
-  width: 848px;
-  height: 64px;
+  grid-template-columns: 1fr;
+  width: 100%;
+  max-width: 848px;
+  border-radius: ${radii.md};
+  ${generateResponsiveStyles("grid-template-columns", {
+    md: "2fr 1.5fr 1.5fr 1.5fr 1fr",
+  })}
+  ${generateResponsiveStyles("border-radius", {
+    md: radii.pill,
+  })}
   background-color: white;
-  /* padding: 0.8rem 0.8rem 0.8rem 3.2rem; */
-  border-radius: ${radii.pill};
+  overflow: hidden;
+`;
+
+const SearchButton = styled(IconButton)`
+  padding: 1.6rem;
 `;
 
 const SearchGroup = styled.div`
@@ -24,7 +36,15 @@ const SearchGroup = styled.div`
   &:focus-within {
     background-color: #ddd;
   }
-  padding: 0.8rem 0.8rem 0.8rem 3.2rem;
+  &:not(:last-child) {
+    border-right: 1px solid ${colors["gray-200"]};
+  }
+
+  padding: 1.6rem;
+  ${generateResponsiveStyles("padding", {
+    md: "0.8rem 0.8rem 0.8rem 3.2rem",
+  })}
+
   & label {
     font-size: ${typography.sizes.xs};
     line-height: ${typography.lineHeights.relaxed};
@@ -39,23 +59,23 @@ const SearchGroup = styled.div`
     border: none;
     padding: 0;
     transition: all 0.2s ease;
-    color: ${colors["gray-700"]};
+    color: ${colors["gray-500"]};
+    padding: 0 0.8rem;
+    border: 1px solid ${colors["gray-300"]};
+    ${generateResponsiveStyles("border", {
+      md: "none",
+    })}src
 
     &:focus {
-      outline: none;
-      box-shadow: var(--shadow-sm);
+      /* outline: none; */
     }
   }
+
+  & input[type="date"] {
+    color: ${colors["gray-500"]};
+  }
 `;
-const StyledPanel = styled.div`
-  position: absolute;
-  top: 100%;
-  z-index: 7;
-  box-shadow: ${boxShadow.md};
-`;
-const Relative = styled.div`
-  position: relative;
-`;
+
 const SearchBar = () => {
   const { control, handleSubmit, register } = useForm({
     defaultValues: {
@@ -72,12 +92,10 @@ const SearchBar = () => {
     console.log(data);
     console.log("Submitted");
   };
-  const [showCalendar, setShowCalendar] = useState(false);
 
   const onSubmit = (data) => {
     console.log("Search Term:", data.searchTerm);
     console.log("Date Range:", data.dateRange);
-    // Trigger your search logic here
   };
 
   return (
@@ -98,34 +116,34 @@ const SearchBar = () => {
       </SearchGroup>
       <SearchGroup>
         <label htmlFor="checkIn">Check in</label>
-        <Controller
-          name="dateRange"
-          control={control}
-          render={({ field }) => (
-            <Relative>
-              <button
-                type="button"
-                onClick={() => setShowCalendar(!showCalendar)}
-              >
-                {format(field.value.startDate, "MMM dd")} -{" "}
-                {format(field.value.endDate, "MMM dd")}
-              </button>
-
-              {showCalendar && (
-                <StyledPanel>
-                  <DateRange
-                    ranges={[field.value]}
-                    onChange={(ranges) => field.onChange(ranges.selection)}
-                    moveRangeOnFirstSelection={false}
-                    editableDateInputs
-                    minDate={new Date()}
-                  />
-                </StyledPanel>
-              )}
-            </Relative>
-          )}
-        />
+        <input type="date" name="" id="" />
       </SearchGroup>
+      <SearchGroup>
+        <label htmlFor="checkIn">Check Out</label>
+        <input type="date" name="" id="" />
+      </SearchGroup>
+
+      <SearchGroup>
+        <label htmlFor="addGuest">Hotels</label>
+        <select
+          id="addGuest"
+          {...register("addGuest", {
+            required: "Number of guests are required",
+          })}
+        >
+          <option value="" disabled selected>
+            Add guests
+          </option>
+          {Array.from({ length: 6 }, (_, i) => (
+            <option key={i + 1} value={i + 1}>
+              {i + 1}
+            </option>
+          ))}
+        </select>
+      </SearchGroup>
+      <SearchButton $bgColor="primary">
+        <SearchIconSm $width="4rem" />
+      </SearchButton>
     </StyledSearchBar>
   );
 };

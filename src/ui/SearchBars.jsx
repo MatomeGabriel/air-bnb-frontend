@@ -9,6 +9,7 @@ import {
 } from "../design-system";
 import { IconButton } from "./Buttons";
 import { SearchIcon, SearchIconSm } from "./Icons";
+import { useLocation } from "react-router-dom";
 
 const StyledSearchBar = styled.div`
   ${flexRowBetween};
@@ -53,13 +54,17 @@ export const SearchEmpty = () => {
 };
 
 export const SearchFilled = () => {
+  const params = new URLSearchParams(useLocation().search);
+  const location = params.get("location");
+  const maxGuests = params.get("maxGuests[gte]");
+
   return (
-    <StyledFilledSearchBar>
-      <TextSm $weight="medium">Bordeaux</TextSm>
+    <StyledFilledSearchBar onClick={() => console.log("Click")}>
+      <TextSm $weight="medium">{location || "All Locations"}</TextSm>
       <Line />
       <TextSm $weight="medium">Feb 19-26</TextSm>
       <Line />
-      <TextSm $weight="medium">2 guests</TextSm>
+      <TextSm $weight="medium">{maxGuests} guests</TextSm>
 
       <RoundedButton>
         <SearchIconSm />

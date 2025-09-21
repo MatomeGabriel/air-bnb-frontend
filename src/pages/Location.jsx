@@ -164,6 +164,7 @@ const Location = () => {
     host_id,
     reviews,
     rating,
+    amenities,
   } = location;
 
   const { host } = useHostContext(host_id);
@@ -240,7 +241,7 @@ const Location = () => {
             </Section>
             <Section>
               <H3>What this place offers</H3>
-              <Amenities amenitiesRef={amenitiesRef} />
+              <Amenities amenitiesRef={amenitiesRef} amenities={amenities} />
             </Section>
             <Section>
               <H3>7 nights in New York</H3>

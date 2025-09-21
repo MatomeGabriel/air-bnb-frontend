@@ -10,6 +10,7 @@ import MobileCard, { MobileGrid } from "./MobileCard";
 import { useLocationsDataContext } from "../../context/LocationsDataContext";
 import { Spinner } from "../../ui/Spinners";
 import LoadingHandler from "./LoadingHandler";
+import { useLocation } from "react-router-dom";
 
 // Here is where we will render the cards based on the mobile or desktop
 const LocationsHeader = styled.header`
@@ -17,8 +18,11 @@ const LocationsHeader = styled.header`
 `;
 const LocationCards = () => {
   // Is screen width mobile or desktop
+  const location = useLocation();
   const { isLoading, locations, error } = useLocationsDataContext();
+
   const isMobile = useMedia(`(max-width: ${breakpoints.md})`);
+  console.log("Location", location.search);
 
   return (
     <LoadingHandler

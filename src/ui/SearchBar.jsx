@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import qs from "qs";
 import {
   colors,
   generateResponsiveStyles,
@@ -9,6 +10,8 @@ import { useForm } from "react-hook-form";
 import { addDays } from "date-fns";
 import { IconButton } from "./Buttons";
 import { SearchIconSm } from "./Icons";
+import useRedirect from "../hooks/useRedirect";
+import { ROUTES } from "../utils/routes";
 
 const StyledSearchBar = styled.form`
   position: relative;
@@ -77,39 +80,43 @@ const SearchGroup = styled.div`
 `;
 
 const SearchBar = () => {
+  const navigate = useRedirect();
+
   const { control, handleSubmit, register } = useForm({
-    defaultValues: {
-      searchTerm: "",
-      dateRange: {
-        startDate: new Date(),
-        endDate: addDays(new Date(), 3),
-        key: "selection",
-      },
-    },
+    // defaultValues: {
+    //   dateRange: {
+    //     startDate: new Date(),
+    //     endDate: addDays(new Date(), 3),
+    //     key: "selection",
+    //   },
+    // },
   });
 
-  const onSubmitForm = (data) => {
-    console.log(data);
-    console.log("Submitted");
-  };
-
   const onSubmit = (data) => {
-    console.log("Search Term:", data.searchTerm);
-    console.log("Date Range:", data.dateRange);
+    console.log(data);
+    const queryObject = {
+      maxGuests: { gte: data.maxGuests },
+    };
+
+    if (data.location !== "All") {
+      queryObject.location = data.location;
+    }
+    const queryString = `?${qs.stringify(queryObject, { encode: true })}`;
+    navigate(ROUTES.viewLocations + queryString);
   };
 
   return (
     <StyledSearchBar onSubmit={handleSubmit(onSubmit)}>
       <SearchGroup>
-        <label htmlFor="hotels">Hotels</label>
+        <label htmlFor="location">Hotels</label>
         <select
-          id="hotels"
-          {...register("hotels", { required: "Hotels are required" })}
+          id="location"
+          {...register("location", { required: "Hotels are required" })}
         >
           <option value="" disabled selected>
             Select a Hotel...
           </option>
-          <option value="All Locations">All Locations</option>
+          <option value="All">All Locations</option>
           {/* This options will come from the server */}
           <option value="Cape Town">Cape Town</option>
         </select>
@@ -124,10 +131,10 @@ const SearchBar = () => {
       </SearchGroup>
 
       <SearchGroup>
-        <label htmlFor="addGuest">Hotels</label>
+        <label htmlFor="maxGuests">Hotels</label>
         <select
-          id="addGuest"
-          {...register("addGuest", {
+          id="maxGuests"
+          {...register("maxGuests", {
             required: "Number of guests are required",
           })}
         >

@@ -1,8 +1,10 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6.33325 9.00004C6.33325 7.52728 7.52716 6.33337 8.99992 6.33337H22.9999C24.4727 6.33337 25.6666 7.52728 25.6666 9.00004V21.6667C25.6666 23.1395 24.4727 24.3334 22.9999 24.3334H8.99992C7.52716 24.3334 6.33325 23.1395 6.33325 21.6667V9.00004Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M21 6.66663V24" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9 24.6666V25.6666" stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M23 24.6666V25.6666" stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12.3333 10.3334L10.3333 12.3334" stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M17.6666 10.3334L10.3333 17.6667" stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 9.5H35C35.552 9.5 36 9.948 36 10.5V34.5C36 35.052 35.552 35.5 35 35.5H11C10.448 35.5 10 35.052 10 34.5V10.5C10 9.948 10.448 9.5 11 9.5Z" stroke="#3C3C3C" stroke-width="2"/>
+<path d="M36 17.5H10" stroke="#3C3C3C" stroke-width="2"/>
+<path d="M32 12.5C32.552 12.5 33 12.948 33 13.5C33 14.052 32.552 14.5 32 14.5C31.448 14.5 31 14.052 31 13.5C31 12.948 31.448 12.5 32 12.5Z" fill="#3C3C3C"/>
+<path d="M26 12.5C26.552 12.5 27 12.948 27 13.5C27 14.052 26.552 14.5 26 14.5C25.448 14.5 25 14.052 25 13.5C25 12.948 25.448 12.5 26 12.5Z" fill="#3C3C3C"/>
+<path d="M20 12.5C20.552 12.5 21 12.948 21 13.5C21 14.052 20.552 14.5 20 14.5C19.448 14.5 19 14.052 19 13.5C19 12.948 19.448 12.5 20 12.5Z" fill="#3C3C3C"/>
+<path d="M14 12.5C14.552 12.5 15 12.948 15 13.5C15 14.052 14.552 14.5 14 14.5C13.448 14.5 13 14.052 13 13.5C13 12.948 13.448 12.5 14 12.5Z" fill="#3C3C3C"/>
+<path d="M14 21.5H32V31.5H14V21.5Z" stroke="#3C3C3C" stroke-width="2"/>
+<path d="M36 17.5H10" stroke="#3C3C3C" stroke-width="2"/>
 </svg>

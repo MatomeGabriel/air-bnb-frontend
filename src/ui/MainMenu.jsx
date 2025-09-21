@@ -17,8 +17,9 @@ import NavList from "./NavList";
 import UserMenu from "./UserMenu";
 import { SearchEmpty, SearchFilled } from "./SearchBars";
 import MobileNav from "../features/authentication/MobileNav";
-import Filters from "./Filters";
+import { MenuFilters, SearchFilters } from "./Filters";
 import { FlexColumn } from "./Flex";
+import { ROUTES } from "../utils/routes";
 
 const IconLink = styled(NavLink)`
   /* 1 import mixins */
@@ -68,6 +69,7 @@ const MainMenu = ({ showSearchBar, filterArr }) => {
   const { pathname } = useLocation();
 
   const isNotHome = !(pathname === "/");
+  const isLocations = pathname === ROUTES.viewLocations;
 
   return (
     <FlexColumn $width="100%" $gap="lg">
@@ -92,7 +94,8 @@ const MainMenu = ({ showSearchBar, filterArr }) => {
           </>
         )}
       </Navbar>
-      <Filters filterArr={filterArr} />
+      <MenuFilters filterArr={filterArr} />
+      {isLocations && <SearchFilters />}
     </FlexColumn>
   );
 };

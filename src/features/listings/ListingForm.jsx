@@ -2,14 +2,21 @@ import { useForm } from "react-hook-form";
 import ListingFormRow from "../../ui/ListingFormRow";
 import Form from "../../ui/Form";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FlexRow } from "../../ui/Flex";
 import { ButtonOutlineDarkForm, ButtonPrimaryFormFull } from "../../ui/Buttons";
-import { spacing } from "../../design-system";
+import {
+  boxShadow,
+  colors,
+  flexRowCenter,
+  spacing,
+  typography,
+} from "../../design-system";
 import CreateMultiImageUpload from "./CreateMultiImageUpload";
 import { useEffect, useMemo, useState } from "react";
 import { useListings } from "../../context/ListingsContext";
 import toast from "react-hot-toast";
+import { amenityIcons } from "../../utils/amenityIcons";
 
 const ListingsButtonBox = styled(FlexRow)`
   justify-content: end;
@@ -18,7 +25,92 @@ const ListingsButtonBox = styled(FlexRow)`
     width: auto;
   }
 `;
+const amenities = [
+  "wifi",
+  "pool",
+  "parking",
+  "gym",
+  "central_air_conditioning",
+  "pet_friendly",
+  "tv",
+  "braai",
+  "security_cameras_on_property",
+  "workspace",
+  "garden_view",
+  "washing_machine",
+  "dryer",
+  "bicycles",
+  "hot_tub",
+  "patio",
+  "outdoor_dining",
+  "fireplace",
+  "pool_table",
+  "piano",
+  "paid_parking",
+  "beach_area",
+  "ski",
+  "shower",
+  "smoke_alarm",
+  "first_aid_kit",
+  "fire_extinguisher",
+];
 
+// amenityIcons is now imported from utils/amenityIcons.js
+
+const AmnetyLabel = styled.label`
+  ${flexRowCenter};
+  gap: 0.5rem;
+  padding: 0.6rem;
+  background-color: ${colors.surface};
+  outline: 1px solid
+    ${({ checked }) => (checked ? colors.secondary : colors["gray-200"])};
+  & span {
+    color: ${colors["gray-500"]};
+    font-weight: ${typography.weights.regular};
+    text-transform: capitalize;
+    font-size: ${typography.sizes.sm};
+  }
+  &:hover {
+    background-color: ${colors.surface};
+    box-shadow: ${boxShadow["base-md"]};
+  }
+  & svg {
+    /* stroke: ${colors.muted}; */
+    opacity: ${({ checked }) => (checked ? 1 : 0.5)};
+    width: ${spacing.lg};
+    height: ${spacing.lg};
+  }
+
+  ${({ checked }) =>
+    checked &&
+    css`
+      box-shadow: ${boxShadow.xs};
+      background-color: ${colors.background};
+      /* background-color: #333; */
+      & span {
+        color: ${colors.secondary};
+        /* color: white; */
+        /* font-weight: ${typography.weights.semiBold}; */
+      }
+
+      & path {
+        /* stroke: ${colors.secondary}; */
+        /* stroke: white; */
+      }
+    `}
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+`;
+
+const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
+  display: none;
+`;
+
+const StyledIconBox = styled(FlexRow)`
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
 /**
  *
  *
@@ -48,6 +140,7 @@ const ListingForm = ({ mode, listing = [] }) => {
       bathrooms: listing?.bathrooms || 1,
       price: listing?.price || 1,
       description: listing?.description || "",
+      amenities: listing?.amenities || [],
     };
   }, [listing]);
 
@@ -56,9 +149,11 @@ const ListingForm = ({ mode, listing = [] }) => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
     reset,
   } = useForm({ mode: "onBlur" });
 
+  const selected = watch("amenities") || [];
   //   Populate our form
   useEffect(() => {
     if (mode === "edit" && listing) {
@@ -318,6 +413,21 @@ const ListingForm = ({ mode, listing = [] }) => {
           {...register("description")}
           placeholder="Describe your listing..."
         />
+      </ListingFormRow>
+      <ListingFormRow label="Amneties">
+        <StyledIconBox>
+          {amenities.map((key) => {
+            const Icon = amenityIcons[key];
+            const isChecked = selected.includes(key);
+            return (
+              <AmnetyLabel checked={isChecked}>
+                <HiddenCheckbox value={key} {...register("amenities")} />
+                <Icon />
+                <span>{key.replaceAll("_", " ")}</span>
+              </AmnetyLabel>
+            );
+          })}
+        </StyledIconBox>
       </ListingFormRow>
 
       <CreateMultiImageUpload

@@ -2,17 +2,23 @@ import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 import { getLocations } from "../services/apiLocations";
 import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
+import { ROUTES } from "../utils/routes";
 
 const LocationsDataContext = createContext();
 
 export const LocationsDataContextProvider = ({ children }) => {
+  const { pathname, search } = useLocation();
+  const isOnLocationPage = pathname === ROUTES.viewLocations;
+
   const {
     isLoading,
     data: response,
     error,
   } = useQuery({
-    queryKey: ["locations"],
-    queryFn: getLocations,
+    queryKey: ["locations", search],
+    queryFn: () => getLocations(search),
+    enabled: isOnLocationPage,
     OnError: (error) => toast.error("Error fetching location data", error),
   });
 
@@ -26,5 +32,3 @@ export const LocationsDataContextProvider = ({ children }) => {
 };
 
 export const useLocationsDataContext = () => useContext(LocationsDataContext);
-
-// rewrite this

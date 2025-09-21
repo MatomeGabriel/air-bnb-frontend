@@ -42,7 +42,30 @@ import WasherIconRaw from "../assets/washer.svg?react";
 import SecurityCameraIconRaw from "../assets/securityCamera.svg?react";
 import RefrigeratorIconRaw from "../assets/refrigerator.svg?react";
 import BicyclesIconRaw from "../assets/bicycles.svg?react";
-import AirConditionIconRaw from "../assets/air.svg?react";
+
+import AirConditioningIconRaw from "../assets/Air conditioning.svg?react";
+import BBQGrillIconRaw from "../assets/BBQ grill.svg?react";
+import BeachAreaIconRaw from "../assets/Beach area.svg?react";
+import FireExtinguisherIconRaw from "../assets/Fire extinguisher.svg?react";
+import FireplaceIconRaw from "../assets/Fireplace.svg?react";
+import FirstAidKitIconRaw from "../assets/First aid kit.svg?react";
+import HotTubIconRaw from "../assets/Hot tub.svg?react";
+import LakeAreaIconRaw from "../assets/Lake area.svg?react";
+import OutdoorDiningIconRaw from "../assets/Outdoor dining.svg?react";
+import PaidParkingIconRaw from "../assets/Paid parking.svg?react";
+import ParkingIconRaw from "../assets/Parking.svg?react";
+import PatioIconRaw from "../assets/Patio.svg?react";
+import PianoIconRaw from "../assets/Piano.svg?react";
+import PoolTableIconRaw from "../assets/Pool table.svg?react";
+import PoolIconRaw from "../assets/Pool.svg?react";
+import ShowerIconRaw from "../assets/Shower.svg?react";
+import SkiIconRaw from "../assets/Ski.svg?react";
+import SmokeAlarmIconRaw from "../assets/Smoke alarm.svg?react";
+import TVIconRaw from "../assets/TV.svg?react";
+import UnionIconRaw from "../assets/Union.svg?react";
+import WorkspaceIconRaw from "../assets/Workspace.svg?react";
+import XCloseIconRaw from "../assets/xClose.svg?react";
+import GymIconRaw from "../assets/Gym.svg?react";
 
 import {
   applySquareSize,
@@ -51,6 +74,10 @@ import {
   spacing,
 } from "../design-system";
 
+/**
+ * Amenities
+ *
+ */
 export const WifiIcon = styled(WifiIconRaw)`
   width: ${spacing.xl};
   height: ${spacing.xl};
@@ -64,7 +91,96 @@ export const SuperHostIcon = styled(SuperHostIconRaw)`
   height: 2.8rem;
 `;
 
-export const AirConditionIcon = styled(AirConditionIconRaw)`
+export const AirConditioningIcon = styled(AirConditioningIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const BBQGrillIcon = styled(BBQGrillIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const BeachAreaIcon = styled(BeachAreaIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const FireExtinguisherIcon = styled(FireExtinguisherIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const FireplaceIcon = styled(FireplaceIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const FirstAidKitIcon = styled(FirstAidKitIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const HotTubIcon = styled(HotTubIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const LakeAreaIcon = styled(LakeAreaIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const OutdoorDiningIcon = styled(OutdoorDiningIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const PaidParkingIcon = styled(PaidParkingIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const ParkingIcon = styled(ParkingIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const PatioIcon = styled(PatioIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const PianoIcon = styled(PianoIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const PoolTableIcon = styled(PoolTableIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const PoolIcon = styled(PoolIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const ShowerIcon = styled(ShowerIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const SkiIcon = styled(SkiIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const SmokeAlarmIcon = styled(SmokeAlarmIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const TVIcon = styled(TVIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const UnionIcon = styled(UnionIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const WorkspaceIcon = styled(WorkspaceIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+export const XCloseIcon = styled(XCloseIconRaw)`
+  width: ${spacing.xl};
+  height: ${spacing.xl};
+`;
+
+export const GymIcon = styled(GymIconRaw)`
   width: ${spacing.xl};
   height: ${spacing.xl};
 `;

@@ -234,10 +234,7 @@ const CreateListingForm = () => {
         />
       </ListingFormRow>
 
-      {/* <ListingFormRow
-        label="Price for your listing"
-        error={errors?.cleaning?.message}
-      >
+      {/* <ListingFormRow label="Amneties" error={errors?.cleaning?.message}>
         <input
           type="checkbox"
           id="cleaning"

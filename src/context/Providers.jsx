@@ -2,7 +2,7 @@ import React from "react";
 import { AuthProvider } from "./AuthContext";
 import { ListingsProvider } from "./ListingsContext";
 import { ConfirmProvider } from "./ConfirmContext";
-import { PopupProvider } from "./PopUpContext";
+import { PopupProvider } from "./PopupContext";
 import { ReservationsProvider } from "./ReservationContext";
 
 /**

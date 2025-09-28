@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { FlexColumn, FlexRow } from "./Flex";
 import { ButtonPrimaryMd } from "./Buttons";
 import { TextBase, TextXs } from "./Paragraphs";
-import { usePopup } from "../context/PopUpContext";
+import { usePopup } from "../context/PopupContext";
 import Reservation from "../features/locations/Reservation";
 
 const StyledLocationNav = styled.nav`

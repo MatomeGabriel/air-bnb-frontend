@@ -16,7 +16,7 @@ import SearchIconRaw from "../assets/search.svg?react";
 import HeartOutlineRaw from "../assets/heart-outline.svg?react";
 import ProfileOutlineRaw from "../assets/profile-outline.svg?react";
 import LogoIconRaw from "../assets/logoText.svg?react";
-import MenuIconRaw from "../assets/Menu.svg?react";
+import MenuIconRaw from "../assets/menu.svg?react";
 import AvatarIconRaw from "../assets/Avatar.svg?react";
 import ChevLeftIconRaw from "../assets/chevLeft.svg?react";
 import StarIconRaw from "../assets/star.svg?react";

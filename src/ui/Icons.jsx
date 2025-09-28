@@ -11,7 +11,8 @@
  * Icons are grouped by purpose (amenities, UI, social, etc.) and can be used in any React component.
  */
 import styled from "styled-components";
-import SearchIconRaw from "../assets/Search.svg?react";
+// import SearchIconRaw from "../assets/search.svg?react";
+import { ReactComponent as SearchIconRaw } from "../assets/search.svg?react";
 import HeartOutlineRaw from "../assets/heart-outline.svg?react";
 import ProfileOutlineRaw from "../assets/profile-outline.svg?react";
 import LogoIconRaw from "../assets/logoText.svg?react";

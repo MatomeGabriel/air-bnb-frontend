@@ -3,6 +3,11 @@ import { FlexRow } from "./Flex";
 import { ButtonOutline, ButtonOutlineDarkSm } from "./Buttons";
 import useRedirect from "../hooks/useRedirect";
 import UseUpdateQueryParams from "../hooks/useUpdateQueryParams";
+import {
+  LocationsGuestOptions,
+  LocationsListOptions,
+  LocationsTypeOptions,
+} from "./SearchBarOptions";
 
 const StyledFilters = styled(FlexRow)`
   gap: 1rem;
@@ -26,6 +31,7 @@ export const MenuFilters = ({ filterArr = [] }) => {
     </StyledFilters>
   );
 };
+
 const Select = styled(ButtonOutline)``;
 export const SearchFilters = () => {
   const { updateParams, params } = UseUpdateQueryParams();
@@ -55,10 +61,7 @@ export const SearchFilters = () => {
         <option selected disabled value="">
           Select a location
         </option>
-        <option value="">All locations</option>
-        <option value="Cape Town">Cape Town</option>
-        <option value="Durban">Durban</option>
-        <option value="Johannesburg">Johannesburg</option>
+        <LocationsListOptions />
       </Select>
 
       <Select
@@ -69,9 +72,7 @@ export const SearchFilters = () => {
         <option selected value="">
           Type of place
         </option>
-        <option value="Whole Villa">Whole Villa</option>
-        <option value="Room">Room</option>
-        <option value="Entire Unit">Entire Unit</option>
+        <LocationsTypeOptions />
       </Select>
 
       <Select
@@ -82,11 +83,7 @@ export const SearchFilters = () => {
         <option selected value="">
           Number of guests
         </option>
-        {Array.from({ length: 6 }, (_, i) => (
-          <option value={i + 1} key={i}>
-            {i + 1}
-          </option>
-        ))}
+        <LocationsGuestOptions />
       </Select>
     </StyledFilters>
   );

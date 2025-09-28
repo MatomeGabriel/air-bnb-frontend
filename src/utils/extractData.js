@@ -18,6 +18,5 @@ export const extractData = (rawData) => {
  */
 export const extractError = (rawData) => {
   const data = rawData?.response.data;
-  console.log(data);
   return data;
 };

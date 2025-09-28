@@ -48,7 +48,7 @@ export const calculateTotals = (price, numDays) => {
  */
 
 export const onErrors = (errors) => {
-  console.log("Validation errors:", errors);
+  console.error("Validation errors:", errors);
 };
 
 export const filterArr = {

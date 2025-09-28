@@ -3,7 +3,7 @@ import { applyTypographyProps, colors, spacing } from "../design-system";
 
 const StyledMidDot = styled.span`
   color: ${colors.border};
-  ${applyTypographyProps}/* padding: 0 ${spacing.xxs}; */
+  ${applyTypographyProps}; /* padding: 0 ${spacing.xxs}; */
 `;
 const Middot = ({ $color }) => {
   return <StyledMidDot $color={$color}>&middot;</StyledMidDot>;

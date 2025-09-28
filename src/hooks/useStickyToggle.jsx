@@ -26,7 +26,6 @@ const useStickyToggle = (
     return () => observer.disconnect();
   }, [options]);
 
-  console.log("Is Stickey", isSticky);
   return { isSticky, sentinelRef };
 };
 

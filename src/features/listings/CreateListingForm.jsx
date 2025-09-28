@@ -19,6 +19,26 @@ const ListingsButtonBox = styled(FlexRow)`
   }
 `;
 
+/**
+ * CreateListingForm
+ *
+ * Renders a form for creating a new property listing.
+ * Handles form state, validation, image uploads, and submission.
+ *
+ * Usage:
+ *   <CreateListingForm />
+ *
+ * Features:
+ *   - Title, type, location, guest, bedroom, bed, bathroom, price, description fields
+ *   - Image upload and preview
+ *   - Validation and error handling
+ *   - Calls context methods to create listing and upload images
+ *
+ * No props required.
+ *
+ * @returns {JSX.Element} The listing creation form UI
+ */
+
 const CreateListingForm = () => {
   const [images, setImages] = useState([]);
 
@@ -47,10 +67,12 @@ const CreateListingForm = () => {
     "Dubai",
     "Bangkok",
   ];
+
   const resetImages = () => {
     images.forEach((file) => URL.revokeObjectURL(file.preview));
     setImages([]);
   };
+
   const sendFormData = (formContent) => {
     createHostListing(formContent, {
       onSuccess: (res) => {

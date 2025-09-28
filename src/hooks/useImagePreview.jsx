@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 /**
@@ -25,7 +25,7 @@ const useImagePreview = () => {
     };
     reader.readAsDataURL(file);
   };
-  return { readFile, error, previewSrc, file };
+  return { readFile, error, previewSrc, file, setPreviewSrc };
 };
 
 export default useImagePreview;

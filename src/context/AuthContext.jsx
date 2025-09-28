@@ -12,7 +12,10 @@ import toast from "react-hot-toast";
 import { queryClientManager, queryKeys } from "../utils/queryClientManager";
 import { extractError } from "../utils/extractData";
 
-// Create a context to share authentication related state and actions across the app
+/**
+ * Context for sharing authentication state and actions across the app.
+ * Provides user info, login status, and auth-related mutations.
+ */
 const AuthContext = createContext();
 
 /**
@@ -25,10 +28,22 @@ const AuthContext = createContext();
  * @params {React.ReactNode} props.children - Child component that consumes the auth context
  * @returns {JSX.Element} A wrapper that shares authentication data with it's children
  */
+/**
+ * Provider component for AuthContext.
+ * Wrap your app with this to provide authentication state and actions to children.
+ *
+ * @param {object} props
+ * @param {React.ReactNode} props.children - Child components
+ * @returns {JSX.Element}
+ */
 export const AuthProvider = ({ children }) => {
   /**
    * Get the current user, every 5 minutes
    *
+   */
+
+  /**
+   * Fetch current user data (cached for 5 minutes).
    */
   const { data: response, isLoading } = useQuery({
     queryKey: queryKeys.currentUser,
@@ -90,12 +105,11 @@ export const AuthProvider = ({ children }) => {
   const { mutate: updateUserProfileImage, isLoading: isUploadingProfileImage } =
     useMutation({
       mutationFn: updateProfileImage,
-      onSuccess: (data) => {
+      onSuccess: () => {
         queryClientManager.invalidate.currentUser();
         queryClientManager.toast.success("Profile Image Updated Successfully");
-        console.log(data);
       },
-      onError: (e) => toast.error("Filed to upload", e),
+      onError: (err) => queryClientManager.toast.error(extractError(err)),
     });
 
   // get our user
@@ -124,4 +138,9 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// For Fast Refresh compliance, consider moving useAuth to a separate file if you encounter issues.
+/**
+ * Custom hook to access authentication context.
+ * @returns {object} Auth context value
+ */
 export const useAuth = () => useContext(AuthContext);

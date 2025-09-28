@@ -6,7 +6,12 @@ import { PopupProvider } from "./PopUpContext";
 import { ReservationsProvider } from "./ReservationContext";
 
 /**
+ * Wrapper component that provides all app-level context providers.
+ * Use this to wrap your app and ensure all contexts are available.
  *
+ * @param {object} props
+ * @param {React.ReactNode} props.children - Child components
+ * @returns {JSX.Element}
  */
 const Providers = ({ children }) => {
   return (

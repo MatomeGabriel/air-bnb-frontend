@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors, column, radii, Row, spacing } from "../../design-system";
 import { TextLg, TextSm } from "../../ui/Paragraphs";
@@ -7,10 +7,8 @@ import Middot from "../../ui/Middot";
 import { StarIcon } from "../../ui/Icons";
 import { applyFlexProps } from "../../design-system";
 
-import { ButtonPrimaryMdFull } from "../../ui/Buttons";
-import { useListings } from "../../context/ListingsContext";
-import { ROUTES } from "../../utils/routes";
-import { useConfirm } from "../../context/ConfirmContext";
+import ButtonActions from "./ButtonActions";
+import { generateImgURL } from "../../utils/generateImgURL";
 
 const FlexRow = styled.div`
   ${Row}
@@ -42,20 +40,10 @@ const CardDesktop = styled.article`
     text-decoration: none;
   }
 `;
-const DesktopButtonBox = styled.div`
-  ${column}
-  width: 30rem;
-  gap: 1.6rem;
-`;
 
 const DesktopCard = ({ place }) => {
-  const { deleteHostListing, isDeletingHostListing } = useListings();
-  const { requestConfirm } = useConfirm();
-
-  const navigate = useNavigate();
   const {
     title,
-    description,
     rating,
     reviews,
     price,
@@ -69,23 +57,14 @@ const DesktopCard = ({ place }) => {
     maxGuests,
   } = place;
 
-  const isListings = useLocation().pathname === "/listings";
   const features = [
-    `1-${maxGuests} guests`,
+    `1-${maxGuests} Guests`,
     `${type}`,
     `${bedrooms} beds`,
     `${bathrooms} baths`,
   ];
-  const imgUrl = `http://localhost:3000/${images[0]}`;
+  const imgUrl = generateImgURL(images[0]);
   const contentUrl = `/locations/${_id}`;
-
-  const onDeleteHosting = () => {
-    deleteHostListing(_id, {
-      onError: (err) => {
-        console.log(err);
-      },
-    });
-  };
 
   return (
     <CardDesktop>
@@ -100,23 +79,31 @@ const DesktopCard = ({ place }) => {
           </div>
           <DesktopCardBorder />
           <div>
-            <FlexRow>
+            <FlexRow $gap="xs">
               {features.map((feature, i) => (
                 <>
                   <TextSm key={i} $color="gray-500" as="span">
                     {feature}
                   </TextSm>
-                  {feature.length - 1 > i && <Middot />}
+                  {features.length - 1 > i && <Middot $color="darkBorder" />}
                 </>
               ))}
             </FlexRow>
-            <FlexRow>
-              {amenities.map((amenity, i) => (
+            <FlexRow $gap="xs">
+              {amenities.slice(0, 5).map((amenity, i) => (
                 <>
-                  <TextSm key={i} $color="gray-500" as="span">
-                    {amenity}
+                  <TextSm
+                    $textTransform="capitalize"
+                    key={i}
+                    $color="gray-500"
+                    as="span"
+                  >
+                    {amenity.replace(/_/g, " ")}
                   </TextSm>
-                  {amenity.length - 1 > i && <Middot />}
+                  {/* print when  */}
+                  {amenity.slice(0, 5).length - 1 > i && (
+                    <Middot $color="darkBorder" />
+                  )}
                 </>
               ))}
             </FlexRow>
@@ -137,32 +124,7 @@ const DesktopCard = ({ place }) => {
           </FlexRow>
         </DesktopContent>
       </Link>
-      {isListings && (
-        <DesktopButtonBox>
-          <ButtonPrimaryMdFull
-            onClick={() => navigate(`${ROUTES.editListings}/${_id}`)}
-          >
-            Update
-          </ButtonPrimaryMdFull>
-          <ButtonPrimaryMdFull
-            disabled={isDeletingHostListing}
-            onClick={() =>
-              requestConfirm({
-                message: "Are you sure you want to delete this listing?",
-                warningTitle: "Warning: Permanent Listing Deletion!",
-                warningMessage:
-                  "This action is irreversible. Once the listing is deleted, it cannot be recovered.",
-                onConfirm: onDeleteHosting,
-                onCancel: () => {
-                  console.log("Cancelled");
-                },
-              })
-            }
-          >
-            Delete
-          </ButtonPrimaryMdFull>
-        </DesktopButtonBox>
-      )}
+      <ButtonActions _id={_id} />
     </CardDesktop>
   );
 };

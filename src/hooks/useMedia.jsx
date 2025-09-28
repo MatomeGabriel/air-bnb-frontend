@@ -14,8 +14,7 @@ const useMedia = (query) => {
     setMatches(mediaQuery.matches);
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, [query]);
-  console.log(window.matchMedia(query));
-  console.log(matches);
+
   return matches;
 };
 

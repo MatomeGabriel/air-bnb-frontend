@@ -7,19 +7,25 @@ import MobileCard from "../features/locations/MobileCard";
 import DesktopCard from "../features/locations/DesktopCard";
 import { useListings } from "../context/ListingsContext";
 import { filterArr } from "../utils/reservationUtils";
+import { useAuth } from "../context/AuthContext";
+import { Spinner } from "../ui/Spinners";
 
 const Main = styled(MainContainer)`
   padding: 4rem;
 `;
 const Listings = () => {
+  const { user } = useAuth();
   const { listings, isFetchingListings } = useListings();
-
-  if (isFetchingListings) <p>Loading...</p>;
+  if (isFetchingListings) return <Spinner />;
 
   return (
     <>
       <Header>
-        <MainMenu filterArr={filterArr.hostMenu} />
+        <MainMenu
+          filterArr={
+            user.role === "host" ? filterArr.hostMenu : filterArr.userMenu
+          }
+        />
       </Header>
       <Main>
         <ResponsiveCardGrid

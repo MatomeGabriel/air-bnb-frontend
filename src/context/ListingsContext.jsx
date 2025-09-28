@@ -10,20 +10,30 @@ import {
   uploadListingImages,
 } from "../services/apiListings";
 import toast from "react-hot-toast";
-import { extractData } from "../utils/extractData";
+import { extractData, extractError } from "../utils/extractData";
+import { queryClientManager } from "../utils/queryClientManager";
 
+/**
+ * Context for managing listings and related operations (CRUD, image upload, etc.)
+ */
 const ListingsContext = createContext();
 
 /**
+ * Provider component for ListingsContext.
+ * Handles all listing-related mutations and queries using React Query.
+ * Provides loading states and CRUD functions to children via context.
  *
- * @param {*} param0
- * @returns
+ * @param {object} props
+ * @param {React.ReactNode} props.children - Child components
+ * @returns {JSX.Element}
  */
-
 export const ListingsProvider = ({ children }) => {
   const queryClient = useQueryClient();
 
-  // Create a Listing
+  /**
+   * Create a new listing for the host.
+   * Shows toast notifications on success/error.
+   */
   const { mutate: createHostListing, isLoading: isCreatingHostListing } =
     useMutation({
       mutationFn: createListing,
@@ -33,11 +43,14 @@ export const ListingsProvider = ({ children }) => {
       },
       onError: (err) => {
         toast.error("Failed to create a Listing", err);
-        console.log(err);
+        console.error(err);
       },
     });
 
-  // Upload Images
+  /**
+   * Upload images for a listing.
+   * Shows toast notifications on success/error.
+   */
   const {
     mutate: uploadHostListingImage,
     isLoading: isUploadingHostListingImages,
@@ -49,11 +62,14 @@ export const ListingsProvider = ({ children }) => {
     },
     onError: (err) => {
       toast.error("Failed to upload listing images", err.message);
-      console.log(err);
+      console.error(err);
     },
   });
 
-  // Update Images
+  /**
+   * Update images for a listing.
+   * Invalidates listing queries on success.
+   */
   const {
     mutate: updateHostListingImages,
     isLoading: isUpdatingHostListingImages,
@@ -65,11 +81,14 @@ export const ListingsProvider = ({ children }) => {
     },
     onError: (err) => {
       toast.error("Failed to update listing images", err.message);
-      console.log(err);
+      console.error(err);
     },
   });
 
-  // Fetch Listings
+  /**
+   * Fetch all listings for the host/user.
+   * Shows toast notifications on success/error.
+   */
   const { isLoading: isFetchingListings, data: MultiListingsResponse } =
     useQuery({
       queryFn: fetchListings,
@@ -77,28 +96,31 @@ export const ListingsProvider = ({ children }) => {
       onSuccess: () => toast.success("Data"),
       onError: (err) => {
         toast.error("Failed to fetch data");
-        console.log(err);
+        console.error(err);
       },
     });
   const listings = extractData(MultiListingsResponse);
 
-  // delete a listing
-  const {
-    mutate: deleteHostListing,
-    isLoading: isDeletingHostListing,
-    error,
-  } = useMutation({
-    mutationFn: deleteListing,
-    onSuccess: () => {
-      toast.success("Listing Deleted Successfully");
-      queryClient.invalidateQueries(["listings"]);
-    },
-    onError: (err) => {
-      toast.error("Failed to delete a listing", err);
-    },
-  });
+  /**
+   * Delete a listing.
+   * Invalidates listings query on success.
+   */
+  const { mutate: deleteHostListing, isLoading: isDeletingHostListing } =
+    useMutation({
+      mutationFn: deleteListing,
+      onSuccess: () => {
+        toast.success("Listing Deleted Successfully");
+        queryClient.invalidateQueries(["listings"]);
+      },
+      onError: (err) => {
+        toast.error("Failed to delete a listing", err);
+      },
+    });
 
-  // delete single listing image
+  /**
+   * Delete a single image from a listing.
+   * Invalidates listing query on success.
+   */
   const {
     mutate: deleteSingleListingImage,
     isLoading: isDeletingSingleListingImage,
@@ -113,18 +135,22 @@ export const ListingsProvider = ({ children }) => {
     },
   });
 
-  // update the listing
-
+  /**
+   * Update a listing's details.
+   * Uses queryClientManager for notifications and query invalidation.
+   */
   const { mutate: updateHostListing, isLoading: isUpdatingHostListing } =
     useMutation({
       mutationFn: updateListing,
       onSuccess: () => {
-        toast.success("Listing updated Successfully");
-        queryClient.invalidateQueries(["listing"]);
+        queryClientManager.toast.success("Listing updated Successfully");
+        queryClientManager.invalidate.listing();
       },
       onError: (err) => {
-        toast.error("Failed to update a listing");
-        console.log(err);
+        queryClientManager.onError(
+          extractError(err),
+          "Failed to update a listing"
+        );
       },
     });
 
@@ -152,4 +178,8 @@ export const ListingsProvider = ({ children }) => {
   );
 };
 
+/**
+ * Custom hook to access listings context.
+ * @returns {object} Listings context value
+ */
 export const useListings = () => useContext(ListingsContext);

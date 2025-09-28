@@ -33,6 +33,7 @@ export const ButtonBase = styled.button`
   &:hover {
     box-shadow: ${boxShadow.sm};
   }
+  ${applyBackgroundColor};
 `;
 export const ButtonPrimarySm = styled(ButtonBase)`
   background: ${gradients.button};
@@ -70,9 +71,12 @@ export const ButtonPrimaryLgFull = styled(ButtonPrimarySmFull)`
 
 export const ButtonSolidSm = styled(ButtonBase)`
   background-color: ${({ $color }) => colors[$color || "primary"]};
-  transition: all 0.3s;
+  transition: all 0.3s, translate3d 0.3s;
   &:hover {
-    filter: brightness(0.85);
+    /* opacity: 0.85; */
+    filter: brightness(0.9);
+    box-shadow: ${boxShadow.md};
+    transform: translate3d(0, -0.2rem, 0);
   }
 `;
 

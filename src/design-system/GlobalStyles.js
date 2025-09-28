@@ -1,5 +1,11 @@
 import { createGlobalStyle } from "styled-components";
-import { boxShadow, colors, spacing, typography } from "./index";
+import {
+  boxShadow,
+  colors,
+  generateResponsiveStyles,
+  spacing,
+  typography,
+} from "./index";
 
 const GlobalStyles = createGlobalStyle`
 *, 
@@ -17,6 +23,8 @@ body {
     font-family: ${typography.fontFamily};
     font-size: ${typography.sizes.base};
     list-style: ${typography.lineHeights.normal};
+    padding-bottom: ${spacing["2xl"]};
+    ${generateResponsiveStyles("padding-bottom", { md: 0 })};
 }
 input, 
 button, 

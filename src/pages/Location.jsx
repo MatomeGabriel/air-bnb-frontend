@@ -23,7 +23,6 @@ import {
   CheckInIcon,
   HomeIcon,
   SparklesIcon,
-  StarIcon,
   StarOutlineIcon,
 } from "../ui/Icons";
 import DataDetail from "../features/locations/DataDetail";
@@ -44,9 +43,9 @@ import LocationImages from "../features/locations/LocationImages";
 import LocationNav from "../ui/LocationNav";
 import useScrollTo from "../hooks/useScrollTo";
 import useMedia from "../hooks/useMedia";
-import MobileNav from "../features/authentication/MobileNav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useStickyToggle from "../hooks/useStickyToggle";
+import { calculateTotals } from "../utils/reservationUtils";
 const Container = styled.main`
   padding: 2.4rem;
   /* padding: 2.4rem 1.2rem 6.4rem 1.2rem; */
@@ -124,10 +123,19 @@ const SleepCard = styled.div`
   }
 `;
 const Location = () => {
-  const [summary, setSummary] = useState({ total: 0, numDays: 0 });
-
   const { location, isFetchingLocationData, error } =
     useSelectedLocationContext();
+
+  const [summary, setSummary] = useState({
+    total: 0,
+    numDays: 3,
+  });
+  useEffect(() => {
+    setSummary({
+      total: location?.price ? calculateTotals(location.price, 3).total : 0,
+      numDays: 3,
+    });
+  }, [location?.price]);
 
   const { sentinelRef, isSticky } = useStickyToggle();
 
@@ -138,8 +146,6 @@ const Location = () => {
   const [reservationRef, scrollToReservation] = useScrollTo();
 
   const isMobile = useMedia(`(max-width: ${breakpoints.md}`);
-
-  // const [isM] = useMob
 
   const locNavData = {
     photoRef,
@@ -175,7 +181,6 @@ const Location = () => {
 
   // error-state
   if (error) {
-    console.log("Error", error);
     return <p>Failed to fetch data please reload</p>;
   }
 

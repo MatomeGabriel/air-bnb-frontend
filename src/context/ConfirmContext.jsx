@@ -11,14 +11,20 @@ import ConfirmModal from "../ui/ConfirmModal";
  *
  */
 
-// create the context
+/**
+ * Context for managing confirmation modal logic across the app.
+ * Provides a function to request confirmation with custom options.
+ */
 const ConfirmContext = createContext();
 
 /**
- * Provides confirmation modal logic to the app
- * @param {{children: React.ReactNode}} props
+ * Provider component for ConfirmContext.
+ * Provides confirmation modal logic and renders ConfirmModal when needed.
+ *
+ * @param {object} props
+ * @param {React.ReactNode} props.children - Child components
+ * @returns {JSX.Element}
  */
-
 export const ConfirmProvider = ({ children }) => {
   /**
    * @type {[confirmOptions || null, function]}
@@ -58,4 +64,8 @@ export const ConfirmProvider = ({ children }) => {
   );
 };
 
+/**
+ * Custom hook to access confirm context.
+ * @returns {object} Confirm context value
+ */
 export const useConfirm = () => useContext(ConfirmContext);

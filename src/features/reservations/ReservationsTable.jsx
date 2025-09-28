@@ -164,7 +164,6 @@ const ReservationsTable = () => {
                 $radius="md"
                 $color="danger"
                 onClick={() => {
-                  console.log(reservation._id);
                   deleteAccommodationReservation(reservation._id);
                 }}
               >

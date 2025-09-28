@@ -1,145 +1,217 @@
+/**
+ * App entry point. Sets up routing, context providers, global styles, and React Query.
+ * Implements all main routes and page components for the Airbnb front-end.
+ *
+ * - Uses Providers for app-wide context
+ * - Uses QueryClientProvider for React Query
+ * - Uses Suspense for future code splitting
+ * - All pages and contexts are grouped for clarity
+ */
+
+// React and routing
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import { lazy } from "react";
 
+// Design system
 import GlobalStyles from "./design-system/GlobalStyles";
-import HomePage from "./pages/HomePage";
-import Locations from "./pages/Locations";
-import Login from "./pages/Login";
-import Location from "./pages/Location";
-import RoleProtectedRoute from "./ui/RoleProtectedRoute";
-import { AuthProvider } from "./context/AuthContext";
 import { colors } from "./design-system";
-import RedirectAuth from "./ui/RedirectAuth";
+
+// Context providers
+import Providers from "./context/Providers";
 import { LocationsDataContextProvider } from "./context/LocationsDataContext";
 import { SelectedLocationProvider } from "./context/SelectedLocationContext";
-import UnauthorizedPage from "./pages/UnauthorizedPage";
-import UploadProfileImage from "./pages/UploadProfileImage";
-import ProtectedRoute from "./ui/ProtectedRoute";
-import Providers from "./context/Providers";
-import Listings from "./pages/Listings";
-import EditListing from "./pages/EditListing";
-import CreateListing from "./pages/CreateListing";
-import ProfilePage from "./pages/ProfilePage";
 import { HostContextProvider } from "./context/HostContext";
-import PageNotFound from "./pages/PageNotFound";
+
+// UI components
+import RoleProtectedRoute from "./ui/RoleProtectedRoute";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import RedirectAuth from "./ui/RedirectAuth";
+
+// Pages
+const HomePage = lazy(() => import("./pages/HomePage"));
+
+import Locations from "./pages/Locations";
+import Login from "./pages/Login";
+
+// Lazy loads for code splitting and performance
+const Location = lazy(() => import("./pages/Location"));
+const Listings = lazy(() => import("./pages/Listings"));
+const CreateListing = lazy(() => import("./pages/CreateListing"));
+const EditListing = lazy(() => import("./pages/EditListing"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const UploadProfileImage = lazy(() => import("./pages/UploadProfileImage"));
+const UnauthorizedPage = lazy(() => import("./pages/UnauthorizedPage"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+const Reservation = lazy(() => import("./pages/Reservation"));
+
+// Utilities
 import { queryClient } from "./lib/queryClient";
 import { ROUTES } from "./utils/routes";
-import Reservation from "./pages/Reservation";
+import { Suspense } from "react";
+import { Spinner } from "./ui/Spinners";
 
+const profileInfo = {
+  title: "Update your profile",
+  text: `Add / Update a profile photo and personal details to help hosts get to know you.`,
+  cancelText: "Cancel",
+  showInput: true,
+  hideMenuFilters: true,
+};
+/**
+ * Main App component.
+ * Sets up all providers, routing, and global UI elements.
+ * @returns {JSX.Element}
+ */
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Providers>
         <BrowserRouter>
-          <GlobalStyles />
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<HomePage />} />
-            <Route
-              path="/locations"
-              element={
-                <LocationsDataContextProvider>
-                  <Locations />
-                </LocationsDataContextProvider>
-              }
-            />
-            <Route
-              path="/locations/:id"
-              element={
-                <SelectedLocationProvider>
-                  <HostContextProvider>
-                    <Location />
-                  </HostContextProvider>
-                </SelectedLocationProvider>
-              }
-            />
+          <Suspense fallback={<Spinner />}>
+            <GlobalStyles />
+            <Routes>
+              {/* Home page route (public) */}
+              <Route
+                path="/"
+                element={
+                  <LocationsDataContextProvider>
+                    <HomePage />
+                  </LocationsDataContextProvider>
+                }
+              />
 
-            <Route
-              path="/listings/new"
-              element={
-                <RoleProtectedRoute>
-                  <CreateListing />
-                </RoleProtectedRoute>
-              }
-            />
-            <Route
-              path="/listings"
-              element={
-                <RoleProtectedRoute>
-                  <Listings />
-                </RoleProtectedRoute>
-              }
-            />
+              {/* Locations listing (public) */}
+              <Route
+                path="/locations"
+                element={
+                  <LocationsDataContextProvider>
+                    <Locations />
+                  </LocationsDataContextProvider>
+                }
+              />
 
-            {/* Editing a listing */}
-            <Route
-              path="/listings/edit/:id"
-              element={
-                <RoleProtectedRoute>
-                  <EditListing />
-                </RoleProtectedRoute>
-              }
-            />
+              {/* Single location details (public) */}
+              <Route
+                path="/locations/:id"
+                element={
+                  <SelectedLocationProvider>
+                    <HostContextProvider>
+                      <Location />
+                    </HostContextProvider>
+                  </SelectedLocationProvider>
+                }
+              />
 
-            <Route path="/unauthorized" element={<UnauthorizedPage />} />
+              {/* Create new listing (protected, host only) */}
+              <Route
+                path="/listings/new"
+                element={
+                  <RoleProtectedRoute>
+                    <CreateListing />
+                  </RoleProtectedRoute>
+                }
+              />
 
-            <Route
-              path={ROUTES.uploadProfileImg}
-              element={
-                <ProtectedRoute>
-                  <UploadProfileImage />
-                </ProtectedRoute>
-              }
-            />
+              {/* Listings overview (protected, host only) */}
+              <Route
+                path="/listings"
+                element={
+                  <RoleProtectedRoute>
+                    <Listings />
+                  </RoleProtectedRoute>
+                }
+              />
 
-            <Route
-              path={ROUTES.reservations}
-              element={
-                <ProtectedRoute>
-                  <Reservation />
-                </ProtectedRoute>
-              }
-            />
+              {/* Edit listing (protected, host only) */}
+              <Route
+                path="/listings/edit/:id"
+                element={
+                  <RoleProtectedRoute>
+                    <EditListing />
+                  </RoleProtectedRoute>
+                }
+              />
 
-            <Route
-              element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              }
-            />
+              {/* Unauthorized access page */}
+              <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
-            <Route
-              path="/login"
-              element={
-                <RedirectAuth>
-                  <Login type="login" />
-                </RedirectAuth>
-              }
-            />
+              {/* Upload profile image (protected) */}
+              <Route
+                path={ROUTES.uploadProfileImg}
+                element={
+                  <ProtectedRoute>
+                    <UploadProfileImage />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/signup"
-              element={
-                <RedirectAuth>
-                  <Login type="signup" />
-                </RedirectAuth>
-              }
-            />
-            <Route
-              path="/signup/host"
-              element={
-                <RedirectAuth>
-                  <Login type="signup" message="Sign up to become a host" />
-                </RedirectAuth>
-              }
-            />
+              {/* Profile page (protected) */}
+              <Route
+                path={ROUTES.profile}
+                element={
+                  <ProtectedRoute>
+                    <UploadProfileImage profileInfo={profileInfo} />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
+              {/* Reservations page (protected) */}
+              <Route
+                path={ROUTES.reservations}
+                element={
+                  <ProtectedRoute>
+                    <Reservation />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* User profile page (protected) */}
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <ProfilePage />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Login page (public, redirects if authenticated) */}
+              <Route
+                path="/login"
+                element={
+                  <RedirectAuth>
+                    <Login type="login" />
+                  </RedirectAuth>
+                }
+              />
+
+              {/* Signup page (public, redirects if authenticated) */}
+              <Route
+                path="/signup"
+                element={
+                  <RedirectAuth>
+                    <Login type="signup" />
+                  </RedirectAuth>
+                }
+              />
+
+              {/* Host signup page (public, redirects if authenticated) */}
+              <Route
+                path="/signup/host"
+                element={
+                  <RedirectAuth>
+                    <Login type="signup" message="Sign up to become a host" />
+                  </RedirectAuth>
+                }
+              />
+
+              {/* Catch-all route for 404 page */}
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </Providers>
       <Toaster

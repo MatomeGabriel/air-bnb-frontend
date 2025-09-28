@@ -1,24 +1,32 @@
 import styled, { css } from "styled-components";
 import {
   applyCSSProperty,
+  boxShadow,
+  colors,
   flexColumnStart,
   flexRowStartCenter,
   generateResponsiveStyles,
   radii,
-  Row,
   spacing,
 } from "../../design-system";
-import { TextSm, TextXs } from "../../ui/Paragraphs";
+import { TextBase, TextSm, TextXs } from "../../ui/Paragraphs";
 import Middot from "../../ui/Middot";
 import { StarIcon } from "../../ui/Icons";
-import Img1 from "../../assets/Hyde.jpg";
 import { Link } from "react-router-dom";
+import { generateImgURL } from "../../utils/generateImgURL";
+import ButtonActions from "./ButtonActions";
 
 const CardMobile = styled.article`
+  width: 100%;
   transition: all 0.3s;
+  ${flexColumnStart};
+  gap: 1.6rem;
+  border-radius: ${radii.md};
+  padding-bottom: ${spacing.md};
+
   &:hover {
     transform: translateY(-0.4rem);
-    filter: brightness(0.8);
+    box-shadow: ${boxShadow.xs};
   }
   & a {
     ${flexColumnStart};
@@ -26,12 +34,19 @@ const CardMobile = styled.article`
     text-decoration: none;
     border-radius: ${radii.md};
   }
+  & > div {
+    padding: 0 ${spacing.sm};
+  }
+
+  & button {
+    height: 4rem;
+  }
 `;
 
 const ImgMobile = styled.img`
   width: 100%;
   background-color: #222;
-  border-radius: ${radii.md};
+  border-radius: ${radii.md} ${radii.md} 0 0;
 `;
 
 const FlexRow = styled.div`
@@ -42,38 +57,45 @@ const FlexRow = styled.div`
 `;
 
 const MobileContent = styled.div`
-  padding: 0 2px;
+  padding: ${spacing.sm};
+  & p {
+    color: ${colors["gray-600"]};
+  }
 `;
 export const MobileGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.4rem;
-  ${generateResponsiveStyles("grid-template-columns", { sm: "1fr 1fr" })}
+  gap: 3.2rem;
+  align-items: start;
+  ${generateResponsiveStyles("grid-template-columns", { sm: "1fr 1fr" })};
+  padding-top: 2.4rem;
 `;
 
-const ImgDesktop = styled.img`
-  width: 30rem;
-  height: 20rem;
+const Title = styled(TextBase)`
+  color: ${colors["gray-700"]};
 `;
 
-const MobileCard = () => {
+const MobileCard = ({ place }) => {
   return (
     <CardMobile>
-      <Link to="/:id">
-        <ImgMobile src={Img1} />
+      <Link to={`/locations/${place._id}`}>
+        <ImgMobile src={generateImgURL(place.images[0])} />
 
         <MobileContent>
-          <TextSm $weight="semiBold">Entire home in Bordeaux</TextSm>
-          <FlexRow>
-            <TextXs>R1,744 ZAR for 2 nights</TextXs>
+          <Title $weight="medium" as="h3">
+            {place.title}
+          </Title>
+          <FlexRow $gap="sm">
+            <TextXs $weight="medium">${place.price} per night</TextXs>
             <Middot />
             <FlexRow $gap="xs">
-              <StarIcon $width="sm" />
-              <TextXs>5.0</TextXs>
+              <StarIcon $width="sm" $fill="gray-500" />
+              <TextXs>{place.rating}</TextXs>
             </FlexRow>
           </FlexRow>
         </MobileContent>
       </Link>
+      <ButtonActions $size="sm" _id={place._id} $mobile={true} />
     </CardMobile>
   );
 };

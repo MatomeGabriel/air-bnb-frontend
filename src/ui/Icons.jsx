@@ -1,3 +1,15 @@
+/**
+ * Icons module
+ *
+ * Provides styled React components for all SVG icons used throughout the app.
+ * Each export is a styled version of an SVG asset, sized and themed according to the design system.
+ *
+ * Usage:
+ *   import { WifiIcon, PoolIcon } from "../ui/Icons";
+ *   <WifiIcon />
+ *
+ * Icons are grouped by purpose (amenities, UI, social, etc.) and can be used in any React component.
+ */
 import styled from "styled-components";
 import SearchIconRaw from "../assets/Search.svg?react";
 import HeartOutlineRaw from "../assets/heart-outline.svg?react";

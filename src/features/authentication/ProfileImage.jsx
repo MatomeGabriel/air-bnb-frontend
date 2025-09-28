@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { FlexColumn } from "../../ui/Flex";
 import FormContainer from "../../ui/FormContainer";
 import FormHeader from "../../ui/FormHeader";
-import { TextBase, TextXs } from "../../ui/Paragraphs";
+import { TextBase, TextSm, TextXs } from "../../ui/Paragraphs";
 import { H3 } from "../../ui/Heading";
-import { CloudUploadIcon, NullIcon, ProfileUploadIcon } from "../../ui/Icons";
+import { CloudUploadIcon, NullIcon } from "../../ui/Icons";
 import {
+  colors,
   flexRowBetween,
   flexRowCenter,
   generateResponsiveStyles,
@@ -23,11 +24,7 @@ import { useAuth } from "../../context/AuthContext";
 import { generateImgURL } from "../../utils/generateImgURL";
 import { ROUTES } from "../../utils/routes";
 import { useNavigate } from "react-router-dom";
-
-const StepText = styled(TextXs)`
-  text-transform: uppercase;
-  letter-spacing: 2%;
-`;
+import useLogout from "../../hooks/useLogout";
 
 const IconBox = styled.div`
   ${flexRowCenter}
@@ -39,8 +36,18 @@ const ButtonContent = styled.div`
   width: 100%;
 `;
 const ProfileImageColumn = styled(FlexColumn)`
-  gap: 7.2rem;
-  padding: 2.4rem;
+  /* gap: 7.2rem;
+   */
+  gap: ${({ showInput }) => (showInput ? "2.4rem" : "7.2rem")};
+  width: 100%;
+  margin-bottom: ${spacing["2xl"]};
+  ${generateResponsiveStyles("margin-bottom", { sm: "0" })}
+  padding: 3.2rem;
+
+  & input {
+    color: ${colors["gray-500"]} !important;
+    text-transform: italic !important;
+  }
 `;
 
 const TextBox = styled(FlexColumn)`
@@ -56,24 +63,57 @@ const Img = styled.img`
   height: 17.2rem;
   border-radius: ${radii.full};
 `;
-const ProfileImage = () => {
+
+/**
+ * ProfileImage
+ *
+ * Renders a form for uploading and previewing a user's profile image.
+ * Handles image selection, preview, upload, and user info display.
+ *
+ * Usage:
+ *   <ProfileImage profileInfo={profileInfo} />
+ *
+ * Props:
+ *   @param {Object} [profileInfo] - Customizes the form text and behavior
+ *   @param {string} [profileInfo.title] - Title for the form
+ *   @param {string} [profileInfo.text] - Description text
+ *   @param {string} [profileInfo.cancelText] - Cancel button text
+ *   @param {boolean} [profileInfo.showInput] - Whether to show user info fields
+ *
+ * @returns {JSX.Element} The profile image upload UI
+ */
+const ProfileImage = ({
+  profileInfo = {
+    title: "Create your profile",
+    text: `Pick an image that shows your face. Hosts won’t be able to see your profile photo until your reservation is confirmed.`,
+    cancelText: "I'll do this later",
+  },
+}) => {
   const inputFileRef = useRef(null);
   const { user } = useAuth();
+  const { logoutUser } = useLogout();
   const { updateUserProfileImage, isUploadingProfileImage } = useAuth();
-  const { readFile, previewSrc, error, file } = useImagePreview();
+  const { readFile, previewSrc, error, file, setPreviewSrc } =
+    useImagePreview();
   const navigate = useNavigate();
 
   const onUpdateProfileImage = (file) => {
     updateUserProfileImage(file, {
       onSuccess: () => {
-        navigate(ROUTES.home);
+        if (!profileInfo.showInput) {
+          navigate(ROUTES.home);
+          return;
+        }
+        setPreviewSrc(null);
       },
     });
   };
   return (
     <FormContainer>
-      <FormHeader $showIcon={false}>Create your profile</FormHeader>
-      <ProfileImageColumn>
+      <FormHeader $showIcon={profileInfo.showInput ? true : false}>
+        {profileInfo.title}
+      </FormHeader>
+      <ProfileImageColumn showInput={profileInfo.showInput}>
         <input
           type="file"
           accept="image/*"
@@ -85,10 +125,7 @@ const ProfileImage = () => {
           <TextBox $align="center" $gap="sm">
             {/* <StepText>Step 2 of 2</StepText> */}
             <H3>Add a profile photo</H3>
-            <TextBase $textAlign="center">
-              Pick an image that shows your face. Hosts won’t be able to see
-              your profile photo until your reservation is confirmed.
-            </TextBase>
+            <TextBase $textAlign="center">{profileInfo.text}</TextBase>
           </TextBox>
           <IconBox>
             {!previewSrc && <Img src={generateImgURL(user.photo)} />}
@@ -108,7 +145,7 @@ const ProfileImage = () => {
               </ButtonContent>
             </ButtonSolidDarkMdFull>
             <StyledLink $colorTheme="dark" to={ROUTES.home}>
-              I'll do this later
+              {profileInfo.cancelText}
             </StyledLink>
           </FlexColumn>
         ) : (
@@ -123,6 +160,57 @@ const ProfileImage = () => {
               onClick={() => inputFileRef.current?.click()}
             >
               Change Photo
+            </ButtonOutlineDarkMdFull>
+          </FlexColumn>
+        )}
+        {profileInfo.showInput && (
+          <FlexColumn $width="100%" $gap="md">
+            <FlexColumn $width="100%" $gap="sm">
+              <label>
+                <TextSm $color="gray-600" $weight="bold">
+                  Username
+                </TextSm>
+              </label>
+              <input disabled type="text" name="" id="" value={user.username} />
+            </FlexColumn>
+            <FlexColumn $width="100%" $gap="sm">
+              <label for="name">
+                <TextSm $color="gray-600" $weight="bold">
+                  Name
+                </TextSm>
+              </label>
+              <input disabled type="text" name="" id="name" value={user.name} />
+            </FlexColumn>
+            <FlexColumn $width="100%" $gap="sm">
+              <label for="email">
+                <TextSm $color="gray-600" $weight="bold">
+                  Email
+                </TextSm>
+              </label>
+              <input
+                disabled
+                type="email"
+                name=""
+                id="email"
+                value={user.email}
+              />
+            </FlexColumn>
+          </FlexColumn>
+        )}
+
+        <FlexColumn $align="center" $gap="xs" $justify="center">
+          {error && <TextXs $color="error">{error}</TextXs>}
+          <TextXs $color="gray-500">
+            Supported file types: JPG, PNG, GIF. Max size 5MB.
+          </TextXs>
+        </FlexColumn>
+        {isUploadingProfileImage && (
+          <TextXs $color="gray-500">Uploading image...</TextXs>
+        )}
+        {profileInfo.showInput && (
+          <FlexColumn $width="100%" $align="center" $gap="xs" $justify="center">
+            <ButtonOutlineDarkMdFull onClick={logoutUser}>
+              Log out
             </ButtonOutlineDarkMdFull>
           </FlexColumn>
         )}

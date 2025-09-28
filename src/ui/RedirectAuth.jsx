@@ -1,18 +1,22 @@
-import { useAuth } from "../context/AuthContext";
-import { Navigate, useLocation } from "react-router-dom";
 import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 /**
- * RedirectAuth component
+ * RedirectAuth
  *
- * Used on login and signup pages to redirect authenticated users.
- * If the user is logged in, redirects to the previous page or home.
- * If not logged in, renders the provided children (login/signup form).
+ * Protects login and signup pages by redirecting authenticated users away.
+ * If the user is logged in, they are redirected to their previous location or home.
+ * If not logged in, the children (login/signup form) are rendered.
  *
- * @component
- * @param {Object} props - Component Props
- * @param {React.ReactNode} props.children - Elements to render if not authenticated
- * @returns {React.ReactNode} Redirects or renders children based on authentication state
+ * Usage:
+ *   <RedirectAuth>
+ *     <LoginForm />
+ *   </RedirectAuth>
+ *
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - Content to show if not authenticated
+ * @returns {React.ReactNode}
  */
 const RedirectAuth = ({ children }) => {
   // Access authentication state from context

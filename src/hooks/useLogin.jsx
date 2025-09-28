@@ -1,26 +1,28 @@
-import {
-  QueryClient,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/apiUser";
-import toast from "react-hot-toast";
+import { queryClientManager } from "../utils/queryClientManager";
+import { extractError } from "../utils/extractData";
 
-// To login
-// 1. On Successful login invalidate our user data, to refetch the user again.
-// 2.
+/**
+ * Custom hook for handling user login.
+ * Uses React Query's useMutation to perform login and handle side effects.
+ *
+ * - On success: shows a toast, invalidates user query, and navigates to home.
+ * - On error: shows error toast.
+ *
+ * @returns {object} Mutation object from useMutation
+ */
 const useLogin = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: login,
     onSuccess: () => {
-      toast.success("Successfully Logged In");
-      queryClient.invalidateQueries(["currentUser"]);
+      queryClientManager.toast.success("Successfully Logged In");
+      queryClientManager.invalidate.currentUser();
       navigate("/");
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => queryClientManager.toast.error(extractError(err)),
   });
 };
 

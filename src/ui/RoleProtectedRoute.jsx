@@ -3,13 +3,20 @@ import { Navigate } from "react-router-dom";
 import { Spinner } from "./Spinners";
 
 /**
- * RoleProtectedRoute component restrict access to certain routes based on user role
- * It ensures that only users with the specified role can access the wrapped component
+ * RoleProtectedRoute
  *
- * @param {Object} props - Component Props
- * @param {React.ReactNode} props.Children - Component to render if react has proper role
- * @param {String} [props.role='host'] - Required user role for access
- * @returns {JSX.Element} either the protected component or a redirect
+ * Restricts access to routes based on the user's role.
+ * Only users with the specified role can access the wrapped component.
+ *
+ * Usage:
+ *   <RoleProtectedRoute role="user">
+ *     <AdminDashboard />
+ *   </RoleProtectedRoute>
+ *
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - Component(s) to render if user has the required role
+ * @param {string} [props.role="host"] - Required user role for access
+ * @returns {JSX.Element} The protected component or a redirect
  */
 const RoleProtectedRoute = ({ children, role = "host" }) => {
   const { user, isLoading, isLoggedIn } = useCurrentUser();

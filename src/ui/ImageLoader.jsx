@@ -7,7 +7,7 @@ const LoaderBg = styled.div`
   height: 100%;
   position: absolute;
   z-index: 2;
-  background-color: #9b8683;
+  /* background-color: #9b8683; */
   filter: blur(1rem);
   border-radius: 100px;
 `;
@@ -35,7 +35,7 @@ const ImageLoader = ({
         style={{
           opacity: loaded ? 1 : 0,
           filter: loaded ? "none" : "blur(10px)",
-          transform: loaded ? "scale(1)" : "scale(0.95)",
+          // transform: loaded ? "scale(1)" : "scale(0.95)",
           transition: "all 0.3s ease-in-out, opacity 0s",
           cursor: "pointer",
         }}

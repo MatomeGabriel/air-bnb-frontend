@@ -106,7 +106,6 @@ const LocationImages = ({ imagesSrc }) => {
   });
 
   const openModal = (index = 0) => {
-    console.log(index, "Index from open modal");
     setCurrentIndex(index);
     setIsOpen(true);
   };

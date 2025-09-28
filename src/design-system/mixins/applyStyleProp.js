@@ -17,10 +17,12 @@ export const applyTypographyProps = (props) => css`
   ${applyCSSProperty("font-weight", props.$weight, typography.weights)};
   ${applyCSSProperty("text-decoration", props.$decoration)};
   ${applyCSSProperty("text-align", props.$textAlign)};
+  ${applyCSSProperty("text-transform", props.$textTransform)};
 `;
 
 export const applyBackgroundColor = (props) => css`
   ${applyCSSProperty("background-color", props.$bgColor, colors)};
+  ${applyCSSProperty("background", props.$bgColor, colors)};
 `;
 
 export const applySpacing = (props) => css`

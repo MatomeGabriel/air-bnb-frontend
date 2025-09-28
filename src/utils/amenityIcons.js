@@ -1,3 +1,7 @@
+/**
+ * Imports all amenity icon components
+ * Each icon is a React component representing a specific amenity visually.
+ */
 import {
   AirConditioningIcon,
   BBQGrillIcon,
@@ -29,7 +33,13 @@ import {
 } from "../ui/Icons";
 
 /**
- * Maps amenity keys to their corresponding icon components.
+ * Maps amenity string keys to their corresponding React icon components.
+ *
+ * Usage:
+ *   amenityIcons["wifi"] // returns WifiIcon component
+ *   amenityIcons[amenityKey] // returns the icon for a given amenity key
+ *
+ * This mapping allows dynamic rendering of amenity icons in UI components.
  */
 export const amenityIcons = {
   wifi: WifiIcon,

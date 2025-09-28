@@ -9,8 +9,20 @@ import {
 import { queryClientManager, queryKeys } from "../utils/queryClientManager";
 import { extractData, extractError } from "../utils/extractData";
 
+/**
+ * Context for sharing reservation state and actions across the app.
+ * Provides reservation list, loading states, errors, and mutation functions.
+ */
 const ReservationsContext = createContext();
 
+/**
+ * Provider component for ReservationsContext.
+ * Fetches reservations and provides mutation functions to children.
+ *
+ * @param {object} props
+ * @param {React.ReactNode} props.children - Child components
+ * @returns {JSX.Element}
+ */
 export const ReservationsProvider = ({ children }) => {
   /**
    * Create a reservation
@@ -88,4 +100,8 @@ export const ReservationsProvider = ({ children }) => {
   );
 };
 
+/**
+ * Custom hook to access reservations context.
+ * @returns {object} Reservations context value
+ */
 export const useReservationsContext = () => useContext(ReservationsContext);

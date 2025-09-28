@@ -78,6 +78,31 @@ const DeleteButton = styled(IconButton)`
     }
   }
 `;
+/**
+ * CreateMultiImageUpload
+ *
+ * Handles uploading, previewing, and deleting multiple images for a listing.
+ * Supports both local previews and remote (cloud) images in edit mode.
+ *
+ * Usage:
+ *   <CreateMultiImageUpload
+ *     images={images}
+ *     setImages={setImages}
+ *     listingImages={listingImages}
+ *     mode={mode}
+ *     listingId={listingId}
+ *   />
+ *
+ * Props:
+ *   @param {Array} images - Array of local image objects with preview URLs
+ *   @param {Function} setImages - State setter for images
+ *   @param {Array} [listingImages=[]] - Array of remote image paths (edit mode)
+ *   @param {string} mode - 'edit' or 'create' mode
+ *   @param {string|null} [listingId=null] - Listing ID for cloud image deletion
+ *
+ * @returns {JSX.Element} The image upload UI
+ */
+
 const CreateMultiImageUpload = ({
   images,
   setImages,
@@ -129,7 +154,6 @@ const CreateMultiImageUpload = ({
     e.preventDefault();
     const data = { imagePath: imgPath };
     deleteSingleListingImage({ listingId, data });
-    console.log("deleting an image");
   };
 
   // clean up the previous previews
@@ -182,7 +206,7 @@ const CreateMultiImageUpload = ({
                       "This action is irreversible. Once the image is deleted, it cannot be recovered.",
                     onConfirm: () => deleteCloudImage(e, imgPath),
                     onCancel: () => {
-                      console.log("Cancelled");
+                      console.error("Cancelled");
                     },
                   });
                 }}

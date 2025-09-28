@@ -30,6 +30,9 @@ const QuickActions = styled(FlexRow)`
   display: none;
   ${generateResponsiveStyles("display", { md: "flex" })}
 `;
+const ReviewSummary = styled(FlexRow)`
+  flex-wrap: wrap;
+`;
 
 const LocationHeader = ({ location }) => {
   const { title, rating, reviews } = location;
@@ -37,7 +40,7 @@ const LocationHeader = ({ location }) => {
     <StyledLocationHeader $gap="sm">
       <H1 $size="3xl">{title}</H1>
       <FlexRow $width="100%" $justify="space-between">
-        <FlexRow $gap="sm">
+        <ReviewSummary $gap="sm">
           <IconLabel $gap="xs">
             <StarOutlineIcon $width="base" $stroke="card-3" />
             <TextSm size="sm">{rating}</TextSm>
@@ -55,7 +58,7 @@ const LocationHeader = ({ location }) => {
           <TextSm $weight="medium" $decoration="underline" $color="gray-500">
             Bordeaux, France
           </TextSm>
-        </FlexRow>
+        </ReviewSummary>
         <QuickActions>
           <IconButton $gap="xs" as="button">
             <ShareIcon />

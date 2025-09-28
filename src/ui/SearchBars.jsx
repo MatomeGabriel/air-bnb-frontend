@@ -44,7 +44,7 @@ const Line = styled.div`
 `;
 export const SearchEmpty = () => {
   return (
-    <StyledSearchBar onClick={() => console.log("CLicked")}>
+    <StyledSearchBar>
       <TextSm $weight="medium">Start your search</TextSm>
       <RoundedButton>
         <SearchIconSm />
@@ -59,7 +59,7 @@ export const SearchFilled = () => {
   const maxGuests = params.get("maxGuests[gte]");
 
   return (
-    <StyledFilledSearchBar onClick={() => console.log("Click")}>
+    <StyledFilledSearchBar>
       <TextSm $weight="medium">{location || "All Locations"}</TextSm>
       <Line />
       <TextSm $weight="medium">Feb 19-26</TextSm>

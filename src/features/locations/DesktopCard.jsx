@@ -8,7 +8,6 @@ import { StarIcon } from "../../ui/Icons";
 import { applyFlexProps } from "../../design-system";
 
 import ButtonActions from "./ButtonActions";
-import { generateImgURL } from "../../utils/generateImgURL";
 
 const FlexRow = styled.div`
   ${Row}
@@ -63,13 +62,13 @@ const DesktopCard = ({ place }) => {
     `${bedrooms} beds`,
     `${bathrooms} baths`,
   ];
-  const imgUrl = generateImgURL(images[0]);
+
   const contentUrl = `/locations/${_id}`;
 
   return (
     <CardDesktop>
       <Link to={contentUrl}>
-        <DesktopImg src={imgUrl} />
+        <DesktopImg src={place.images[0].url} />
         <DesktopContent>
           <div>
             <TextSm $color="gray-500" as="span">

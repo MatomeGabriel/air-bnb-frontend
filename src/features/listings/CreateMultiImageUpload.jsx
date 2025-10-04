@@ -16,7 +16,6 @@ import {
   XMarkFullFullIcon,
 } from "../../ui/Icons";
 import { IconButton } from "../../ui/Buttons";
-import { generateImgURL } from "../../utils/generateImgURL";
 import { useListings } from "../../context/ListingsContext";
 import { useConfirm } from "../../context/ConfirmContext";
 
@@ -193,12 +192,12 @@ const CreateMultiImageUpload = ({
         <RemotePreviewBox>
           {listingImages.map((imgSrc) => (
             <ImgBox key={imgSrc}>
-              <Img src={generateImgURL(imgSrc)} />
+              <Img src={imgSrc.url} />
               <DeleteButton
                 title="Delete listing image on the cloud"
                 onClick={(e) => {
                   e.preventDefault();
-                  const imgPath = imgSrc;
+                  const imgPath = imgSrc.path;
                   requestConfirm({
                     message: "Are you sure you want to delete this image?",
                     warningTitle: "Warning: Permanent Image Deletion!",

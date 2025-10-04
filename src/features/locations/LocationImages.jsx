@@ -3,11 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 
 import { boxShadow, radii, spacing } from "../../design-system";
-import IMG from "../../assets/Woodmead.jpg";
 import { ButtonOutlineDarkSm } from "../../ui/Buttons";
 import { ShowMoreIcon } from "../../ui/Icons";
 import ImageLoader from "../../ui/ImageLoader";
-import { generateImgURL } from "../../utils/generateImgURL";
 import { useState } from "react";
 import { ROUTES } from "../../utils/routes";
 
@@ -134,13 +132,8 @@ const LocationImages = ({ imagesSrc }) => {
         id={ROUTES.sectionPhotos}
         $gridCols={gridImagesLength < 5 ? gridImagesLength : false}
       >
-        {gridImages.map((imageSrc, i) => (
-          <ImageLoader
-            key={i}
-            src={generateImgURL(imageSrc)}
-            index={i}
-            onOpenModal={openModal}
-          />
+        {gridImages.map(({ url }, i) => (
+          <ImageLoader key={i} src={url} index={i} onOpenModal={openModal} />
         ))}
 
         <ButtonOutlineDarkSm onClick={() => openModal(0)}>
@@ -159,7 +152,7 @@ const LocationImages = ({ imagesSrc }) => {
               {...swipeHandler}
               key={currentIndex}
               custom={direction}
-              src={generateImgURL(imagesSrc[currentIndex])}
+              src={imagesSrc[currentIndex].url}
               initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}

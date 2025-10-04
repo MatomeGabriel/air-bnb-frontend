@@ -6,7 +6,6 @@ import FormHeader from "../../ui/FormHeader";
 import FormRow from "../../ui/FormRow";
 import { TextBase, TextSm } from "../../ui/Paragraphs";
 import { useAuth } from "../../context/AuthContext";
-import { generateImgURL } from "../../utils/generateImgURL";
 import { radii } from "../../design-system";
 
 const ImgContainer = styled.div`
@@ -27,7 +26,7 @@ const CreateUpdateProfileForm = () => {
         <FlexRow $gap="md">
           <ImgContainer>
             <button>
-              <Img src={generateImgURL(user.photo)} alt="" />
+              <Img src={user.photo} alt="" />
             </button>
           </ImgContainer>
           <FlexColumn>

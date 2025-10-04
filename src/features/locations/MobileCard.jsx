@@ -13,7 +13,6 @@ import { TextBase, TextSm, TextXs } from "../../ui/Paragraphs";
 import Middot from "../../ui/Middot";
 import { StarIcon } from "../../ui/Icons";
 import { Link } from "react-router-dom";
-import { generateImgURL } from "../../utils/generateImgURL";
 import ButtonActions from "./ButtonActions";
 
 const CardMobile = styled.article`
@@ -79,7 +78,7 @@ const MobileCard = ({ place }) => {
   return (
     <CardMobile>
       <Link to={`/locations/${place._id}`}>
-        <ImgMobile src={generateImgURL(place.images[0])} />
+        <ImgMobile src={place.images[0].url} />
 
         <MobileContent>
           <Title $weight="medium" as="h3">

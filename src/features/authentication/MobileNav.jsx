@@ -10,7 +10,6 @@ import {
   typography,
 } from "../../design-system";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import { generateImgURL } from "../../utils/generateImgURL";
 import { ROUTES } from "../../utils/routes";
 const IconLink = styled(NavLink)`
   /* 1 import mixins */
@@ -53,7 +52,7 @@ const MobileNav = () => {
       </IconLink>
       <IconLink to={isLoggedIn ? ROUTES.profile : ROUTES.login}>
         {isLoggedIn ? (
-          <Img src={generateImgURL(user.photo)} />
+          <Img src={user.photo} />
         ) : (
           <>
             <ProfileOutline />

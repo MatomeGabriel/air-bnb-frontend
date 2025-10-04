@@ -67,6 +67,10 @@ const CreateListingForm = () => {
     "Dubai",
     "Bangkok",
   ];
+  console.log(
+    { isCreatingHostListing, isUploadingHostListingImages },
+    "tester"
+  );
 
   const resetImages = () => {
     images.forEach((file) => URL.revokeObjectURL(file.preview));

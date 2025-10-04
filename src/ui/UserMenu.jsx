@@ -17,7 +17,6 @@ import DropDown, { ListColumn } from "./DropDown";
 import { BorderSm } from "./Borders";
 import StyledLink from "./StyledLink";
 import { TextSm } from "./Paragraphs";
-import { generateImgURL } from "../utils/generateImgURL";
 import { IconButton } from "./Buttons";
 import {
   HostDropdown,
@@ -106,7 +105,7 @@ const UserMenu = ({ isNotHome }) => {
           <MenuIcon />
           {isLoggedIn ? (
             <ImgBox>
-              <ImageLoader src={generateImgURL(user.photo)} alt={user.name} />
+              <ImageLoader src={user.photo} alt={user.name} />
             </ImgBox>
           ) : (
             <AvatarIcon />

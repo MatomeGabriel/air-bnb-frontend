@@ -21,7 +21,6 @@ import StyledLink from "../../ui/StyledLink";
 import { useRef } from "react";
 import useImagePreview from "../../hooks/useImagePreview";
 import { useAuth } from "../../context/AuthContext";
-import { generateImgURL } from "../../utils/generateImgURL";
 import { ROUTES } from "../../utils/routes";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
@@ -128,7 +127,7 @@ const ProfileImage = ({
             <TextBase $textAlign="center">{profileInfo.text}</TextBase>
           </TextBox>
           <IconBox>
-            {!previewSrc && <Img src={generateImgURL(user.photo)} />}
+            {!previewSrc && <Img src={user.photo} />}
             {previewSrc && <Img src={previewSrc} />}
           </IconBox>
         </FlexColumn>

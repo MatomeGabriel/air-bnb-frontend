@@ -34,7 +34,7 @@ export const ListingsProvider = ({ children }) => {
    * Create a new listing for the host.
    * Shows toast notifications on success/error.
    */
-  const { mutate: createHostListing, isLoading: isCreatingHostListing } =
+  const { mutate: createHostListing, isPending: isCreatingHostListing } =
     useMutation({
       mutationFn: createListing,
       onSuccess: () => {
@@ -53,7 +53,7 @@ export const ListingsProvider = ({ children }) => {
    */
   const {
     mutate: uploadHostListingImage,
-    isLoading: isUploadingHostListingImages,
+    isPending: isUploadingHostListingImages,
   } = useMutation({
     mutationFn: uploadListingImages,
     onSuccess: () => {
@@ -72,7 +72,7 @@ export const ListingsProvider = ({ children }) => {
    */
   const {
     mutate: updateHostListingImages,
-    isLoading: isUpdatingHostListingImages,
+    isPending: isUpdatingHostListingImages,
   } = useMutation({
     mutationFn: updateListingImages,
     onSuccess: () => {
@@ -89,7 +89,7 @@ export const ListingsProvider = ({ children }) => {
    * Fetch all listings for the host/user.
    * Shows toast notifications on success/error.
    */
-  const { isLoading: isFetchingListings, data: MultiListingsResponse } =
+  const { isPending: isFetchingListings, data: MultiListingsResponse } =
     useQuery({
       queryFn: fetchListings,
       queryKey: ["listings"],
@@ -105,7 +105,7 @@ export const ListingsProvider = ({ children }) => {
    * Delete a listing.
    * Invalidates listings query on success.
    */
-  const { mutate: deleteHostListing, isLoading: isDeletingHostListing } =
+  const { mutate: deleteHostListing, isPending: isDeletingHostListing } =
     useMutation({
       mutationFn: deleteListing,
       onSuccess: () => {
@@ -123,7 +123,7 @@ export const ListingsProvider = ({ children }) => {
    */
   const {
     mutate: deleteSingleListingImage,
-    isLoading: isDeletingSingleListingImage,
+    isPending: isDeletingSingleListingImage,
   } = useMutation({
     mutationFn: deleteListingImage,
     onSuccess: () => {
@@ -139,7 +139,7 @@ export const ListingsProvider = ({ children }) => {
    * Update a listing's details.
    * Uses queryClientManager for notifications and query invalidation.
    */
-  const { mutate: updateHostListing, isLoading: isUpdatingHostListing } =
+  const { mutate: updateHostListing, isPending: isUpdatingHostListing } =
     useMutation({
       mutationFn: updateListing,
       onSuccess: () => {
@@ -154,6 +154,7 @@ export const ListingsProvider = ({ children }) => {
       },
     });
 
+  console.log("Loading state", isUpdatingHostListing);
   return (
     <ListingsContext.Provider
       value={{

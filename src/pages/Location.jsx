@@ -36,7 +36,6 @@ import HostInfo from "../features/locations/HostInfo";
 import Footer from "../ui/Footer";
 import Reservation from "../features/locations/Reservation";
 import { useHostContext } from "../context/HostContext";
-import { generateImgURL } from "../utils/generateImgURL";
 import { Spinner } from "../ui/Spinners";
 import ImageLoader from "../ui/ImageLoader";
 import LocationImages from "../features/locations/LocationImages";
@@ -224,7 +223,7 @@ const Location = () => {
                   <TextXs>{bathrooms} bath</TextXs>
                 </FlexRow>
               </FlexColumn>
-              <Avatar hostImg={generateImgURL(photo)} />
+              <Avatar hostImg={photo} />
             </ContentHeader>
             <Section>
               {dataDetail.map((data, i) => (

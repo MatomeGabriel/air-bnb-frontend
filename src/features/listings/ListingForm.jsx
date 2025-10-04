@@ -186,6 +186,20 @@ const ListingForm = ({ mode, listing = [] }) => {
     "Bangkok",
   ];
 
+  const isSubmitting =
+    isCreatingHostListing ||
+    isUploadingHostListingImages ||
+    isUpdatingHostListing;
+
+  console.log(
+    isCreatingHostListing,
+    "Upating",
+    isUpdatingHostListing,
+    isSubmitting,
+    "Uploading",
+    isUploadingHostListingImages
+  );
+
   const resetImages = (e = {}) => {
     images.forEach((file) => URL.revokeObjectURL(file.preview));
     setImages([]);
@@ -446,14 +460,7 @@ const ListingForm = ({ mode, listing = [] }) => {
         >
           {mode === "edit" ? "Reset to default" : "Cancel"}
         </ButtonOutlineDarkForm>
-        <ButtonPrimaryFormFull
-          type="submit"
-          disabled={
-            isCreatingHostListing ||
-            isUploadingHostListingImages ||
-            isUpdatingHostListing
-          }
-        >
+        <ButtonPrimaryFormFull type="submit" disabled={isSubmitting}>
           {mode === "edit" ? "Update " : "Add "}
           Listing
         </ButtonPrimaryFormFull>

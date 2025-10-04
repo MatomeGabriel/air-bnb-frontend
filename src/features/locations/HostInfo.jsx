@@ -10,7 +10,6 @@ import {
   StarOutlineIcon,
 } from "../../ui/Icons";
 import { TextBase, TextXs } from "../../ui/Paragraphs";
-import { generateImgURL } from "../../utils/generateImgURL";
 import Avatar from "./Avatar";
 import styled from "styled-components";
 
@@ -31,7 +30,7 @@ const HostInfo = ({ host, reviews }) => {
     <FlexColumn $gap="xl">
       <FlexColumn as="header" $gap="base">
         <FlexRow $gap="lg">
-          <Avatar hostImg={generateImgURL(photo)} />
+          <Avatar hostImg={photo} />
           <FlexColumn>
             <H3>Hosted by {name}</H3>
             <TextXs $color="gray-500">Joined May 2021</TextXs>

@@ -45,10 +45,12 @@ const Navbar = styled.nav`
   background-color: ${colors.background};
   /* gap: ${spacing.xs}; */
   position: fixed;
+  left: 0;
   z-index: 10;
   bottom: ${spacing.xxs};
   height: 5.5rem;
   width: 100%;
+  max-width: 100%;
   transition: all 0.3s;
 
   @media (min-width: ${breakpoints.md}) {

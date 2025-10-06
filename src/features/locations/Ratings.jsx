@@ -1,21 +1,32 @@
+/**
+ * Ratings Component
+ *
+ * Displays a grid of rating categories (Cleanliness, Accuracy, Communication, etc.)
+ * with their respective scores using RangeOutput.
+ * Used in location details to show property ratings.
+ */
 import styled from "styled-components";
 import { FlexRow } from "../../ui/Flex";
 import { TextBase } from "../../ui/Paragraphs";
 import RangeOutput from "./RangeOutput";
-import { spacing } from "../../design-system";
+import { generateResponsiveStyles, spacing } from "../../design-system";
 
 const StyledRatings = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   width: 100%;
   /* gap: 4rem; */
   row-gap: ${spacing.base};
-  column-gap: ${spacing["2xl"]};
+  align-items: space-between;
+  ${generateResponsiveStyles("grid-template-columns", {
+    md: "1fr 1fr",
+  })}
+
+  ${generateResponsiveStyles("column-gap", { md: "16rem" })}
 `;
 
 const RatingRow = styled(FlexRow)`
   justify-content: space-between;
-  /* padding-right: 2.4rem; */
   width: 100%;
 `;
 

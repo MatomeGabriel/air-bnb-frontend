@@ -24,7 +24,7 @@ export const HostContextProvider = ({ children }) => {
   const { host_id } = location;
 
   const {
-    isLoading: isFetchingHost,
+    isPending: isFetchingHost,
     data: response,
     error,
   } = useQuery({

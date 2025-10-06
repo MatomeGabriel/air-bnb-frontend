@@ -1,21 +1,16 @@
+/**
+ * Amenities Component
+ *
+ * Displays a grid of amenities for a location, each with an icon and label.
+ * Allows users to expand and view all amenities if there are more than the default shown.
+ */
 import styled from "styled-components";
 import DataDetail from "./DataDetail";
-import {
-  AirConditioningIcon,
-  BicyclesIcon,
-  DryerIcon,
-  GardenIcon,
-  KitchenIcon,
-  PetsIcon,
-  RefrigeratorIcon,
-  SecurityCameraIcon,
-  WasherIcon,
-  WifiIcon,
-} from "../../ui/Icons";
+
 import { useState } from "react";
 import { generateResponsiveStyles, spacing } from "../../design-system";
 import { FlexColumn } from "../../ui/Flex";
-import { ButtonOutlineDarkMdFull, ButtonOutlineDarkSm } from "../../ui/Buttons";
+import { ButtonOutlineDarkSm } from "../../ui/Buttons";
 import { amenityIcons } from "../../utils/amenityIcons";
 
 const AmenitiesGrid = styled.div`
@@ -26,23 +21,10 @@ const AmenitiesGrid = styled.div`
   gap: ${spacing.base};
 `;
 
-const dataDetail = [
-  { icon: <GardenIcon />, heading: "Garden View" },
-  { icon: <KitchenIcon />, heading: "Kitchen" },
-  { icon: <WifiIcon />, heading: "Wifi" },
-  { icon: <PetsIcon />, heading: "Pets Allowed" },
-  { icon: <WasherIcon />, heading: "Free washer - in building" },
-  { icon: <DryerIcon />, heading: "Dryer" },
-  { icon: <AirConditioningIcon />, heading: "Central air conditioning" },
-  { icon: <SecurityCameraIcon />, heading: "Security cameras on property" },
-  { icon: <RefrigeratorIcon />, heading: "Security cameras on property" },
-  { icon: <BicyclesIcon />, heading: "Bicycles" },
-];
 const Amenities = ({ amenitiesRef, amenities = [] }) => {
   const [showMore, setShowMore] = useState(6);
 
   const onShowMore = () => {
-    // setShowMore(() => dataDetail.length);
     setShowMore(() => amenities.length);
   };
 

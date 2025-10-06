@@ -14,13 +14,19 @@ const StyledLocationImages = styled.div`
   gap: ${spacing.sm};
   border-radius: ${radii.md};
   box-shadow: ${boxShadow.base};
-  /* dynamic grid */
-  grid-template-columns: ${({ $gridCols }) =>
-    $gridCols ? `repeat(${$gridCols}, 1fr)` : " 2fr 1fr 1fr;"};
   height: 40rem;
   max-width: 100%;
   overflow: hidden;
   position: relative;
+
+  /* Default grid: 2 columns on mobile */
+  grid-template-columns: repeat(2, 1fr);
+
+  /* Dynamic grid on larger screens */
+  @media (min-width: 768px) {
+    grid-template-columns: ${({ $gridCols }) =>
+      $gridCols ? `repeat(${$gridCols}, 1fr)` : "2fr 1fr 1fr"};
+  }
 
   & button {
     position: absolute;
@@ -33,12 +39,15 @@ const StyledLocationImages = styled.div`
     height: 100%;
     width: 100%;
   }
+
   ${({ $gridCols }) =>
     !$gridCols &&
-    `& img:first-child {
-    grid-column: 1/2;
-    grid-row: 1 / span 2;
-  }`}
+    `@media (min-width: 768px) {
+      & img:first-child {
+        grid-column: 1/2;
+        grid-row: 1 / span 2;
+      }
+    }`}
 `;
 
 const AnimatedDiv = styled(motion.div)`

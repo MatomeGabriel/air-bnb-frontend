@@ -6,7 +6,6 @@ import {
   BadgeIcon,
   FrameIcon,
   ShieldTickOutlineIcon,
-  StarIcon,
   StarOutlineIcon,
 } from "../../ui/Icons";
 import { TextBase, TextXs } from "../../ui/Paragraphs";

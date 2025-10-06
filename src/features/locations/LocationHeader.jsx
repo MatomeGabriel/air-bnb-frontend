@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { H1 } from "../../ui/Heading";
 import {
   BadgeIcon,
-  StarIcon,
   ShareIcon,
   HeartIconBold,
   StarOutlineIcon,

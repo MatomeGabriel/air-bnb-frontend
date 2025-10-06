@@ -183,7 +183,12 @@ const Reservation = ({
               ))}
             </select>
           </FormRow>
-          <ButtonPrimarySmFull type="submit">Reserve</ButtonPrimarySmFull>
+          <ButtonPrimarySmFull
+            style={{ marginTop: spacing.base }}
+            type="submit"
+          >
+            Reserve
+          </ButtonPrimarySmFull>
           <div ref={sentinelRef} aria-hidden="true" style={{ height: 1 }} />
         </ReservationForm>
       </FlexColumn>

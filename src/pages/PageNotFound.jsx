@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import Img404 from "../assets/404.png";
-import { flexColumnCenterStart, flexRowCenter } from "../design-system";
+import {
+  flexColumnCenter,
+  flexColumnCenterStart,
+  flexRowCenter,
+  generateResponsiveStyles,
+  spacing,
+} from "../design-system";
 import { TextBase } from "../ui/Paragraphs";
 import { H3 } from "../ui/Heading";
 import MainMenu from "../ui/MainMenu";
@@ -9,8 +15,11 @@ import StyledLink from "../ui/StyledLink";
 import { ROUTES } from "../utils/routes";
 
 const StyledPageNotFound = styled.div`
-  ${flexRowCenter};
-  width: 96.4rem;
+  ${flexColumnCenter};
+  padding: ${spacing.xl};
+  /* text-align: center; */
+  ${generateResponsiveStyles("flex-direction", { md: "row" })}
+  max-width: 96.4rem;
   gap: 4rem;
   margin: 2.4rem auto;
 `;

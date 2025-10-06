@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   /**
    * Fetch current user data (cached for 5 minutes).
    */
-  const { data: response, isLoading } = useQuery({
+  const { data: response, isPending } = useQuery({
     queryKey: queryKeys.currentUser,
     queryFn: getCurrentUser,
     retry: false,
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
   // when passing the error ensure you get the server response
   const {
     mutate: loginUser,
-    isLoading: isLoggingIn,
+    isPending: isLoggingIn,
     loginError,
   } = useMutation({
     mutationFn: login,
@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
    * Logs the current user out
    *
    */
-  const { mutate: logoutUser, isLoading: isLoggingOut } = useMutation({
+  const { mutate: logoutUser, isPending: isLoggingOut } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
       queryClientManager.toast.success("Successfully Logged out");
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }) => {
   /**
    * Signs up the new user
    */
-  const { mutate: signupUser, isLoading: isSigningUp } = useMutation({
+  const { mutate: signupUser, isPending: isSigningUp } = useMutation({
     mutationFn: signUp,
     onSuccess: () => {
       queryClientManager.toast.success("Account Created Successfully");
@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }) => {
   /**
    * Uploads a profile images
    */
-  const { mutate: updateUserProfileImage, isLoading: isUploadingProfileImage } =
+  const { mutate: updateUserProfileImage, isPending: isUploadingProfileImage } =
     useMutation({
       mutationFn: updateProfileImage,
       onSuccess: () => {
@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
-        isLoading,
+        isPending,
         logoutUser,
         isLoggingOut,
         isLoggedIn,

@@ -49,7 +49,6 @@ const DesktopCard = ({ place }) => {
     type,
     amenities,
     location,
-    images,
     bedrooms,
     bathrooms,
     _id,

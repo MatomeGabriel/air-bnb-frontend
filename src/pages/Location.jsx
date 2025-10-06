@@ -1,3 +1,20 @@
+/**
+ * Location Page Component
+ *
+ * Renders detailed accommodation info for dynamic route `/locations/:id`.
+ * Includes images, amenities, host details, ratings, and reservation logic.
+ *
+ * Features:
+ * - Sticky section navigation
+ * - Responsive layout with conditional mobile behavior
+ * - Reservation panel (desktop only)
+ * - Scroll-to-section hooks with offset
+ * - Context-driven data fetching (location + host)
+ *
+ * Returns:
+ * - Full JSX layout for property detail view
+ */
+
 import styled from "styled-components";
 import {
   breakpoints,
@@ -45,6 +62,8 @@ import useMedia from "../hooks/useMedia";
 import { useEffect, useState } from "react";
 import useStickyToggle from "../hooks/useStickyToggle";
 import { calculateTotals } from "../utils/reservationUtils";
+import AirbnbComment from "../ui/AirbnbComment";
+import HouseRules from "../features/locations/HouseRules";
 const Container = styled.main`
   padding: 2.4rem;
   /* padding: 2.4rem 1.2rem 6.4rem 1.2rem; */
@@ -101,15 +120,65 @@ const dataDetail = [
   },
 ];
 
+// avatarUrl, title, subtitle, comment
+const comments = [
+  {
+    avatarUrl: "/1.png",
+    title: "Luke",
+    subtitle: "December 2023",
+    comment: "Host was very attentive.",
+  },
+  {
+    avatarUrl: "/2.png",
+    title: "Amina",
+    subtitle: "July 2023",
+    comment:
+      "Wonderful neighborhood, easy access to restaurants and the subway, cozy studio apartment with a super comfortable bed. Great host, super helpful and responsive. Cool murphy bed...",
+  },
+  {
+    avatarUrl: "/3.png",
+    title: "Liam",
+    subtitle: "March 2022",
+    comment:
+      "Well designed and fun space, neighborhood has lots of energy and amenities.",
+  },
+  {
+    avatarUrl: "/4.png",
+    title: "Priya",
+    subtitle: "October 2024",
+    comment: "Check-in was easy and the apartment was spacious.",
+  },
+  {
+    avatarUrl: "/5.png",
+    title: "Carlos",
+    subtitle: "May 2025",
+    comment: "Great value for money. Would book again!",
+  },
+  {
+    avatarUrl: "/6.png",
+    title: "Sophie",
+    subtitle: "August 2023",
+    comment: "Host provided excellent recommendations for local food.",
+  },
+];
+
 const Section = styled.section`
   width: 100%;
   ${flexColumnCenterStart};
   gap: ${spacing.base};
   border-bottom: 1px solid ${colors["gray-200"]};
-  padding-bottom: ${spacing.lg};
-  gap: ${spacing.lg};
+  padding-bottom: ${spacing["3xl"]};
+  gap: ${spacing.xl};
 `;
 
+// Responsive grid for comments with gap of 4rem on medium screens and above
+const CommentsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  ${generateResponsiveStyles("gap", { md: "4rem" })}
+  ${generateResponsiveStyles("grid-template-columns", { md: "1fr 1fr" })}
+`;
 const SleepCard = styled.div`
   ${flexColumnStart};
   max-width: 32rem;
@@ -138,10 +207,10 @@ const Location = () => {
 
   const { sentinelRef, isSticky } = useStickyToggle();
 
-  const [photoRef, scrollToPhoto] = useScrollTo();
-  const [amenitiesRef, scrollToAmenities] = useScrollTo();
-  const [revsRef, scrollToReviews] = useScrollTo();
-  const [locRef, scrollToLocation] = useScrollTo();
+  const [photoRef, scrollToPhoto] = useScrollTo(100);
+  const [amenitiesRef, scrollToAmenities] = useScrollTo(160);
+  const [revsRef, scrollToReviews] = useScrollTo(120);
+  const [locRef, scrollToLocation] = useScrollTo(120);
   const [reservationRef, scrollToReservation] = useScrollTo();
 
   const isMobile = useMedia(`(max-width: ${breakpoints.md}`);
@@ -271,7 +340,7 @@ const Location = () => {
           )}
         </ContentBox>
 
-        <Section>
+        <Section ref={revsRef}>
           <H3>
             <FlexRow $gap="sm">
               <FlexRow $gap="sm">
@@ -282,14 +351,21 @@ const Location = () => {
               <span $size="lg">{reviews} reviews</span>
             </FlexRow>
           </H3>
-          {/* <Ratings /> */}
+          <Ratings />
+          {/* Render all comments in a responsive grid using styled-components */}
+          <CommentsGrid>
+            {comments.map((comment, i) => (
+              <AirbnbComment key={i} {...comment} />
+            ))}
+          </CommentsGrid>
         </Section>
 
         <Section>
           <HostInfo host={host} reviews={reviews} />
         </Section>
-        <Section>
+        <Section ref={locRef}>
           <H3>Things to know</H3>
+          <HouseRules />
         </Section>
       </Container>
       <Footer />

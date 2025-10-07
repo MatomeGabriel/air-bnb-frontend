@@ -13,7 +13,7 @@ This project is a feature-rich, modular React application built with Vite. It su
 - **State management** and data fetching with `@tanstack/react-query`
 - **Authentication** and protected routes
 - **Styled Components** for theming and design system
-- **Date selection** with `react-date-range`
+- **Date selection** with ``
 - **Image uploads** via `react-dropzone`
 - **Form handling** with `react-hook-form`
 - **Notifications** using `react-hot-toast`

@@ -9,6 +9,19 @@ import FormContainer from "../../ui/FormContainer";
 import FormNote from "../../ui/FormNote";
 import { useAuth } from "../../context/AuthContext";
 
+/**
+ * CreateLoginForm
+ * Renders a login form using react-hook-form and context-driven authentication.
+ * Includes validation for username and password fields.
+ *
+ * Features:
+ * - Username and password input fields with error handling
+ * - Password must be at least 8 characters
+ * - Submit button disabled while logging in
+ * - Link to signup page for new users
+ *
+ * @returns {JSX.Element}
+ */
 const CreateLoginForm = () => {
   const {
     register,

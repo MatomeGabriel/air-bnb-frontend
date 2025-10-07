@@ -9,10 +9,24 @@ import {
   LocationsTypeOptions,
 } from "./SearchBarOptions";
 
+/**
+ * StyledFilters
+ * A flexible row layout for displaying filter buttons or selects.
+ * Wraps items and adds spacing between them.
+ */
 const StyledFilters = styled(FlexRow)`
   gap: 1rem;
   flex-wrap: wrap;
 `;
+
+/**
+ * MenuFilters
+ * Renders a list of filter buttons based on provided titles and URLs.
+ *
+ * @param {Object} props
+ * @param {Array<{ title: string, url: string }>} props.filterArr - Array of filter items.
+ * @returns {JSX.Element|null}
+ */
 
 export const MenuFilters = ({ filterArr = [] }) => {
   const redirect = useRedirect();
@@ -32,7 +46,19 @@ export const MenuFilters = ({ filterArr = [] }) => {
   );
 };
 
+/**
+ * Select
+ * Styled <select> element based on ButtonOutline styles.
+ */
 const Select = styled(ButtonOutline)``;
+
+/**
+ * SearchFilters
+ * Renders dropdown filters for location, type, and guest count.
+ * Updates query parameters on change.
+ *
+ * @returns {JSX.Element}
+ */
 export const SearchFilters = () => {
   const { updateParams, params } = UseUpdateQueryParams();
 

@@ -17,6 +17,18 @@ const Img = styled.img`
   border-radius: ${radii.full};
 `;
 
+/**
+ * CreateUpdateProfileForm
+ * Renders a user profile update form with avatar preview and basic user info.
+ * Pulls current user data from AuthContext.
+ *
+ * Features:
+ * - Displays user's profile image inside a styled container
+ * - Shows static labels for name and email (can be extended to dynamic values)
+ * - Includes a form layout for future profile update fields
+ *
+ * @returns {JSX.Element}
+ */
 const CreateUpdateProfileForm = () => {
   const { user } = useAuth();
   return (

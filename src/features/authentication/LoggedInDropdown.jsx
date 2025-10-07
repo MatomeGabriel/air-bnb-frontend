@@ -4,6 +4,16 @@ import { BorderSm } from "../../ui/Borders";
 import useLogout from "../../hooks/useLogout";
 import { ROUTES } from "../../utils/routes";
 
+/**
+ * UserDropdown
+ * Renders a dropdown menu for regular users with navigation links and logout functionality.
+ *
+ * Features:
+ * - Log out button (triggers logoutUser from useLogout)
+ * - Links to profile, reservations, wishlist, and help center
+ *
+ * @returns {JSX.Element}
+ */
 export const UserDropdown = () => {
   const { logoutUser } = useLogout();
 
@@ -15,7 +25,12 @@ export const UserDropdown = () => {
     <DropDown>
       <ListColumn>
         <li>
-          <StyledLink as="p" $colorTheme="dark" onClick={onSubmit}>
+          <StyledLink
+            style={{ textDecoration: "none" }}
+            as="p"
+            $colorTheme="dark"
+            onClick={onSubmit}
+          >
             Log out
           </StyledLink>
         </li>
@@ -46,6 +61,17 @@ export const UserDropdown = () => {
     </DropDown>
   );
 };
+
+/**
+ * HostDropdown
+ * Renders a dropdown menu for hosts with navigation links and logout functionality.
+ *
+ * Features:
+ * - Log out button (triggers logoutUser from useLogout)
+ * - Links to profile, manage listings, create listing, and help center
+ *
+ * @returns {JSX.Element}
+ */
 export const HostDropdown = () => {
   const { logoutUser } = useLogout();
 

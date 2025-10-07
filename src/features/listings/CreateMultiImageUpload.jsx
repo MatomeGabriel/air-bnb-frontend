@@ -77,31 +77,38 @@ const DeleteButton = styled(IconButton)`
     }
   }
 `;
+
 /**
  * CreateMultiImageUpload
  *
- * Handles uploading, previewing, and deleting multiple images for a listing.
- * Supports both local previews and remote (cloud) images in edit mode.
+ * Renders a drag-and-drop image uploader with local preview and cloud image management.
+ * Supports both creation and edit modes, allowing users to upload, preview, and delete images.
  *
- * Usage:
- *   <CreateMultiImageUpload
- *     images={images}
- *     setImages={setImages}
- *     listingImages={listingImages}
- *     mode={mode}
- *     listingId={listingId}
- *   />
+ * Features:
+ * - Drag & drop or click-to-select image upload
+ * - Local image previews with memory-safe cleanup
+ * - Remote image display in edit mode with cloud deletion
+ * - Confirmation modal before deleting cloud images
+ * - Visual badges for local (database) and cloud (uploaded) images
  *
- * Props:
- *   @param {Array} images - Array of local image objects with preview URLs
- *   @param {Function} setImages - State setter for images
- *   @param {Array} [listingImages=[]] - Array of remote image paths (edit mode)
- *   @param {string} mode - 'edit' or 'create' mode
- *   @param {string|null} [listingId=null] - Listing ID for cloud image deletion
+ * @param {Object} props
+ * @param {Array} props.images - Array of local image objects with preview URLs
+ * @param {Function} props.setImages - State setter for local image array
+ * @param {Array} [props.listingImages=[]] - Array of remote image objects with `url` and `path`
+ * @param {string} props.mode - Either "create" or "edit"
+ * @param {string|null} [props.listingId=null] - Listing ID used for cloud image deletion
  *
- * @returns {JSX.Element} The image upload UI
+ * @returns {JSX.Element} Image upload and preview UI
+ *
+ * @example
+ * <CreateMultiImageUpload
+ *   images={images}
+ *   setImages={setImages}
+ *   listingImages={listingImages}
+ *   mode="edit"
+ *   listingId="abc123"
+ * />
  */
-
 const CreateMultiImageUpload = ({
   images,
   setImages,

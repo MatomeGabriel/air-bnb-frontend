@@ -6,6 +6,14 @@ import { radii } from "../design-system/index";
 import { generateResponsiveStyles } from "../design-system/mixins/responsive";
 import ImageLoader from "./ImageLoader";
 
+/**
+ * StyledCityCard
+ * Container for the city card layout.
+ * Applies column flex layout, rounded corners, and responsive image height.
+ *
+ * Props:
+ * - $bgColor: Optional background color applied via design system mixin.
+ */
 const StyledCityCard = styled.div`
   ${column}
   width: 100%;
@@ -19,6 +27,14 @@ const StyledCityCard = styled.div`
   }
 `;
 
+/**
+ * CityContent
+ * Inner content block for city name and distance.
+ * Uses column layout, spacing, and responsive height.
+ *
+ * Props:
+ * - $bgColor: Optional background color applied via design system mixin.
+ */
 const CityContent = styled.div`
   ${column}
   gap: ${spacing.sm};
@@ -28,6 +44,19 @@ const CityContent = styled.div`
   ${generateResponsiveStyles("height", { md: "20rem", lg: "21rem" })}
 `;
 
+/**
+ * CityCard
+ * Displays a visual card for a city with image, name, and distance.
+ *
+ * @param {Object} props
+ * @param {Object} props.city - City data object.
+ * @param {string} props.city.name - Name of the city.
+ * @param {string} props.city.distance - Distance or travel time to the city.
+ * @param {string} props.city.image - Image URL representing the city.
+ * @param {string} [props.city.$bgColor] - Optional background color for the card.
+ *
+ * @returns {JSX.Element} A styled city card component.
+ */
 const CityCard = ({ city }) => {
   const { name, distance, image, $bgColor } = city;
 

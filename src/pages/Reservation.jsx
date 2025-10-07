@@ -1,5 +1,3 @@
-// if it's the user , show all their reservation
-
 import { Header } from "../ui/Header";
 import { MainContainer } from "../ui/MainContainer";
 import MainMenu from "../ui/MainMenu";
@@ -8,8 +6,15 @@ import ReservationsTable from "../features/reservations/ReservationsTable";
 import { filterArr } from "../utils/reservationUtils";
 import { useAuth } from "../context/AuthContext";
 
-// if it's the owner of the hotel/hotels show all of their reservations
-
+/**
+ * Reservation
+ * Renders the reservations page for both users and hosts.
+ * - If the user is a guest, shows their personal reservations.
+ * - If the user is a host, shows all reservations for their listed properties.
+ * Includes a header with role-based navigation.
+ *
+ * @returns {JSX.Element}
+ */
 const Reservation = () => {
   const { user } = useAuth();
   return (

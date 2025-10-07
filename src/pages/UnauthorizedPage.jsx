@@ -8,6 +8,13 @@ import { FlexColumn } from "../ui/Flex";
 import StyledLink from "../ui/StyledLink";
 import { ROUTES } from "../utils/routes";
 
+/**
+ * UnauthorizedPage
+ * Displays a message when a user tries to access a restricted route.
+ * Includes a header, explanatory text, and a link back to the homepage.
+ *
+ * @returns {JSX.Element}
+ */
 const UnauthorizedPage = () => {
   return (
     <>

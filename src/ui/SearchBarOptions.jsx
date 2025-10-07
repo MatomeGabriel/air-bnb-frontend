@@ -1,5 +1,13 @@
 import { useLocationsDataContext } from "../context/LocationsDataContext";
 
+/**
+ * LocationsListOptions
+ * Renders a list of location options for a <select> element.
+ *
+ * @param {Object} props
+ * @param {boolean} props.showAllLoc - Whether to include "All Locations" as the first option.
+ * @returns {JSX.Element}
+ */
 export const LocationsListOptions = ({ showAllLoc = true }) => {
   const { locationsList, isLoadingLocationsSummary } =
     useLocationsDataContext();
@@ -23,6 +31,12 @@ export const LocationsListOptions = ({ showAllLoc = true }) => {
   );
 };
 
+/**
+ * LocationsGuestOptions
+ * Renders guest count options based on maxGuest from context.
+ *
+ * @returns {JSX.Element}
+ */
 export const LocationsGuestOptions = () => {
   const { locationsGuests, isLoadingLocationsSummary } =
     useLocationsDataContext();
@@ -46,6 +60,12 @@ export const LocationsGuestOptions = () => {
   );
 };
 
+/**
+ * LocationsTypeOptions
+ * Renders location type options for a <select> element.
+ *
+ * @returns {JSX.Element}
+ */
 export const LocationsTypeOptions = () => {
   const { locationsType, isLoadingLocationsSummary } =
     useLocationsDataContext();

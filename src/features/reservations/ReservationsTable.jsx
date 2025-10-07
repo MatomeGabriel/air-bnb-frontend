@@ -123,6 +123,25 @@ const TableData = styled.td`
   align-items: start;
   gap: ${spacing.md};
 `;
+
+/**
+ * ReservationsTable
+ *
+ * Renders a responsive table of user reservations with delete functionality.
+ * Adapts layout for mobile and desktop using styled-components and media queries.
+ *
+ * Features:
+ * - Displays reservation details: user, property, check-in, check-out
+ * - Responsive layout with accessible mobile formatting
+ * - Delete button for each reservation with contextual styling
+ * - Loading spinner and error handling
+ *
+ * @returns {JSX.Element} A styled reservation table
+ *
+ * @example
+ * <ReservationsTable />
+ */
+
 const ReservationsTable = () => {
   const {
     reservations,

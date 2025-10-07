@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
 import useCurrentUser from "../hooks/useCurrentUser";
 import { AvatarIcon, GlobeIcon, MenuIcon } from "./Icons";
@@ -72,7 +72,21 @@ const ImgBox = styled.div`
     border-radius: ${radii.full};
   }
 `;
-
+/**
+ * UserMenu
+ * Renders a user interaction menu with login/signup options or user dropdowns.
+ *
+ * @param {Object} props
+ * @param {boolean} props.isNotHome - Determines color theme based on current route.
+ *
+ * @returns {JSX.Element}
+ *
+ * Features:
+ * - Shows "Become a Host" link when logged out
+ * - Displays user avatar and dropdown when logged in
+ * - Dropdown includes login/signup/help links for guests
+ * - Dropdown includes host/user actions for authenticated users
+ */
 const UserMenu = ({ isNotHome }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -161,14 +175,3 @@ const UserMenu = ({ isNotHome }) => {
 };
 
 export default UserMenu;
-
-/**
- * A component where users can do these actions
- *  When logged in
-    *  1. users can log out
-    *  2. User can view reservation
-    *  3. users can visit a page to change their details
-*  When logged out
-    1. User can login
-    2. Users can signup
- *  */

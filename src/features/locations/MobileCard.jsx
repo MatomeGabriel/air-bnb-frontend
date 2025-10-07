@@ -74,6 +74,27 @@ const Title = styled(TextBase)`
   color: ${colors["gray-700"]};
 `;
 
+/**
+ * MobileCard
+ *
+ * Renders a compact, mobile-optimized card for a property listing.
+ * Displays image, title, price, rating, and action buttons.
+ * Navigates to the listing detail page on click.
+ *
+ * @param {Object} props
+ * @param {Object} props.place - Listing data object
+ * @param {string} props.place._id - Unique listing ID
+ * @param {string} props.place.title - Listing title
+ * @param {number} props.place.price - Price per night
+ * @param {number} props.place.rating - Average rating
+ * @param {Array} props.place.images - Array of image objects with `url` property
+ *
+ * @returns {JSX.Element} A styled mobile card component
+ *
+ * @example
+ * <MobileCard place={listingData} />
+ */
+
 const MobileCard = ({ place }) => {
   return (
     <CardMobile>

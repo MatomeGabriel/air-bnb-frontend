@@ -55,6 +55,40 @@ const ReservationForm = styled.form`
   width: 100%;
 `;
 
+/**
+ * Reservation
+ *
+ * Renders a sticky reservation form and pricing breakdown for a listing.
+ * Handles date selection, guest count, form validation, and reservation submission.
+ * Integrates with context to manage reservation state and feedback.
+ *
+ * Features:
+ * - Sticky sidebar layout with responsive behavior
+ * - Form fields: check-in, check-out, guest count
+ * - Dynamic pricing table with calculated totals and discounts
+ * - Submission triggers reservation mutation and toast feedback
+ * - Displays rating and review summary
+ * - Prevents submission if form is invalid
+ *
+ * @param {Object} props
+ * @param {React.RefObject} props.reservationRef - Ref for sticky positioning on desktop
+ * @param {boolean} props.isMobile - Whether the layout is mobile
+ * @param {Object} props.location - Listing data object
+ * @param {Function} props.onUpdate - Callback to update reservation state
+ * @param {React.RefObject} props.sentinelRef - Ref used for scroll tracking or intersection observer
+ *
+ * @returns {JSX.Element} Reservation form and pricing summary
+ *
+ * @example
+ * <Reservation
+ *   reservationRef={ref}
+ *   isMobile={false}
+ *   location={listingData}
+ *   onUpdate={handleUpdate}
+ *   sentinelRef={sentinelRef}
+ * />
+ */
+
 const Reservation = ({
   reservationRef,
   isMobile,

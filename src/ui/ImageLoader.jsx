@@ -1,16 +1,37 @@
 import { useState } from "react";
 import { Loader, Spinner } from "./Spinners";
 import styled from "styled-components";
+import { colors } from "../design-system";
 
+/**
+ * LoaderBg
+ * A blurred background layer shown while the image is loading.
+ */
 const LoaderBg = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
   z-index: 2;
-  /* background-color: #9b8683; */
+  background-color: ${colors.muted};
   filter: blur(1rem);
   border-radius: 100px;
 `;
+
+/**
+ * ImageLoader
+ * Displays an image with a loading spinner and blur effect until fully loaded.
+ * Triggers a modal on click using the provided index.
+ *
+ * @param {Object} props
+ * @param {string} props.src - Image source URL.
+ * @param {string} props.alt - Alt text for the image.
+ * @param {number} props.index - Index used for modal identification.
+ * @param {Object} [props.style] - Optional inline styles for the image.
+ * @param {string} [props.loaderSize] - Optional size for the loader spinner.
+ * @param {boolean} [props.blur=true] - Whether to apply blur while loading.
+ * @param {Function} props.onOpenModal - Callback to open modal with image index.
+ * @returns {JSX.Element}
+ */
 const ImageLoader = ({
   src,
   alt,

@@ -2,8 +2,16 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 /**
- * Custom hook to handle image preview
- * @returns
+ * useImagePreview
+ * Custom hook for handling image file selection and preview rendering.
+ * Uses FileReader to convert selected image into a base64 preview.
+ *
+ * @returns {Object} - Contains:
+ *   - readFile: Function to handle file input change and generate preview
+ *   - error: Error message if file reading fails
+ *   - previewSrc: Base64 string of the selected image for preview
+ *   - file: Original File object selected by the user
+ *   - setPreviewSrc: Setter to manually update previewSrc if needed
  */
 const useImagePreview = () => {
   const [previewSrc, setPreviewSrc] = useState(null);

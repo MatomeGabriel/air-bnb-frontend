@@ -10,9 +10,22 @@ import { filterArr } from "../utils/reservationUtils";
 import { useAuth } from "../context/AuthContext";
 import { Spinner } from "../ui/Spinners";
 
+/**
+ * Main
+ * Page container with padding for the listings view.
+ */
 const Main = styled(MainContainer)`
   padding: 4rem;
 `;
+
+/**
+ * Listings
+ * Displays hotel listings for the current user.
+ * Shows a loading spinner while fetching data.
+ * Renders mobile or desktop cards based on screen size.
+ *
+ * @returns {JSX.Element}
+ */
 const Listings = () => {
   const { user } = useAuth();
   const { listings, isFetchingListings } = useListings();

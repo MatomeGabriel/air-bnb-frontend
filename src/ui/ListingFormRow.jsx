@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { generateResponsiveStyles } from "../design-system";
 
+/**
+ * StyledListingFormRow
+ * A responsive grid layout for form rows.
+ * Includes spacing, bottom border, and styles for labels and error messages.
+ */
 const StyledListingFormRow = styled.div`
   display: grid;
   /* grid-template-columns: 24rem 1fr 1.2fr; */
@@ -27,6 +32,17 @@ const StyledListingFormRow = styled.div`
     color: red;
   }
 `;
+
+/**
+ * ListingFormRow
+ * Renders a labeled form row with optional error message.
+ *
+ * @param {Object} props
+ * @param {string} props.label - Label text for the input.
+ * @param {string} [props.error] - Optional error message shown in red.
+ * @param {React.ReactNode} props.children - Input or form element.
+ * @returns {JSX.Element}
+ */
 const ListingFormRow = ({ label, error, children }) => {
   return (
     <StyledListingFormRow>

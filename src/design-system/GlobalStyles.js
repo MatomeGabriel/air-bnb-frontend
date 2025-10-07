@@ -1,3 +1,24 @@
+/**
+ * GlobalStyles
+ *
+ * Injects global CSS resets and base styles using styled-components.
+ * Establishes consistent typography, spacing, form element behavior, and responsive adjustments.
+ *
+ * Features:
+ * - Box-sizing reset and margin/padding normalization
+ * - Base font sizing (62.5% for rem scaling)
+ * - Responsive body padding
+ * - Unified styling for inputs, buttons, selects, and textareas
+ * - Focus and disabled states for form elements
+ * - Break-word and hyphenation for all text elements
+ * - Responsive visibility for `.active` links and embedded SVGs
+ *
+ * Usage:
+ *   <GlobalStyles />
+ *
+ * @returns {StyledComponent} Global style injection
+ */
+
 import { createGlobalStyle } from "styled-components";
 import {
   boxShadow,

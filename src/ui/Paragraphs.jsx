@@ -8,7 +8,8 @@ import styled from "styled-components";
 import { applyTypographyProps, textBase, typography } from "../design-system";
 
 /**
- * Base styled paragraph component with default typography and mixins.
+ * TextBase
+ * Base paragraph with default typography and mixins.
  */
 export const TextBase = styled.p`
   ${textBase}
@@ -16,7 +17,8 @@ export const TextBase = styled.p`
 `;
 
 /**
- * Small text paragraph component.
+ * TextSm
+ * Small-sized paragraph text.
  */
 export const TextSm = styled(TextBase)`
   font-size: ${typography.sizes.sm};
@@ -24,28 +26,32 @@ export const TextSm = styled(TextBase)`
 `;
 
 /**
- * Large text paragraph component.
+ * TextLg
+ * Large-sized paragraph text.
  */
 export const TextLg = styled(TextBase)`
   font-size: ${typography.sizes.lg};
 `;
 
 /**
- * Extra large text paragraph component.
+ * TextXl
+ * Extra-large paragraph text.
  */
 export const TextXl = styled(TextBase)`
   font-size: ${typography.sizes.xl};
 `;
 
 /**
- * 2x extra large text paragraph component.
+ * Text2xl
+ * 2x extra-large paragraph text.
  */
 export const Text2xl = styled(TextBase)`
   font-size: ${typography.sizes["2xl"]};
 `;
 
 /**
- * Extra small text paragraph component.
+ * TextXs
+ * Extra-small paragraph text.
  */
 export const TextXs = styled(TextBase)`
   font-size: ${typography.sizes.xs};

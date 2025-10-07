@@ -36,6 +36,18 @@ const Img = styled.img`
   height: 3.2rem !important ;
   border-radius: ${radii.full};
 `;
+
+/**
+ * MobileNav
+ * Renders a bottom navigation bar for mobile view with three main links:
+ * - Explore (home)
+ * - Wishlist
+ * - Profile or Login (based on authentication state)
+ *
+ * Uses `useCurrentUser` to determine login status and display user avatar if logged in.
+ *
+ * @returns {JSX.Element}
+ */
 const MobileNav = () => {
   const { user, isLoading, isLoggedIn } = useCurrentUser();
 

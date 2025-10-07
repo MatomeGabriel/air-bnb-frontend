@@ -1,7 +1,11 @@
-import React from "react";
 import styled from "styled-components";
 import { colors, generateResponsiveStyles, radii } from "../design-system";
 
+/**
+ * StyledFormContainer
+ * A centered container with max width, white background, and rounded corners.
+ * Adds a border on small screens.
+ */
 export const StyledFormContainer = styled.div`
   max-width: 56.8rem;
   margin: 0 auto;
@@ -13,6 +17,14 @@ export const StyledFormContainer = styled.div`
   flex: 1;
 `;
 
+/**
+ * FormContainer
+ * Wraps form content inside a styled container.
+ *
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - Form elements to render inside the container.
+ * @returns {JSX.Element}
+ */
 const FormContainer = ({ children }) => {
   return <StyledFormContainer>{children}</StyledFormContainer>;
 };

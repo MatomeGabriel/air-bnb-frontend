@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
 
+/**
+ * useMedia
+ * Custom hook to track media query matches in real-time.
+ * Useful for responsive behavior based on screen size or device features.
+ *
+ * @param {string} query - A valid CSS media query string (e.g. "(max-width: 768px)")
+ * @returns {boolean} - Whether the media query currently matches
+ */
 const useMedia = (query) => {
   // matches is true or false
   const [matches, setMatches] = useState(window.matchMedia(query).matches);

@@ -1,5 +1,17 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
+/**
+ * UseUpdateQueryParams
+ * Custom hook for reading and updating URL query parameters using React Router.
+ *
+ * @returns {Object} - Contains:
+ *   - params: URLSearchParams instance representing current query parameters
+ *   - updateParams: Function to update query parameters and trigger navigation
+ *
+ * @example
+ * const { updateParams, params } = UseUpdateQueryParams();
+ * updateParams({ page: 2, filter: "active" });
+ */
 const UseUpdateQueryParams = () => {
   const navigate = useNavigate();
   const { search } = useLocation();

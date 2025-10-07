@@ -15,6 +15,26 @@ import UseUpdateQueryParams from "../../hooks/useUpdateQueryParams";
 const LocationsHeader = styled.header`
   padding-bottom: ${spacing.lg};
 `;
+
+/**
+ * LocationCards
+ *
+ * Renders a responsive grid or column of property listing cards based on screen size.
+ * Uses `useMedia` to determine mobile or desktop layout.
+ * Fetches location data from context and displays loading/error states via `LoadingHandler`.
+ *
+ * Features:
+ * - Displays total number of stays and current location filter
+ * - Renders `MobileCard` components in a grid for mobile view
+ * - Renders `DesktopCard` components in a column for desktop view
+ * - Shows fallback message if data fails to load
+ *
+ * @returns {JSX.Element} Responsive listing card layout
+ *
+ * @example
+ * <LocationCards />
+ */
+
 const LocationCards = () => {
   // Is screen width mobile or desktop
   // const location = useLocation();

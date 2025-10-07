@@ -22,6 +22,20 @@ const StyledAvatar = styled.div`
   }
 `;
 
+/**
+ * Avatar
+ *
+ * Displays a circular host avatar image with a SuperHost badge overlay.
+ * Uses `ImageLoader` for optimized image rendering and fallback handling.
+ *
+ * @param {Object} props
+ * @param {string} props.hostImg - URL of the host's profile image
+ *
+ * @returns {JSX.Element} Styled avatar with badge
+ *
+ * @example
+ * <Avatar hostImg="https://example.com/photo.jpg" />
+ */
 const Avatar = ({ hostImg }) => {
   return (
     <StyledAvatar>

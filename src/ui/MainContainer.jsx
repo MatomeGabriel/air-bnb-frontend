@@ -1,3 +1,8 @@
+/**
+ * Main layout container with responsive padding.
+ * Uses maxContainer for layout constraints.
+ */
+
 import styled from "styled-components";
 import { generateResponsiveStyles, maxContainer } from "../design-system";
 

@@ -7,6 +7,10 @@ import {
   typography,
 } from "../design-system";
 
+/**
+ * StyledFormRow
+ * A vertical form field wrapper with spacing and floating label behavior.
+ */
 const StyledFormRow = styled(FlexColumn)`
   gap: ${spacing.sm};
   & input,
@@ -36,16 +40,29 @@ const StyledFormRow = styled(FlexColumn)`
     transition: all 0.2s ease;
   }
 `;
+
+/**
+ * Message
+ * Displays helper or success text below the input.
+ */
 const Message = styled.p`
   font-size: 1.2rem;
   color: #717171;
   margin-left: 2px;
 `;
+/**
+ * InputContainer
+ * Wraps input/select and label for positioning.
+ */
 const InputContainer = styled.div`
   position: relative;
   width: 100%;
 `;
 
+/**
+ * Error
+ * Displays error message with styling and spacing.
+ */
 const Error = styled.p`
   ${flexRowStartCenter}
   gap: ${spacing.xs};
@@ -55,6 +72,18 @@ const Error = styled.p`
   margin-left: 2px;
 `;
 
+/**
+ * FormRow
+ * Combines input/select, floating label, and optional message or error.
+ *
+ * @param {Object} props
+ * @param {string} props.label - Label text for the input/select.
+ * @param {string} [props.error] - Optional error message.
+ * @param {string} [props.message] - Optional helper message.
+ * @param {React.ReactNode} props.children - Input or select element.
+ * @param {string} [props.$width] - Optional width styling.
+ * @returns {JSX.Element}
+ */
 const FormRow = ({ label, error, message, children, $width }) => {
   return (
     <StyledFormRow $width={$width}>

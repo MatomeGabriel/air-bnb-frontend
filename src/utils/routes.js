@@ -1,3 +1,12 @@
+/**
+ * ROUTES
+ * Centralized route definitions for the application.
+ * Used for navigation and linking across components.
+ *
+ * Example:
+ *   <Link to={ROUTES.login}>Log in</Link>
+ */
+
 export const ROUTES = {
   home: "/",
   login: "/login",

@@ -17,6 +17,10 @@ import {
   LocationsGuestOptions,
 } from "./SearchBarOptions";
 
+/**
+ * StyledSearchBar
+ * Responsive form container for search inputs.
+ */
 const StyledSearchBar = styled.form`
   position: relative;
   display: grid;
@@ -33,11 +37,18 @@ const StyledSearchBar = styled.form`
   background-color: white;
   overflow: hidden;
 `;
-
+/**
+ * SearchButton
+ * Styled icon button used to submit the search form.
+ */
 const SearchButton = styled(IconButton)`
   padding: 1.6rem;
 `;
 
+/**
+ * SearchGroup
+ * Wrapper for each input/select field with styling and responsive padding.
+ */
 const SearchGroup = styled.div`
   color: ${colors.secondary};
   &:focus-within {

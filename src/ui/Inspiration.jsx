@@ -12,6 +12,10 @@ import { ButtonSolidLightLg } from "./Buttons";
 import Img1 from "../assets/experiences1.jpg";
 import Img2 from "../assets/experiences2.jpg";
 
+/**
+ * StyledInspirationBox
+ * A responsive grid container that displays two inspiration cards side by side on small screens.
+ */
 const StyledInspirationBox = styled.div`
   width: 100%;
   display: grid;
@@ -22,6 +26,14 @@ const StyledInspirationBox = styled.div`
   })}
 `;
 
+/**
+ * StyledInspiration
+ * A card-style section with a background image, gradient overlay, and centered content.
+ * Adjusts layout and spacing responsively.
+ *
+ * Props:
+ * - $bgImg: Background image URL
+ */
 const StyledInspiration = styled.div`
   ${flexColumnCenter}
   gap: ${spacing.md};
@@ -67,6 +79,13 @@ const StyledInspiration = styled.div`
   }
 `;
 
+/**
+ * Inspiration
+ * Renders two promotional cards for travel and online experiences.
+ * Each card includes a heading and a call-to-action button.
+ *
+ * @returns {JSX.Element}
+ */
 const Inspiration = () => {
   return (
     <StyledInspirationBox>

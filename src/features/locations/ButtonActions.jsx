@@ -13,6 +13,23 @@ const StyledActionButtons = styled.div`
   gap: 1.6rem;
 `;
 
+/**
+ * ButtonActions
+ *
+ * Renders action buttons for  deleting a listing.
+ * Only displays buttons when the current route is "/listings".
+ * Integrates confirmation modal before deletion and handles navigation.
+ *
+ * @param {Object} props
+ * @param {string} props._id - Unique ID of the listing
+ * @param {string} [props.$size] - Optional size modifier (not used directly here)
+ * @param {boolean} [props.$mobile=false] - Determines layout direction (row for mobile, column otherwise)
+ *
+ * @returns {JSX.Element|null} Action buttons UI or null if not on "/listings" route
+ *
+ * @example
+ * <ButtonActions _id="abc123" $mobile={true} />
+ */
 const ButtonActions = ({ _id, $size, $mobile = false }) => {
   const { onDeleteHosting, isDeletingHostListing, isListings } =
     UseDeleteHosting();

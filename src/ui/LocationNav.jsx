@@ -13,6 +13,11 @@ import { TextBase, TextXs } from "./Paragraphs";
 import { usePopup } from "../context/PopupContext";
 import Reservation from "../features/locations/Reservation";
 
+/**
+ * StyledLocationNav
+ * Responsive navigation bar fixed at the bottom on mobile and sticky at the top on desktop.
+ * Includes border and background styling.
+ */
 const StyledLocationNav = styled.nav`
   /* position: sticky;
   top: 0; */
@@ -25,14 +30,21 @@ const StyledLocationNav = styled.nav`
   width: 100%;
   border-bottom: 1px solid ${colors["gray-200"]};
 `;
-
+/**
+ * NavContainer
+ * Horizontal layout container for navigation links and reservation box.
+ */
 const NavContainer = styled.div`
   ${flexRowBetween};
   max-width: 112rem;
   margin: 0 auto;
   padding: 1.2rem 2.4rem;
 `;
-
+/**
+ * LocationNavItems
+ * Navigation links for scrolling to different sections of the location page.
+ * Hidden on mobile, visible on medium screens and up.
+ */
 const LocationNavItems = styled.ul`
   height: 6.4rem;
   display: flex;
@@ -54,7 +66,11 @@ const LocationNavItems = styled.ul`
     text-decoration: none;
   }
 `;
-
+/**
+ * ReserveBox
+ * Displays pricing summary and a reserve button.
+ * Visible on mobile or when sticky mode is active.
+ */
 const ReserveBox = styled(FlexRow)`
   justify-content: space-between;
   width: 100%;
@@ -62,6 +78,20 @@ const ReserveBox = styled(FlexRow)`
   ${generateResponsiveStyles("width", { md: "auto" })}
 `;
 
+/**
+ * LocationNav
+ * Renders a responsive navigation bar for location pages.
+ * Includes scroll-to-section links and a reserve button with modal support.
+ *
+ * @param {Object} props
+ * @param {Object} props.locNavData - Refs and scroll handlers for each section.
+ * @param {boolean} props.isMobile - Whether the view is mobile.
+ * @param {Object} props.location - Location data passed to the reservation modal.
+ * @param {Object} props.summary - Pricing summary with total and number of nights.
+ * @param {Function} props.onUpdate - Callback for updating reservation state.
+ * @param {boolean} props.isSticky - Whether the nav should behave as sticky.
+ * @returns {JSX.Element}
+ */
 const LocationNav = ({
   locNavData,
   isMobile,

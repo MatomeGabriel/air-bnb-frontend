@@ -3,7 +3,6 @@ import Img404 from "../assets/404.png";
 import {
   flexColumnCenter,
   flexColumnCenterStart,
-  flexRowCenter,
   generateResponsiveStyles,
   spacing,
 } from "../design-system";
@@ -14,6 +13,11 @@ import { Header } from "../ui/Header";
 import StyledLink from "../ui/StyledLink";
 import { ROUTES } from "../utils/routes";
 
+/**
+ * StyledPageNotFound
+ * Responsive layout for the 404 error page.
+ * Stacks content vertically on mobile and switches to horizontal on medium screens.
+ */
 const StyledPageNotFound = styled.div`
   ${flexColumnCenter};
   padding: ${spacing.xl};
@@ -24,21 +28,42 @@ const StyledPageNotFound = styled.div`
   margin: 2.4rem auto;
 `;
 
+/**
+ * Img
+ * Displays the 404 illustration.
+ */
 const Img = styled.img`
   width: 46.4rem;
 `;
 
+/**
+ * StyledContent
+ * Text and navigation container beside the image.
+ */
 const StyledContent = styled.div`
   ${flexColumnCenterStart};
   flex: 1;
   gap: 2rem;
 `;
+
+/**
+ * ErrorHeading
+ * Large, bold heading for the error code and message.
+ */
 const ErrorHeading = styled(H3)`
   font-size: 6.4rem;
   font-weight: bold;
   text-transform: uppercase;
   line-height: 1;
 `;
+
+/**
+ * PageNotFound
+ * Renders a 404 error page with image, message, and navigation link.
+ * Includes header and main menu for consistent layout.
+ *
+ * @returns {JSX.Element}
+ */
 const PageNotFound = () => {
   return (
     <>

@@ -1,25 +1,25 @@
 import styled from "styled-components";
-import { flexColumnStart } from "../design-system";
+import { flexColumnStart, spacing } from "../design-system";
 import { TextBase, TextSm } from "./Paragraphs";
 
 const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2.4rem;
+  gap: ${spacing.lg};
 `;
 
 const UserRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 24px;
+  gap: ${spacing.lg};
 `;
 
 const AvatarWrapper = styled.div`
   position: relative;
-  width: 56px;
-  height: 56px;
+  width: 5.6rem;
+  height: 5.6rem;
   flex: none;
 `;
 
@@ -42,7 +42,18 @@ const AvatarImage = styled.div`
 const TextBlock = styled.div`
   ${flexColumnStart}
 `;
-
+/**
+ * AirbnbComment
+ * Displays a user comment with avatar, name, subtitle, and message.
+ *
+ * @param {Object} props
+ * @param {string} props.avatarUrl - URL of the user's avatar image.
+ * @param {string} props.title - User's name or title.
+ * @param {string} props.subtitle - Additional user info (e.g. location or role).
+ * @param {string} props.comment - The comment text.
+ *
+ * @returns {JSX.Element}
+ */
 const AirbnbComment = ({ avatarUrl, title, subtitle, comment }) => {
   return (
     <CommentContainer>

@@ -4,6 +4,11 @@ import { TextSm } from "./Paragraphs";
 import BackButton from "./BackButton";
 import { NullIcon } from "./Icons";
 
+/**
+ * StyledFormHeader
+ * A horizontal header layout with padding and bottom border.
+ * Centers content if `$showIcon` is false.
+ */
 const StyledFormHeader = styled.div`
   ${flexRowBetween}
 
@@ -16,6 +21,16 @@ const StyledFormHeader = styled.div`
   padding: 2rem 2.4rem;
   border-bottom: 1px solid ${colors.border};
 `;
+
+/**
+ * FormHeader
+ * Displays a form header with optional back and null icons.
+ *
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - Header text or content.
+ * @param {boolean} [props.$showIcon=true] - Whether to show icons on both sides.
+ * @returns {JSX.Element}
+ */
 
 const FormHeader = ({ children, $showIcon = true }) => {
   return (

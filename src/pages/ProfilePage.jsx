@@ -1,25 +1,11 @@
-import styled from "styled-components";
-import FormContainer from "../ui/FormContainer";
-import { flexRowStartCenter, radii } from "../design-system";
-import { FlexColumn, FlexRow } from "../ui/Flex";
-import { TextXs } from "../ui/Paragraphs";
-import { Container } from "../ui/Container";
 import CreateUpdateProfileForm from "../features/authentication/CreateUpdateProfileForm";
 
-const ProfileImgBox = styled.div`
-  ${flexRowStartCenter};
-  gap: 1.6rem;
-  width: 100%;
-  padding-bottom: 1.6rem;
-  border-bottom: 1px solid red;
-`;
-const Img = styled.img`
-  object-fit: cover;
-  width: 7rem;
-  height: 7rem;
-  border-radius: ${radii.full};
-`;
-
+/**
+ * ProfilePage
+ * Renders the profile update form for authenticated users.
+ *
+ * @returns {JSX.Element}
+ */
 const ProfilePage = () => {
   return (
     <>

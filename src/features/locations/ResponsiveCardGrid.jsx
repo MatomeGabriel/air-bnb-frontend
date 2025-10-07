@@ -12,6 +12,37 @@ import React from "react";
 const LocationsHeader = styled.header`
   padding-bottom: ${spacing.lg};
 `;
+
+/**
+ * ResponsiveCardGrid
+ *
+ * Renders a responsive grid or column layout for a list of items, switching between mobile and desktop views.
+ * Accepts a custom card renderer and optional header text.
+ *
+ * Features:
+ * - Uses `useMedia` to detect screen size and switch layout
+ * - Displays items in a grid (`MobileGrid`) on mobile
+ * - Displays items in a vertical column with dividers on desktop
+ * - Supports optional header text and custom key extraction
+ *
+ * @param {Object} props
+ * @param {Array} [props.items=[]] - Array of items to render
+ * @param {string} [props.headerText] - Optional header text to display above the grid
+ * @param {Function} props.renderCard - Function to render each item, receives `(item, mode)` where mode is `"mobile"` or `"desktop"`
+ * @param {Function} [props.keyExtractor] - Function to extract a unique key from each item (default: `item._id`)
+ *
+ * @returns {JSX.Element} Responsive card layout
+ *
+ * @example
+ * <ResponsiveCardGrid
+ *   items={listings}
+ *   headerText="12 stays in Cape Town"
+ *   renderCard={(item, mode) => (
+ *     mode === "mobile" ? <MobileCard place={item} /> : <DesktopCard place={item} />
+ *   )}
+ * />
+ */
+
 const ResponsiveCardGrid = ({
   items = [],
   headerText,

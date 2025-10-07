@@ -10,6 +10,24 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/routes";
 
+/**
+ * CreateSignupForm
+ * Renders a signup form using react-hook-form and context-driven authentication.
+ * Validates user input and redirects to profile image upload on successful signup.
+ *
+ * @param {Object} props
+ * @param {string} [props.message] - Optional custom header message for the form
+ *
+ * Features:
+ * - Full name, username, email, password, and password confirmation fields
+ * - Password must be at least 8 characters
+ * - Password confirmation must match
+ * - Displays validation errors and helper messages
+ * - Disables submit button while signing up
+ * - Redirects to profile image upload page on success
+ *
+ * @returns {JSX.Element}
+ */
 const CreateSignupForm = ({ message }) => {
   const { signupUser, isSigningUp } = useAuth();
   const {

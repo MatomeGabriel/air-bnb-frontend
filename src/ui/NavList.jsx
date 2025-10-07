@@ -1,13 +1,21 @@
 import styled from "styled-components";
 import { colors, flexRowCenter, spacing } from "../design-system";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
+/**
+ * Styled unordered list for navigation items.
+ * Horizontally spaced with no default list styling.
+ */
 const StyledNavList = styled.ul`
   list-style: none;
   display: flex;
   gap: 3rem;
 `;
 
+/**
+ * Styled list item for navigation.
+ * Centers content and adds an underline indicator for active links.
+ */
 const NavItem = styled.li`
   ${flexRowCenter}
   position: relative;
@@ -30,7 +38,12 @@ const NavItem = styled.li`
     color: ${colors.background};
   }
 `;
-
+/**
+ * NavList component
+ * Renders a horizontal navigation menu with three links.
+ *
+ * @returns {JSX.Element} Navigation list with styled links.
+ */
 const NavList = () => {
   return (
     <StyledNavList>

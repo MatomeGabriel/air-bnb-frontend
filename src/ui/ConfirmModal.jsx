@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {
   boxShadow,
   colors,
-  flexColumnCenter,
   flexColumnStart,
   flexRowBetween,
   flexRowCenter,
@@ -10,12 +9,16 @@ import {
   spacing,
 } from "../design-system/index";
 import { TextBase, TextSm } from "../ui/Paragraphs";
-import FormContainer from "../ui/FormContainer";
-import FormHeader from "../ui/FormHeader";
 import { ButtonOutlineDarkSm, ButtonSolidSm } from "./Buttons";
 import { WarningIcon } from "./Icons";
 
 import { FlexRow } from "../ui/Flex";
+
+/**
+ * Backdrop
+ * Full-screen overlay behind the modal.
+ * Centers modal content and dims background with semi-transparent black.
+ */
 const Backdrop = styled.div`
   ${flexRowCenter}
   position: fixed;
@@ -26,7 +29,11 @@ const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
 `;
-//  redo this
+/**
+ * Modal
+ * Main modal container with padding, shadow, and vertical layout.
+ * Used to display confirmation messages and optional warnings.
+ */
 const Modal = styled.div`
   ${flexColumnStart};
   gap: ${spacing.lg};
@@ -38,10 +45,21 @@ const Modal = styled.div`
   background-color: ${colors.white};
 `;
 
+/**
+ * ButtonBox
+ * Horizontal container for action buttons.
+ * Aligns confirm and cancel buttons side by side.
+ */
 const ButtonBox = styled.div`
   ${flexRowBetween};
   width: 100%;
 `;
+
+/**
+ * WarningBox
+ * Styled alert box for displaying warning messages.
+ * Includes icon, title, and description with visual emphasis.
+ */
 const WarningBox = styled.div`
   ${flexColumnStart};
   gap: ${spacing.sm};
@@ -52,6 +70,24 @@ const WarningBox = styled.div`
   background-color: #ffe9d9;
 `;
 
+/**
+ * ConfirmModal
+ * Reusable confirmation modal with optional warning section.
+ *
+ * @param {Object} props
+ * @param {string} props.message - Main confirmation message.
+ * @param {Function} props.onConfirm - Callback for confirming the action.
+ * @param {Function} props.onCancel - Callback for cancelling the action.
+ * @param {string} [props.warningMessage] - Optional warning description.
+ * @param {string} [props.warningTitle] - Optional warning title.
+ *
+ * @returns {JSX.Element} A styled modal with confirm/cancel buttons.
+ *
+ * Features:
+ * - Full-screen backdrop
+ * - Optional warning section with icon
+ * - Styled buttons for user actions
+ */
 const ConfirmModal = ({
   message,
   onConfirm,

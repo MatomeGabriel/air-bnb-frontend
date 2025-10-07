@@ -1,3 +1,14 @@
+/**
+ * colors
+ *
+ * Defines the core color palette used across the design system.
+ * Includes semantic tokens (e.g. `primary`, `error`, `surface`) and utility shades (`gray-500`, `card-1`, etc.).
+ *
+ * Usage:
+ *   background-color: ${colors.surface};
+ *   border-color: ${colors.border};
+ */
+
 export const colors = {
   // primary: "#FF385C",
   primary: "#DE3151",
@@ -26,15 +37,44 @@ export const colors = {
   green: "#00C853",
 };
 
+/**
+ * gradients
+ *
+ * Defines reusable gradient styles for backgrounds, buttons, and subtle overlays.
+ * Each gradient is optimized for visual hierarchy and brand consistency.
+ *
+ * Usage:
+ *   background-image: ${gradients.hero};
+ */
+
 export const gradients = {
   hero: "linear-gradient(135deg, #FF385C 0%, #FFB4A2 100%)",
   button: "linear-gradient(to right, #ff385c, #d70466)",
   subtle: "linear-gradient(to bottom, #ffffff 0%, #f7f7f7 100%)",
 };
 
+/**
+ * textShadows
+ *
+ * Defines subtle text shadow presets for enhanced readability and depth.
+ *
+ * Usage:
+ *   text-shadow: ${textShadows.smLight};
+ */
+
 export const textShadows = {
   smLight: "0 1px 2px rgba(0, 0, 0, 0.05);",
 };
+
+/**
+ * boxShadow
+ *
+ * Defines elevation styles for UI elements using layered shadow presets.
+ * Ranges from `xs` to `lg`, with semantic variants like `base` and `base-md`.
+ *
+ * Usage:
+ *   box-shadow: ${boxShadow.md};
+ */
 
 export const boxShadow = {
   xs: "0 1px 2px #1f293714",

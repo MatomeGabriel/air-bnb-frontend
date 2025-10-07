@@ -111,19 +111,33 @@ const StyledIconBox = styled(FlexRow)`
   flex-wrap: wrap;
   gap: 1rem;
 `;
+
 /**
+ * ListingForm
  *
+ * Renders a dynamic form for creating or editing a property listing.
+ * Handles form state, validation, image uploads, and conditional logic based on mode.
  *
+ * Features:
+ * - Supports both "create" and "edit" modes
+ * - Pre-fills form fields in edit mode using listing data
+ * - Validates required fields with sensible min/max constraints
+ * - Allows selection of amenities with icon-based UI
+ * - Integrates image upload and preview via `CreateMultiImageUpload`
+ * - Submits listing data and images via `useListings` context
+ * - Displays toast notifications on success or failure
+ * - Resets form and image previews after submission or cancel
  *
+ * @param {Object} props
+ * @param {'create'|'edit'} props.mode - Determines form behavior and submission logic
+ * @param {Object} [props.listing={}] - Listing data used to populate form in edit mode
  *
+ * @returns {JSX.Element} Listing form UI
  *
+ * @example
+ * <ListingForm mode="create" />
+ * <ListingForm mode="edit" listing={existingListing} />
  */
-
-// What should this form accept , it can edit and create things
-// make it reusable
-// 1. mode edit or create
-// edit receives from data e.g listingData, and location cannot change
-
 const ListingForm = ({ mode, listing = [] }) => {
   // State to store images
   const [images, setImages] = useState([]);
@@ -190,15 +204,6 @@ const ListingForm = ({ mode, listing = [] }) => {
     isCreatingHostListing ||
     isUploadingHostListingImages ||
     isUpdatingHostListing;
-
-  console.log(
-    isCreatingHostListing,
-    "Upating",
-    isUpdatingHostListing,
-    isSubmitting,
-    "Uploading",
-    isUploadingHostListingImages
-  );
 
   const resetImages = (e = {}) => {
     images.forEach((file) => URL.revokeObjectURL(file.preview));

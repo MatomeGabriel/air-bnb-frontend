@@ -100,6 +100,28 @@ const CloseButton = styled(BaseButton)`
   font-size: 1.875rem;
 `;
 
+/**
+ * LocationImages
+ *
+ * Displays a responsive image grid for a location listing and enables full-screen modal viewing with swipe navigation.
+ * Limits grid display to 5 images and supports animated transitions between images.
+ *
+ * Features:
+ * - Responsive grid layout with dynamic column count
+ * - Modal viewer with swipe and button navigation
+ * - Image transition animations using Framer Motion
+ * - "Show all photos" button opens modal from first image
+ * - Swipe support via `react-swipeable` (mouse + touch)
+ *
+ * @param {Object} props
+ * @param {Array} props.imagesSrc - Array of image objects with `url` property
+ *
+ * @returns {JSX.Element} Image grid and modal viewer
+ *
+ * @example
+ * <LocationImages imagesSrc={[{ url: "https://..." }, ...]} />
+ */
+
 const LocationImages = ({ imagesSrc }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);

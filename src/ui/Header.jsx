@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { flexRowBetween, spacing } from "../design-system";
 
+/**
+ * Header
+ * A horizontal layout container for top-level navigation or branding.
+ * Includes spacing, padding, and a subtle bottom shadow.
+ */
 export const Header = styled.header`
   ${flexRowBetween}
   gap: ${spacing.lg};

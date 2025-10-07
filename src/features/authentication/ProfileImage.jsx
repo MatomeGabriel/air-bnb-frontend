@@ -62,24 +62,29 @@ const Img = styled.img`
   height: 17.2rem;
   border-radius: ${radii.full};
 `;
-
 /**
  * ProfileImage
  *
  * Renders a form for uploading and previewing a user's profile image.
- * Handles image selection, preview, upload, and user info display.
+ * Handles image selection, preview, upload, and optional display of user info.
  *
- * Usage:
- *   <ProfileImage profileInfo={profileInfo} />
+ * Behavior:
+ * - If no image is selected, shows current user photo and upload button
+ * - If image is selected, shows preview with "Done" and "Change Photo" options
+ * - On upload success:
+ *   - Clears preview
+ *   - Redirects to home if `showInput` is false
+ * - Displays user info fields (username, name, email) if `showInput` is true
+ * - Shows error messages and upload status
+ * - Includes logout button when `showInput` is true
  *
- * Props:
- *   @param {Object} [profileInfo] - Customizes the form text and behavior
- *   @param {string} [profileInfo.title] - Title for the form
- *   @param {string} [profileInfo.text] - Description text
- *   @param {string} [profileInfo.cancelText] - Cancel button text
- *   @param {boolean} [profileInfo.showInput] - Whether to show user info fields
+ * @param {Object} [profileInfo] - Optional configuration for form content
+ * @param {string} [profileInfo.title="Create your profile"] - Form header title
+ * @param {string} [profileInfo.text] - Description text under header
+ * @param {string} [profileInfo.cancelText="I'll do this later"] - Cancel link text
+ * @param {boolean} [profileInfo.showInput=false] - Whether to show user info and logout button
  *
- * @returns {JSX.Element} The profile image upload UI
+ * @returns {JSX.Element} Profile image upload UI
  */
 const ProfileImage = ({
   profileInfo = {

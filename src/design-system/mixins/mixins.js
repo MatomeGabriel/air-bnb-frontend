@@ -1,9 +1,31 @@
+/**
+ * Typography & Style Utilities
+ *
+ * A set of reusable functions and CSS snippets for applying dynamic styles via styled-components.
+ * These utilities help enforce design tokens and responsive behavior across the UI.
+ *
+ * Functions:
+ * - `applyColor($color)`: Applies a text color from the `colors` token map.
+ * - `applyResponsiveFontSize($size)`: Applies a responsive font size and line-height for medium screens and up.
+ * - `applyTextShadow($textShadow)`: Applies a text shadow from the `textShadows` token map.
+ * - `applyCSSProperty(cssProp, $val, token)`: Generic utility to apply any CSS property using optional token mapping.
+ *
+ * Constants:
+ * - `textBase`: Base paragraph style with consistent font size, line height, weight, and color.
+ *
+ * @example
+ * const StyledText = styled.p`
+ *   ${textBase}
+ *   ${applyColor("gray-600")}
+ *   ${applyResponsiveFontSize("lg")}
+ * `;
+ */
+
 import { css } from "styled-components";
 import { breakpoints } from "../tokens/breakpoints";
 import { typography } from "../tokens/typography";
 import { colors, textShadows } from "../tokens/colors";
 
-// returns the color
 export const applyColor = ($color) =>
   $color &&
   css`

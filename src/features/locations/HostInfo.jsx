@@ -23,6 +23,24 @@ const HostContent = styled(FlexColumn)`
   ${generateResponsiveStyles("width", { md: "44rem" })};
 `;
 
+/**
+ * HostInfo
+ *
+ * Displays detailed information about the host of a listing, including avatar, name, badges, and contact options.
+ * Highlights Superhost status, verification, and response metrics.
+ *
+ * @param {Object} props
+ * @param {Object} props.host - Host data object
+ * @param {string} props.host.name - Host's display name
+ * @param {string} props.host.photo - URL of the host's profile image
+ * @param {number} props.reviews - Total number of reviews for the host
+ *
+ * @returns {JSX.Element} Host profile section with badges and contact button
+ *
+ * @example
+ * <HostInfo host={{ name: "Lebo", photo: "https://..." }} reviews={128} />
+ */
+
 const HostInfo = ({ host, reviews }) => {
   const { name, photo } = host;
   return (

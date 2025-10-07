@@ -42,6 +42,14 @@ const Line = styled.div`
   border: 1px solid ${colors["gray-200"]};
   height: 100%;
 `;
+
+/**
+ * SearchEmpty
+ * Displays a minimal search bar with a prompt and search icon.
+ *
+ * @returns {JSX.Element}
+ */
+
 export const SearchEmpty = () => {
   return (
     <StyledSearchBar>
@@ -53,6 +61,13 @@ export const SearchEmpty = () => {
   );
 };
 
+/**
+ * SearchFilled
+ * Displays a filled search bar with location, date range, and guest count.
+ * Reads query params from the URL.
+ *
+ * @returns {JSX.Element}
+ */
 export const SearchFilled = () => {
   const params = new URLSearchParams(useLocation().search);
   const location = params.get("location");

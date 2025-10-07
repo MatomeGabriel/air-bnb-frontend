@@ -18,11 +18,21 @@ import GiftCardSection from "../ui/GiftCardSection";
 import { MainContainer } from "../ui/MainContainer";
 import Footer from "../ui/Footer";
 
+/**
+ * Container
+ * Main vertical layout container for the homepage.
+ * Adds large spacing between sections.
+ */
 const Container = styled(MainContainer)`
   ${flexColumnCenter}
   gap: ${spacing["4xl"]};
 `;
 
+/**
+ * StyledGrid
+ * Responsive grid layout for displaying city cards.
+ * Adjusts column count based on screen size.
+ */
 const StyledGrid = styled.div`
   display: grid;
   gap: 2.4rem;
@@ -35,6 +45,11 @@ const StyledGrid = styled.div`
   })}
   ${generateResponsiveStyles("justify-content", { lg: "start" })}
 `;
+
+/**
+ * Section
+ * Reusable section wrapper with vertical alignment and responsive styling.
+ */
 const Section = styled.section`
   ${flexColumnCenter}
   width: 100%;
@@ -42,6 +57,11 @@ const Section = styled.section`
   ${generateResponsiveStyles("align-items", { lg: "start" })}
 `;
 
+/**
+ * cities
+ * Array of city data used to render CityCard components.
+ * Each item includes name, image, distance, and background color.
+ */
 const cities = [
   {
     name: "Sandton CityHotel",
@@ -69,6 +89,13 @@ const cities = [
   },
 ];
 
+/**
+ * HomePage
+ * Renders the full homepage layout including hero, city inspiration,
+ * Airbnb experiences, gift card section, and footer.
+ *
+ * @returns {JSX.Element}
+ */
 const HomePage = () => {
   return (
     <>

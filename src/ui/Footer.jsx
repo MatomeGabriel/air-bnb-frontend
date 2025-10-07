@@ -2,8 +2,6 @@ import styled from "styled-components";
 import {
   colors,
   flexColumnStart,
-  flexRowBetween,
-  flexRowStartCenter,
   generateResponsiveStyles,
   spacing,
   typography,
@@ -14,6 +12,10 @@ import { FlexRow } from "./Flex";
 import Middot from "./Middot";
 import { FacebookIcon, GlobeIcon, InstagramIcon, TwitterIcon } from "./Icons";
 
+/**
+ * StyledFooter
+ * Main footer container with vertical layout, padding, and responsive spacing.
+ */
 const StyledFooter = styled.footer`
   ${flexColumnStart};
   gap: 4.8rem;
@@ -25,6 +27,11 @@ const StyledFooter = styled.footer`
   ${generateResponsiveStyles("padding", { lg: "6.4rem 8rem 2.4rem 8rem" })}
 `;
 
+/**
+ * StyledFooterNav
+ * Grid layout for footer navigation sections (Support, Community, Hosting, About).
+ * Responsive column count based on screen size.
+ */
 const StyledFooterNav = styled.nav`
   display: grid;
   align-items: start;
@@ -41,6 +48,11 @@ const StyledFooterNav = styled.nav`
   })}
 `;
 
+/**
+ * StyledNavLink
+ * Styled link used throughout the footer.
+ * Supports optional underline via `$textDecoration` prop.
+ */
 const StyledNavLink = styled(Link)`
   font-size: ${typography.sizes.sm};
   font-weight: ${typography.weights.regular};
@@ -54,6 +66,11 @@ const StyledNavLink = styled(Link)`
   }
 `;
 
+/**
+ * StyledSocial
+ * Bottom section of the footer with legal links, language/currency options, and social icons.
+ * Responsive layout switches from column to row.
+ */
 const StyledSocial = styled.div`
   ${flexColumnStart};
   gap: ${spacing.base};
@@ -63,6 +80,14 @@ const StyledSocial = styled.div`
   ${generateResponsiveStyles("flex-direction", { md: "row" })}
   ${generateResponsiveStyles("justify-content", { md: "space-between" })}
 `;
+
+/**
+ * Footer
+ * Renders the full footer with navigation links, legal info, and social media icons.
+ *
+ * @returns {JSX.Element}
+ */
+
 const Footer = () => {
   return (
     <StyledFooter>

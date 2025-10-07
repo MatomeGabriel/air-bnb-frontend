@@ -1,3 +1,23 @@
+/**
+ * typography
+ *
+ * Defines global typography tokens for font sizing, weight, line height, and font family.
+ * Used across the design system to ensure consistent text styling and scalable UI.
+ *
+ * Properties:
+ * - `fontFamily`: Base font stack used throughout the app
+ * - `sizes`: Font size scale from `xxs` to `xxl`, mapped to `rem` units
+ * - `weights`: Font weight scale from regular to bold
+ * - `lineHeights`: Line height presets for tight, normal, and relaxed spacing
+ *
+ * @example
+ * const headingStyle = {
+ *   fontSize: typography.sizes["2xl"],
+ *   fontWeight: typography.weights.bold,
+ *   lineHeight: typography.lineHeights.relaxed,
+ * };
+ */
+
 export const typography = {
   fontFamily: `'Inter', sans-serif`,
   sizes: {

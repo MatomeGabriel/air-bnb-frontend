@@ -33,6 +33,24 @@ const ReviewSummary = styled(FlexRow)`
   flex-wrap: wrap;
 `;
 
+/**
+ * LocationHeader
+ *
+ * Displays the header section for a location detail page, including title, rating, reviews, host status, and quick action buttons.
+ * Responsive layout adapts to screen size, hiding action buttons on smaller viewports.
+ *
+ * @param {Object} props
+ * @param {Object} props.location - Location data object
+ * @param {string} props.location.title - Title of the listing
+ * @param {number} props.location.rating - Average rating
+ * @param {number} props.location.reviews - Total number of reviews
+ *
+ * @returns {JSX.Element} Styled location header with metadata and actions
+ *
+ * @example
+ * <LocationHeader location={{ title: "Cozy Loft", rating: 4.9, reviews: 128 }} />
+ */
+
 const LocationHeader = ({ location }) => {
   const { title, rating, reviews } = location;
   return (

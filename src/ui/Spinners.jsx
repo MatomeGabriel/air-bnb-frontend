@@ -28,6 +28,13 @@ const mulShdSpin = keyframes`
     box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.5), -2.6em 0em 0 0em rgba(255,255,255, 0.7), -1.8em -1.8em 0 0em #ffffff;
   }`;
 
+/**
+ * Loader
+ * Animated spinner using multi-shadow technique.
+ * Centered absolutely with customizable size via `$loaderSize` prop.
+ *
+ * @type {StyledComponent}
+ */
 export const Loader = styled.span`
   font-size: ${({ $loaderSize }) => $loaderSize || "1rem"};
   width: 1em;
@@ -49,6 +56,13 @@ const rotate = keyframes`
   }
 `;
 
+/**
+ * Spinner
+ * Circular rotating loader using gradients and masking.
+ * Used for larger loading indicators.
+ *
+ * @type {StyledComponent}
+ */
 export const Spinner = styled.div`
   margin: 4.8rem auto;
 

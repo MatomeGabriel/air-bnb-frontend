@@ -1,14 +1,28 @@
 /**
- * App entry point. Sets up routing, context providers, global styles, and React Query.
- * Implements all main routes and page components for the Airbnb front-end.
+ * App
  *
- * - Uses Providers for app-wide context
- * - Uses QueryClientProvider for React Query
- * - Uses Suspense for future code splitting
- * - All pages and contexts are grouped for clarity
+ * Main entry point for the Airbnb front-end application.
+ * Sets up global providers, routing, lazy-loaded pages, and UI scaffolding.
+ *
+ * Architecture Overview:
+ * - **Routing**: Uses `react-router-dom` to define public and protected routes
+ * - **Code Splitting**: Implements `React.lazy` and `Suspense` for performance optimization
+ * - **Context Providers**: Wraps routes with scoped providers for location, host, and global state
+ * - **Data Layer**: Integrates `React Query` via `QueryClientProvider` and DevTools
+ * - **UI Layer**: Applies global styles, toast notifications, and loading spinners
+ *
+ * Routing Highlights:
+ * - Public pages: Home, Locations, Login, Signup, Unauthorized
+ * - Protected pages: Profile, Reservations, UploadProfileImage
+ * - Role-protected pages: CreateListing, Listings, EditListing
+ * - Fallback: PageNotFound for unmatched routes
+ *
+ * @returns {JSX.Element} The fully configured React application
+ *
+ * @example
+ * <App />
  */
 
-// React and routing
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

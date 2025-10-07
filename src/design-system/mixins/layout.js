@@ -1,3 +1,34 @@
+/**
+ * Layout and Utility Styles
+ *
+ * A collection of reusable CSS snippets for flexbox layouts, containers, backgrounds, and headings.
+ * These tokens are designed to streamline consistent layout behavior across components.
+ *
+ * Flexbox Layouts:
+ * - `Row`: Basic horizontal flex container
+ * - `column`: Basic vertical flex container
+ * - `flexRowCenter`: Centered row (horizontal and vertical)
+ * - `flexRowStartCenter`: Row aligned left, vertically centered
+ * - `flexRowBetween`: Row with space-between and vertical centering
+ * - `flexColumnCenter`: Column centered both horizontally and vertically
+ * - `flexColumnStart`: Column aligned left, vertically centered
+ * - `flexColumnCenterStart`: Column centered vertically, aligned left
+ * - `flexColumnCenterEnd`: Column centered vertically, aligned right
+ * - `flexColumnStartCenter`: Column aligned top, horizontally centered
+ * - `flexColumnEndCenter`: Column aligned bottom, horizontally centered
+ *
+ * Containers and Utilities:
+ * - `maxContainer`: Sets a max-width of 144rem for layout boundaries
+ * - `backgroundCover`: Applies full-cover background image with bottom alignment
+ * - `headingBase`: Base heading style with tight line height, medium weight, and gray color
+ *
+ * @example
+ * const Wrapper = styled.div`
+ *   ${flexColumnCenter}
+ *   ${maxContainer}
+ * `;
+ */
+
 import { css } from "styled-components";
 import { colors } from "../tokens/colors";
 

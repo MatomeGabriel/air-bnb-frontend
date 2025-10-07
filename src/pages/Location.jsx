@@ -64,6 +64,12 @@ import useStickyToggle from "../hooks/useStickyToggle";
 import { calculateTotals } from "../utils/reservationUtils";
 import AirbnbComment from "../ui/AirbnbComment";
 import HouseRules from "../features/locations/HouseRules";
+
+/**
+ * Container
+ * Main vertical layout container for the location page.
+ * Centers content and applies responsive padding.
+ */
 const Container = styled.main`
   padding: 2.4rem;
   /* padding: 2.4rem 1.2rem 6.4rem 1.2rem; */
@@ -73,20 +79,37 @@ const Container = styled.main`
   ${column};
 `;
 
+/**
+ * ContentBox
+ * Horizontal layout for main content and reservation panel.
+ * Applies responsive gap between columns.
+ */
 const ContentBox = styled(FlexRow)`
   /* applies gap from medium screens */
   ${generateResponsiveStyles("gap", { md: "8rem" })}
 `;
+
+/**
+ * Content
+ * Left column containing location details.
+ * Responsive width and spacing.
+ */
 const ReservationBox = styled.div`
   /* applies width of 40% from medium screens */
   ${generateResponsiveStyles("width", { md: "40%" })}
 `;
+
+/**
+ * ContentHeader
+ * Header section showing host info and property summary.
+ */
 const ContentHeader = styled.header`
   ${flexRowBetween};
   padding-bottom: ${spacing.lg};
   border-bottom: 1px solid ${colors["gray-200"]};
   width: 100%;
 `;
+
 const Content = styled(FlexColumn)`
   width: 100%;
   ${generateResponsiveStyles("width", { md: "60%" })}
@@ -162,6 +185,10 @@ const comments = [
   },
 ];
 
+/**
+ * Section
+ * Reusable section wrapper with bottom border and spacing.
+ */
 const Section = styled.section`
   width: 100%;
   ${flexColumnCenterStart};
@@ -171,7 +198,10 @@ const Section = styled.section`
   gap: ${spacing.xl};
 `;
 
-// Responsive grid for comments with gap of 4rem on medium screens and above
+/**
+ * CommentsGrid
+ * Responsive grid layout for displaying user comments.
+ */
 const CommentsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -179,6 +209,11 @@ const CommentsGrid = styled.div`
   ${generateResponsiveStyles("gap", { md: "4rem" })}
   ${generateResponsiveStyles("grid-template-columns", { md: "1fr 1fr" })}
 `;
+
+/**
+ * SleepCard
+ * Card layout for bedroom preview with image and text.
+ */
 const SleepCard = styled.div`
   ${flexColumnStart};
   max-width: 32rem;
@@ -190,6 +225,21 @@ const SleepCard = styled.div`
     border-radius: ${radii.sm};
   }
 `;
+
+/**
+ * Location
+ * Renders the full property detail view for a dynamic route `/locations/:id`.
+ * Includes images, amenities, host info, ratings, and reservation logic.
+ *
+ * Features:
+ * - Sticky navigation with scroll-to-section hooks
+ * - Responsive layout with mobile/desktop behavior
+ * - Context-driven data fetching (location + host)
+ * - Reservation panel (desktop only)
+ * - Error and loading states
+ *
+ * @returns {JSX.Element}
+ */
 const Location = () => {
   const { location, isFetchingLocationData, error } =
     useSelectedLocationContext();

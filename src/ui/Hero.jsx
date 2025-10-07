@@ -15,6 +15,11 @@ import { ButtonSolidLg } from "./Buttons";
 import { generateResponsiveStyles } from "../design-system/mixins/responsive";
 import SearchBar from "./SearchBar";
 
+/**
+ * Header
+ * Top-level container for the hero section.
+ * Uses vertical layout, dark background, and responsive padding.
+ */
 const Header = styled.header`
   ${flexColumnStartCenter}
   gap: ${spacing.lg};
@@ -27,6 +32,11 @@ const Header = styled.header`
   })}
 `;
 
+/**
+ * SectionImg
+ * Background image section with gradient overlay and centered content.
+ * Adjusts height and padding on larger screens.
+ */
 const SectionImg = styled.div`
   ${flexColumnEndCenter}
   ${backgroundCover}
@@ -62,6 +72,12 @@ const SectionImg = styled.div`
   }
 `;
 
+/**
+ * Hero
+ * Renders the homepage hero section with navigation, search bar, heading, and CTA button.
+ *
+ * @returns {JSX.Element}
+ */
 const Hero = () => {
   return (
     <Header>

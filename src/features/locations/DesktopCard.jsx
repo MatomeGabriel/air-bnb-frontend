@@ -40,6 +40,33 @@ const CardDesktop = styled.article`
   }
 `;
 
+/**
+ * DesktopCard
+ *
+ * Renders a detailed desktop-friendly card for a property listing.
+ * Displays image, title, location, features, amenities, rating, price, and action buttons.
+ * Navigates to the listing detail page on click.
+ *
+ * @param {Object} props
+ * @param {Object} props.place - Listing data object
+ * @param {string} props.place._id - Unique listing ID
+ * @param {string} props.place.title - Listing title
+ * @param {string} props.place.type - Property type (e.g. "Room", "Villa")
+ * @param {string} props.place.location - Listing location
+ * @param {number} props.place.maxGuests - Max number of guests
+ * @param {number} props.place.bedrooms - Number of bedrooms
+ * @param {number} props.place.bathrooms - Number of bathrooms
+ * @param {number} props.place.price - Price per night
+ * @param {number} props.place.rating - Average rating
+ * @param {number} props.place.reviews - Total number of reviews
+ * @param {Array} props.place.amenities - Array of amenity keys
+ * @param {Array} props.place.images - Array of image objects with `url` property
+ *
+ * @returns {JSX.Element} A styled card component with listing details
+ *
+ * @example
+ * <DesktopCard place={listingData} />
+ */
 const DesktopCard = ({ place }) => {
   const {
     title,

@@ -1,3 +1,19 @@
+/**
+ * spacing
+ *
+ * Defines a consistent spacing scale used throughout the design system.
+ * Values are expressed in `rem` units to support responsive and accessible layouts.
+ *
+ * Keys range from `xxs` to `4xl`, covering micro to macro spacing needs.
+ * Includes a `"sm-md"` hybrid step and a `"base"` alias for `md` to support semantic usage.
+ *
+ * @example
+ * const Card = styled.div`
+ *   padding: ${spacing.lg};
+ *   margin-bottom: ${spacing["2xl"]};
+ * `;
+ */
+
 export const spacing = {
   xxs: "0.2rem",
   xs: "0.4rem",

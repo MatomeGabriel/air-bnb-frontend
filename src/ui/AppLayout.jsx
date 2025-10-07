@@ -8,6 +8,14 @@ const Header = styled.header`
   ${flexColumnCenter}
   gap: ${spacing.lg}
 `;
+
+/**
+ * AppLayout
+ * Wraps the main navigation and hero section at the top,
+ * and renders nested routes via <Outlet />.
+ *
+ * @returns {JSX.Element} The main layout structure for the app.
+ */
 const AppLayout = () => {
   return (
     <div>

@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 
-import { NavLink } from "react-router-dom";
 import {
   colors,
-  typography,
-  flexColumnCenter,
   spacing,
   flexRowCenter,
   breakpoints,
@@ -21,24 +18,10 @@ import { MenuFilters, SearchFilters } from "./Filters";
 import { FlexColumn } from "./Flex";
 import { ROUTES } from "../utils/routes";
 
-const IconLink = styled(NavLink)`
-  /* 1 import mixins */
-  ${flexColumnCenter}
-  /* 2. tokens */
-  color: ${colors.muted};
-  font-size: ${typography.sizes.xs};
-  gap: ${spacing.xss};
-
-  /* 4. text based */
-  text-decoration: none;
-
-  /* 5. container based */
-  flex: 1;
-  max-width: 7.5rem;
-  height: 3.9rem;
-  padding: 0 2px;
-`;
-
+/**
+ * Responsive navigation bar.
+ * Fixed at the bottom on mobile, resets layout on larger screens.
+ */
 const Navbar = styled.nav`
   ${flexRowCenter}
   border-top: 1px solid ${colors.border};
@@ -63,8 +46,14 @@ const Navbar = styled.nav`
 `;
 
 /**
+ * MainMenu component
+ * Renders the main navigation bar and filters.
  *
- * @returns
+ * @param {Object} props
+ * @param {Object} props.showSearchBar - Controls visibility of search components.
+ * @param {Array} props.filterArr - Array of filters passed to MenuFilters.
+ *
+ * @returns {JSX.Element} Responsive navigation layout with optional search and filters.
  */
 const MainMenu = ({ showSearchBar, filterArr }) => {
   const isMobile = useMedia(`(max-width: ${breakpoints.md}`);
@@ -103,10 +92,3 @@ const MainMenu = ({ showSearchBar, filterArr }) => {
 };
 
 export default MainMenu;
-
-/**
- * how it behave at small screen it sits on the bottom of the screen
- *  height 125px
- *
- *
- */

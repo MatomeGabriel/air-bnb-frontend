@@ -28,7 +28,7 @@ import { ROUTES } from "../../utils/routes";
  *
  * @returns {JSX.Element}
  */
-const CreateSignupForm = ({ message }) => {
+const CreateSignupForm = ({ message, isHost }) => {
   const { signupUser, isSigningUp } = useAuth();
   const {
     register,
@@ -41,7 +41,9 @@ const CreateSignupForm = ({ message }) => {
   const navigate = useNavigate();
 
   const onSignUp = (data) => {
-    signupUser(data, {
+    const signUpData = { data, isHost };
+
+    signupUser(signUpData, {
       onSuccess: () => {
         reset();
         navigate(ROUTES.uploadProfileImg);

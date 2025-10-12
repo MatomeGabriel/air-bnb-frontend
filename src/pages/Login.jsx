@@ -27,7 +27,7 @@ const Container = styled.div`
  * @param {string} [props.message] - Optional message passed to the signup form.
  * @returns {JSX.Element}
  */
-const Login = ({ type, message }) => {
+const Login = ({ type, message, isHost = "user" }) => {
   return (
     <>
       <Header>
@@ -35,7 +35,9 @@ const Login = ({ type, message }) => {
       </Header>
       <Container>
         {type === "login" && <CreateLoginForm />}
-        {type === "signup" && <CreateSignupForm message={message} />}
+        {type === "signup" && (
+          <CreateSignupForm message={message} isHost={isHost} />
+        )}
       </Container>
     </>
   );

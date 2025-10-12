@@ -28,8 +28,11 @@ export const logout = async () => {
  * @param {object} data - User registration data
  * @returns {Promise<object>} User data
  */
-export const signUp = async (data) => {
-  const res = await apiClient.post("/users/signup", data);
+export const signUp = async ({ data, isHost }) => {
+  const res = await apiClient.post(
+    isHost == "host" ? "/users/signup/host" : "/users/signup",
+    data
+  );
   return res.data;
 };
 

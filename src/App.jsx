@@ -217,7 +217,11 @@ const App = () => {
                 path="/signup/host"
                 element={
                   <RedirectAuth>
-                    <Login type="signup" message="Sign up to become a host" />
+                    <Login
+                      isHost="host"
+                      type="signup"
+                      message="Sign up to become a host"
+                    />
                   </RedirectAuth>
                 }
               />

@@ -157,6 +157,7 @@ const ProfileImage = ({
             <ButtonSolidDarkMdFull
               onClick={() => onUpdateProfileImage(file)}
               $radius="sm"
+              disabled={isUploadingProfileImage}
             >
               Done
             </ButtonSolidDarkMdFull>

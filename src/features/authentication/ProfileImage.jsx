@@ -159,7 +159,7 @@ const ProfileImage = ({
               $radius="sm"
               disabled={isUploadingProfileImage}
             >
-              Done
+              {isUploadingProfileImage ? "uploading..." : "Done"}
             </ButtonSolidDarkMdFull>
             <ButtonOutlineDarkMdFull
               onClick={() => inputFileRef.current?.click()}
